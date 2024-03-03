@@ -4,7 +4,7 @@ import cors from "cors";
 import connection from "./config/connection.js";
 
 // import userroute from "./routes/userRoute.js";
-import authorroute from "./routes/authRoute.js";
+// import authorroute from "./routes/authRoute.js";
 import superadminRoute from './routes/superadminRoute.js'
 
 import userroute from "./routes/userRoute.js";
@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === "development") {
 
 // app.use(userroute);
 app.use(superadminRoute)
-app.use("/author", authorroute);
+// app.use("/author", authorroute);
 
 app.use(userroute);
 app.use("/student", student);
