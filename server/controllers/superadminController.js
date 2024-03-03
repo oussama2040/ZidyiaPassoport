@@ -145,7 +145,12 @@ export const countRejectedDocs = async (req, res) => {
 //create tenent
 
 
+
 //receive request and create subscriber
+
+//create subscriber
+
+
 
 
 

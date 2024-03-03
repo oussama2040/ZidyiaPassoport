@@ -20,6 +20,7 @@ const uploadImage = async (imageBuffer) => {
             reject(error.message);
           } else {
             resolve(result.secure_url);
+            console.log(result)
           }
         }
       ).end(imageBuffer);
