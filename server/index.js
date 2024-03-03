@@ -3,16 +3,20 @@ import morgan from "morgan";
 import cors from "cors";
 import connection from "./config/connection.js";
 import userroute from "./routes/userRoute.js";
+import certificateRoute from "./routes/certificateRoute.js";
+import studentRoute from "./routes/studentRoutes.js";
+
 import authorroute from "./routes/authRoute.js";
+
 // import accesstoken from "./controllers/accessTokenController.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ['http://localhost:3000'],
     methods: [], // Add other HTTP methods if needed
-    allowedHeaders: ["Content-Type", "Authorization"], // Add other allowed headers if needed
+    allowedHeaders: ['Content-Type', 'Authorization'], // Add other allowed headers if needed
     credentials: true, // Allow cookies to be sent with the request
   })
 );
@@ -23,6 +27,7 @@ app.use(express.json());
 // Use cookie parser middleware
 app.use(cookieParser());
 
+
 // --------------------morgan---------------------------------------------------------------------------------
 // morgan
 if (process.env.NODE_ENV === "development") {
@@ -30,8 +35,13 @@ if (process.env.NODE_ENV === "development") {
   console.log(`mode: ${process.env.Node_ENV}`);
 }
 
+
+
 // routes
 app.use(userroute);
+app.use(certificateRoute);
+app.use(studentRoute);
+
 app.use("/author", authorroute);
 // app.use(accesstoken);
 
