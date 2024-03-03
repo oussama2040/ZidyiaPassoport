@@ -7,5 +7,6 @@
 //number of documnets
 //filter analystics by date
 //create tenent
-//receive request and create subscriber
+//create subscriber
+
 
