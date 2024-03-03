@@ -25,7 +25,7 @@ function sendVerificationEmail(email, verificationToken) {
         to: email,
         subject: 'Verify Your Email',
         text: 'Click the following link to verify your email: ',
-        html: `<a href="http://localhost:5000/author/registerverify?token=${verificationToken}">Verify email</a>`,
+        html: `<a href="http://localhost:5000/student/registerverify?token=${verificationToken}">Verify email</a>`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -43,13 +43,13 @@ function sendVerificationEmail(email, verificationToken) {
 // ==============================================================================================================
 // register user
 const registerstudent = async (req, res) => {
-    const imageID = await uploadImage(req.file.buffer);
+    let ID = await uploadImage(req.file.buffer);
     const { first_name, last_name, email, password, mobile_number} = req.body;
-    console.log(imageID)
+    console.log(ID)
 
     try {
         // Check if all required fields are provided
-        if (!first_name || !last_name || !email || !password || !mobile_number || imageID) {
+        if (!first_name || !last_name || !email || !password || !mobile_number || !ID) {
             res.status(400).json({ message: 'All fields are mandatory' });
             return;
         }
@@ -80,8 +80,8 @@ const registerstudent = async (req, res) => {
             
                 // Update the verification token and all user data in the database
                 await connection.promise().execute(
-                    'UPDATE student SET first_name = ?, last_name = ?, password = ?, mobile= ?, token =,ID=? ?WHERE email = ?', 
-                    [first_name, last_name, hashedPassword, mobile_number, newVerificationToken,result.secure_url, email]
+                    'UPDATE student SET first_name = ?, last_name = ?, password = ?, mobile= ?, token = ?,ID=? ?WHERE email = ?', 
+                    [first_name, last_name, hashedPassword, mobile_number, newVerificationToken, ID, email]
                 );
             
                 // Send the verification email with the new token
@@ -105,7 +105,7 @@ const registerstudent = async (req, res) => {
         // Insert the user data into the database using prepared statements
         const [result] = await connection.promise().execute(
             'INSERT INTO student (first_name, last_name, email, password, mobile,token,ID) VALUES (?,?, ?, ?, ?,?, ?)',
-            [first_name, last_name, email, hashedPassword, mobile_number,verificationToken,result.secure_url]
+            [first_name, last_name, email, hashedPassword, mobile_number,verificationToken,ID]
         );
 
         // Send verification email and respond with success
@@ -125,7 +125,7 @@ export { registerstudent };
 // Function to get a user by verification token
 const getUserByVerificationToken = async (verificationToken) => {
     try {
-        const connection = await createConnection();
+       
         const [rows] = await connection.promise().execute('SELECT * FROM student WHERE token = ?', [verificationToken]);
         return rows[0]; // Assuming there's only one user per token
     } catch (error) {
@@ -136,12 +136,13 @@ const getUserByVerificationToken = async (verificationToken) => {
 
 const studentverification = asyncHandler(async (req, res) => {
     const userToken = req.query.token; // Get the token from the URL
+    console.log(userToken)
     const user = await getUserByVerificationToken(userToken); // Retrieve user by token from the database
 
     if (user) {
         // Compare the token in the URL with the one stored in the database
         try {
-            const connection = await createConnection();
+            const email = user.email;
             // Update Status to true
             await connection.promise().execute('UPDATE student SET status = ? WHERE email = ?', [true, email]);
 
