@@ -3,38 +3,9 @@
 //---------------fill template(specific template sent by specific tenant with more info (Full name,marks,...))
 //view all requests to check status/specific request according to status
 // view all customized certificate
+// view all customized certificate
 //share verified certificates only only only only
 //share certificate and transcript with external organizations or employers
-
-
-
-
-// Assuming '../config/connection.js' is the correct relative path to your connection file
-// import db from '../config/connection.js';
-// import { uploadImage } from './imageuploadcontroller.js';
-
-// const updateProfile = async (req, res) => {
-//     const { first_name, last_name, password, bio, location, mobile} = req.body;
-//     const student_id = req.params.studentId;
-//     let profile_img  = await uploadImage(req.file.buffer);
-//     try {
-    
-//         const [result] = await db.promise().execute(
-//             'UPDATE student SET first_name = ?, last_name = ?, password = ?, bio = ?, location = ?, mobile = ?, profile_img = ? WHERE student_id = ?',
-//             [first_name, last_name, password, bio, location, mobile, profile_img, student_id]
-//         );
-//         const affectedRows = result ? result.affectedRows : 0;
-//         if (affectedRows > 0) {
-//             res.status(200).json({ success: true, message: 'Profile updated successfully.' });
-//         } else {
-//             res.status(404).json({ success: false, message: 'User not found.' });
-//         }
-//     } catch (error) {
-//         console.error('Error updating profile:', error);
-//         res.status(500).json({ success: false, message: 'Internal server error.', error: error.message });
-//     }
-// };
-// export { updateProfile };
 
 
 import connection from '../config/connection.js';
