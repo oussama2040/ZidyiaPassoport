@@ -1,103 +1,7 @@
 //--------fill template(specific template sent by specific tenant with more info (Full name,marks,...))
-
-
-import db from '../config/connection.js';
-import { cloudinaryUploadImage, cloudinaryRemoveImage } from "../utils/cloudinary.js";
-
-//update profile(username,password,profilepic(default),bio(default),location(default))
-
-
-
-//send verification request(tenant,academic ID,document(transcript,certificate),certificate name,desc,issuing date/expiry date)
-const createCertificateRequest = async (req, res) => {
-    try {
-        const {
-            organization_id,
-            // academic_id,
-            name,
-            body,
-            issued_date,
-            expiry_date,
-            certificate_file,  // certificate (mandatory)
-            transcript_file,   // transcript (optional)
-        } = req.body;
-
-
-        // Upload certificate file
-        const certificateImagePath = certificate_file;
-        const certificateResult = await cloudinaryUploadImage(certificateImagePath);
-
-        if (!certificateResult || certificateResult.error) {
-            await cloudinaryRemoveImage(certificateImagePath);
-            return res.status(500).json({ error: 'Error uploading certificate image to Cloudinary.' });
-        }
-
-        const certificateCloudinaryData = {
-            asset_id: certificateResult.asset_id,
-            public_id: certificateResult.public_id,
-            version: certificateResult.version,
-            url: certificateResult.secure_url,
-        };
-
-        // Upload transcript file if provided
-        let transcriptCloudinaryData = null;
-
-        if (transcript_file) {
-            const transcriptImagePath = transcript_file;
-            const transcriptResult = await cloudinaryUploadImage(transcriptImagePath);
-
-            if (!transcriptResult || transcriptResult.error) {
-                await cloudinaryRemoveImage(transcriptImagePath);
-                await cloudinaryRemoveImage(certificateImagePath); // Remove the certificate image as well
-                return res.status(500).json({ error: 'Error uploading transcript image to Cloudinary.' });
-            }
-
-            transcriptCloudinaryData = {
-                asset_id: transcriptResult.asset_id,
-                public_id: transcriptResult.public_id,
-                version: transcriptResult.version,
-                url: transcriptResult.secure_url,
-            };
-        }
-
-        const query = `
-            INSERT INTO certificate
-            (student_id, organization_id, name, body, issued_date, expiry_date, file)
-            VALUES (?, ?, ?, ?, ?, ?, ?);
-        `;
-        await db.promise().query(query, [
-            req.user.user.id,  
-            organization_id,
-            // academic_id,
-            name,
-            body,
-            issued_date,
-            expiry_date,
-            certificateCloudinaryData.url,
-        ]);
-
-        // If transcript data is provided:
-        if (transcriptCloudinaryData) {
-            const transcriptQuery = `
-                INSERT INTO transcript
-                (student_id, organization_id, file,status)
-                VALUES (?, ?, ?,?);
-            `;
-
-            await db.promise().query(transcriptQuery, [
-                req.user.user.id, 
-                organization_id,
-                transcriptCloudinaryData.url,
-                "pending"
-            ]);
-        }
-
-        res.status(201).json({ message: 'Certificate request created successfully.' });
-    } catch (error) {
-        console.error('Error creating certificate request:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-};
+import connection from '../config/connection.js';
+import { uploadImage } from './imageuploadcontroller.js';
+import bcrypt from 'bcrypt';
 
 
 
@@ -105,8 +9,7 @@ const createCertificateRequest = async (req, res) => {
 // Function to retrieve all verification requests or requests with a specific status
 const getAllCertificatesForStudent = async (req, res) => {
     try {
-        const studentId = req.params.studentId; // Assuming you have the studentId in the request parameters
-
+        const studentId = req.params.studentId; 
         const query = `
             SELECT
                 cert.*,
@@ -124,7 +27,7 @@ const getAllCertificatesForStudent = async (req, res) => {
                 cert.issued_date DESC;
         `;
 
-        const [rows] = await db.promise().query(query, [studentId]);
+        const [rows] = await connection.promise().query(query, [studentId]);
 
         res.status(200).json({
             certificates: rows,
@@ -138,7 +41,7 @@ const getAllCertificatesForStudent = async (req, res) => {
 // retrieve all verified certificates for a student
 // view all customized certificate
 const getVerifiedCertificatesForStudent = async (req, res) => {
-    const studentID = req.user.user.id;
+    const studentId = req.params.studentId; 
     try {
         const query = `
             SELECT
@@ -157,7 +60,7 @@ const getVerifiedCertificatesForStudent = async (req, res) => {
                 cert.issued_date DESC;
         `;
 
-        const [rows] = await db.promise().query(query, [studentID]);
+        const [rows] = await connection.promise().query(query, [studentId]);
 
         res.status(200).json({
             certificates: rows, 
@@ -168,6 +71,8 @@ const getVerifiedCertificatesForStudent = async (req, res) => {
     }
 };
 
+// view all customized certificate
+// view all customized certificate
 //share verified certificates only only only only
 //share certificate and transcript with external organizations or employers
 const shareCertificate = async (req, res) => {
@@ -176,7 +81,7 @@ const shareCertificate = async (req, res) => {
 
     try {
         // Check if the certificate exists, is verified, student_id
-        const [certificate] = await db
+        const [certificate] = await connection
             .promise()
             .query('SELECT * FROM certificate WHERE certificate_id = ? AND status = "verified" AND student_id = ?', [certificateId, studentId]);
 
@@ -192,8 +97,156 @@ const shareCertificate = async (req, res) => {
 
 
 export {
-    createCertificateRequest,
     getAllCertificatesForStudent,
     getVerifiedCertificatesForStudent,
     shareCertificate,
 };
+
+
+
+
+const updateProfile = async (req, res) => {
+    const { first_name, last_name, password, bio, location, mobile } = req.body;
+    const student_id = req.params.studentId;
+    let profile_img;
+    try {
+        // Validate password
+        let hashedPassword;
+        if (password) {
+            if (password.length < 6) {
+                return res.status(400).json({ success: false, message: 'Password should be at least 6 characters long.' });
+            }
+            hashedPassword = await bcrypt.hash(password, 10);
+        }
+        if (req.file) {
+            // Upload image only if file is provided
+            profile_img = await uploadImage(req.file.buffer);
+        }
+
+        const updateFields = [];
+        const queryParams = [];
+
+        if (first_name) {
+            updateFields.push('first_name = ?');
+            queryParams.push(first_name);
+        }
+
+        if (last_name) {
+            updateFields.push('last_name = ?');
+            queryParams.push(last_name);
+        }
+
+        if (hashedPassword) {
+            updateFields.push('password = ?');
+            queryParams.push(hashedPassword);
+        }
+
+        if (bio) {
+            updateFields.push('bio = ?');
+            queryParams.push(bio);
+        }
+
+        if (location) {
+            updateFields.push('location = ?');
+            queryParams.push(location);
+        }
+
+        if (mobile) {
+            updateFields.push('mobile = ?');
+            queryParams.push(mobile);
+        }
+
+        if (profile_img) {
+            updateFields.push('profile_img = ?');
+            queryParams.push(profile_img);
+        }
+
+        queryParams.push(student_id);
+
+        const updateQuery = `UPDATE student SET ${updateFields.join(', ')} WHERE student_id = ?`;
+
+        const [result] = await connection.promise().execute(updateQuery, queryParams);
+    
+        const affectedRows = result ? result.affectedRows : 0;
+        if (affectedRows > 0) {
+            res.status(200).json({ success: true, message: 'Profile updated successfully.' });
+        } else {
+            res.status(404).json({ success: false, message: 'User not found.' });
+        }
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        res.status(500).json({ success: false, message: 'Internal server error.', error: error.message });
+    }
+};
+
+export { updateProfile };
+
+
+
+
+const addRequestCertificate = async (req, res) => {
+    let CertificateFile;
+    let TranscriptFile;
+    const {
+        student_id,
+        organization_id,
+        name,
+        body,
+        issued_date,
+        expiry_date
+    } = req.body;
+    try {
+
+        if (req.files && req.files.CertificateFile) {
+            // Upload CertificateFile
+            CertificateFile = await uploadImage(req.files.CertificateFile[0].buffer);
+        }
+
+        if (req.files && req.files.TranscriptFile) {
+            // Upload TranscriptFile
+            TranscriptFile = await uploadImage(req.files.TranscriptFile[0].buffer);
+        }
+
+        const [result] = await connection.promise().execute(
+            `INSERT INTO certificate 
+            (student_id, organization_id, name, body, issued_date, expiry_date, CertificateFile,TranscriptFile) 
+            VALUES (?, ?, ?, ?, ?, ?, ? , ?)
+            `,
+            [
+                student_id,
+                organization_id,
+                name,
+                body,
+                issued_date,
+                expiry_date,
+                CertificateFile,
+                TranscriptFile || " " //TranscriptFile is optinal
+            ]
+        );
+
+        const insertedCertificateId = result ? result.insertId : null;
+
+        if (insertedCertificateId) {
+            res.status(201).json({
+                success: true,
+                message: 'Certificate request added successfully.',
+                certificate_id: insertedCertificateId
+            });
+        } else {
+            res.status(500).json({
+                success: false,
+                message: 'Failed to add certificate request.'
+            });
+        }
+
+    } catch (error) {
+        console.error('Error adding certificate request:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error.',
+            error: error.message
+        });
+    }
+};
+
+export { addRequestCertificate };

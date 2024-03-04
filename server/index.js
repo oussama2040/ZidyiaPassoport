@@ -2,11 +2,21 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import connection from "./config/connection.js";
-import userroute from "./routes/userRoute.js";
-import certificateRoute from "./routes/certificateRoute.js";
-import studentRoutes from "./routes/studentRoutes.js";
 
-import authorroute from "./routes/authRoute.js";
+
+// import userroute from "./routes/userRoute.js";
+// import authorroute from "./routes/authRoute.js";
+import superadminRoute from './routes/superadminRoute.js'
+
+import userroute from "./routes/userRoute.js";
+import student from "./routes/student.js";
+import subscriber from "./routes/subscriber.js";
+import tenent from "./routes/tenent.js";
+
+import certificateRoute from "./routes/certificateRoute.js";
+import studentRoutes from "./routes/studentRoute.js";
+
+// import authorroute from "./routes/authRoute.js";
 
 // import accesstoken from "./controllers/accessTokenController.js";
 import cookieParser from "cookie-parser";
@@ -28,7 +38,6 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-// --------------------morgan---------------------------------------------------------------------------------
 // morgan
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
@@ -38,11 +47,22 @@ if (process.env.NODE_ENV === "development") {
 
 
 // routes
-app.use(userroute);
-app.use(certificateRoute);
-app.use(studentRoutes);
 
-app.use("/author", authorroute);
+// app.use(userroute);
+app.use(superadminRoute)
+// app.use("/author", authorroute);
+
+app.use(userroute);
+
+
+// app.use("/author", authorroute);
+app.use("/student", student);
+app.use("/subscriber",subscriber)
+app.use("/tenent",tenent)
+
+// app.use(accesstoken);
+app.use('/students', studentRoutes);
+app.use('/admin',certificateRoute);
 // app.use(accesstoken);
 
 // connecting to databse ==> listening to requests
@@ -51,12 +71,8 @@ if(connection){
   app.listen(process.env.PORT, () => {
     console.log(`Listening to requests on port ${process.env.PORT}`);
     
-});
-  
+});  
 }
-else{
-  console.log("connection to mysql failed")
-  
-}
+
 
  

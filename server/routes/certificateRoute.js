@@ -18,8 +18,8 @@ router.get('/certificates/organization/:organization_id/count/pending', countPen
 router.get('/certificates/organization/:organization_id/count/approved', countApprovedCertificates);
 router.get('/certificates/organization/:organization_id/count/rejected', countRejectedCertificates);
 
-router.get('/admin/certificates/:organizationId', getAllCertificateRequests);
-router.put('/admin/certificates/:requestId', updateCertificateRequestStatus);
+router.get('/certificates/:organizationId', getAllCertificateRequests);
+router.put('/certificates/:requestId', updateCertificateRequestStatus);
 
 
 export default router;
