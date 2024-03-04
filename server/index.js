@@ -3,12 +3,15 @@ import morgan from "morgan";
 import cors from "cors";
 import connection from "./config/connection.js";
 
+
 // import userroute from "./routes/userRoute.js";
 // import authorroute from "./routes/authRoute.js";
 import superadminRoute from './routes/superadminRoute.js'
 
 import userroute from "./routes/userRoute.js";
 import student from "./routes/student.js";
+import subscriber from "./routes/subscriber.js";
+import tenent from "./routes/tenent.js";
 
 // import accesstoken from "./controllers/accessTokenController.js";
 import cookieParser from "cookie-parser";
@@ -43,6 +46,8 @@ app.use(superadminRoute)
 
 app.use(userroute);
 app.use("/student", student);
+app.use("/subscriber",subscriber)
+app.use("/tenent",tenent)
 
 // app.use(accesstoken);
 
