@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 
 
 
+
 //view all requests to check status/specific request according to status
 // Function to retrieve all verification requests or requests with a specific status
 const getAllCertificatesForStudent = async (req, res) => {
@@ -37,6 +38,8 @@ const getAllCertificatesForStudent = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
+
 
 // retrieve all verified certificates for a student
 // view all customized certificate
