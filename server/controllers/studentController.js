@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 
 
 
+
 //view all requests to check status/specific request according to status
 // Function to retrieve all verification requests or requests with a specific status
 const getAllCertificatesForStudent = async (req, res) => {
@@ -37,6 +38,8 @@ const getAllCertificatesForStudent = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
+
 
 // retrieve all verified certificates for a student
 // view all customized certificate
@@ -183,10 +186,10 @@ export { updateProfile };
 
 
 
-
 const addRequestCertificate = async (req, res) => {
     let CertificateFile;
     let TranscriptFile;
+
     const {
         student_id,
         organization_id,
@@ -195,8 +198,8 @@ const addRequestCertificate = async (req, res) => {
         issued_date,
         expiry_date
     } = req.body;
-    try {
 
+    try {
         if (req.files && req.files.CertificateFile) {
             // Upload CertificateFile
             CertificateFile = await uploadImage(req.files.CertificateFile[0].buffer);
@@ -207,41 +210,63 @@ const addRequestCertificate = async (req, res) => {
             TranscriptFile = await uploadImage(req.files.TranscriptFile[0].buffer);
         }
 
-        const [result] = await connection.promise().execute(
+        // Insert data into the certificate table
+        const [certificateResult] = await connection.promise().execute(
             `INSERT INTO certificate 
-            (student_id, organization_id, name, body, issued_date, expiry_date, CertificateFile,TranscriptFile) 
-            VALUES (?, ?, ?, ?, ?, ?, ? , ?)
+            (student_id, organization_id, name, body, issued_date, expiry_date, CertificateFile) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)
             `,
             [
-                student_id,
-                organization_id,
-                name,
-                body,
+                student_id ,
+                organization_id ,
+                name ,
+                body ,
                 issued_date,
-                expiry_date,
-                CertificateFile,
-                TranscriptFile || " " //TranscriptFile is optinal
+                expiry_date ,
+                CertificateFile 
             ]
         );
 
-        const insertedCertificateId = result ? result.insertId : null;
+        const insertedCertificateId = certificateResult ? certificateResult.insertId : null;
 
-        if (insertedCertificateId) {
-            res.status(201).json({
-                success: true,
-                message: 'Certificate request added successfully.',
-                certificate_id: insertedCertificateId
-            });
-        } else {
-            res.status(500).json({
-                success: false,
-                message: 'Failed to add certificate request.'
-            });
+        if (insertedCertificateId && TranscriptFile) {
+            // If TranscriptFile is provided, insert into the transcript table
+            const [transcriptResult] = await connection.promise().execute(
+                `INSERT INTO transcript 
+                (student_id, organization_id, TranscriptFile) 
+                VALUES ( ?, ?, ?)
+                `,
+                [
+                   
+                    student_id ,
+                    organization_id ,
+                    TranscriptFile
+                ]
+            );
+
+            const insertedTranscriptId = transcriptResult ? transcriptResult.insertId : null;
+
+            if (insertedTranscriptId) {
+                return res.status(201).json({
+                    success: true,
+                    message: 'Certificate and Transcript request added successfully.',
+                    
+                });
+            } else {
+                return res.status(500).json({
+                    success: false,
+                    message: 'Failed to add Transcript request.'
+                });
+            }
         }
-
+        return res.status(201).json({
+            success: true,
+            message: 'Certificate request added successfully.',
+            certificate_id: insertedCertificateId
+        });
     } catch (error) {
         console.error('Error adding certificate request:', error);
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: 'Internal server error.',
             error: error.message

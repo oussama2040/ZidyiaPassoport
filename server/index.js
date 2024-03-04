@@ -25,7 +25,9 @@ const app = express();
 app.use(
   cors({
     origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000'],
     methods: [], // Add other HTTP methods if needed
+    allowedHeaders: ['Content-Type', 'Authorization'], // Add other allowed headers if needed
     allowedHeaders: ['Content-Type', 'Authorization'], // Add other allowed headers if needed
     credentials: true, // Allow cookies to be sent with the request
   })
@@ -38,6 +40,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 
+
 // morgan
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
@@ -46,13 +49,25 @@ if (process.env.NODE_ENV === "development") {
 
 
 
+
+
 // routes
 
 // app.use(userroute);
-app.use(superadminRoute)
+app.use(superadminRoute);
 // app.use("/author", authorroute);
 
 app.use(userroute);
+
+
+// app.use("/author", authorroute);
+app.use("/student", student);
+app.use("/subscriber",subscriber)
+app.use("/tenent",tenent)
+
+// app.use(accesstoken);
+app.use('/students', studentRoutes);
+app.use('/admin',certificateRoute);
 
 
 // app.use("/author", authorroute);

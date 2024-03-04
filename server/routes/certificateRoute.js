@@ -19,7 +19,7 @@ router.get('/certificates/organization/:organization_id/count/approved', countAp
 router.get('/certificates/organization/:organization_id/count/rejected', countRejectedCertificates);
 
 router.get('/certificates/:organizationId', getAllCertificateRequests);
-router.put('/certificates/:requestId', updateCertificateRequestStatus);
+router.put('/certificatesRequest/:requestId', updateCertificateRequestStatus);
 
 
 export default router;

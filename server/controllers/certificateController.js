@@ -1,4 +1,4 @@
-import db from '../config/connection.js';
+import connection from '../config/connection.js';
 import { cloudinaryUploadImage, cloudinaryRemoveImage } from "../utils/cloudinary.js";
 
 
@@ -20,11 +20,11 @@ const createCertificate = async (req, res) => {
             body,
             issued_date,
             expiry_date,
-            file,
+            CertificateFile,
         } = req.body;
 
         // Upload photo
-        const imagePath = file;
+        const imagePath = CertificateFile;
 
         const result = await cloudinaryUploadImage(imagePath);
         if (!result || result.error) {
@@ -41,11 +41,11 @@ const createCertificate = async (req, res) => {
 
         const query = `
             INSERT INTO certificate
-            (student_id, organization_id, name, body, issued_date, expiry_date, file, status)
+            (student_id, organization_id, name, body, issued_date, expiry_date, CertificateFile, status)
             VALUES (?, ?, ?, ?, ?, ?, ?, 'verified');
         `;
 
-        await db.promise().query(query, [
+        await connection.promise().query(query, [
             student_id,
             organization_id,
             name,
@@ -75,7 +75,7 @@ const updateCertificate = async (req, res) => {
         const certificateId = req.params.id;
         // Check if the certificate exists in the database
         const checkQuery = 'SELECT * FROM certificate WHERE certificate_id = ?';
-        const [rows] = await db.promise().query(checkQuery, [certificateId]);
+        const [rows] = await connection.promise().query(checkQuery, [certificateId]);
 
         if (rows.length === 0) {
             return res.status(404).json({ error: 'Certificate not found.' });
@@ -88,11 +88,11 @@ const updateCertificate = async (req, res) => {
             issued_date,
             expiry_date,
             status,
-            file,
+            CertificateFile,
         } = req.body;
 
         // Upload photo
-        const imagePath = file;
+        const imagePath = CertificateFile;
 
         const result = await cloudinaryUploadImage(imagePath);
         if (!result || result.error) {
@@ -108,11 +108,11 @@ const updateCertificate = async (req, res) => {
 
         const query = `
             UPDATE certificate
-            SET student_id = ?, organization_id = ?, name = ?, body = ?, issued_date = ?, expiry_date = ?, status = ?, file = ?
+            SET student_id = ?, organization_id = ?, name = ?, body = ?, issued_date = ?, expiry_date = ?, status = ?, CertificateFile = ?
             WHERE certificate_id = ?;
         `;
 
-        await db.promise().query(query, [
+        await connection.promise().query(query, [
             student_id,
             organization_id,
             name,
@@ -155,7 +155,7 @@ const getAllCertificateRequests = async (req, res) => {
                 cert.created_at DESC;
         `;
 
-        const [rows] = await db.promise().query(query, [organizationId]);
+        const [rows] = await connection.promise().query(query, [organizationId]);
 
         res.status(200).json({
             certificateRequests: rows,
@@ -187,7 +187,7 @@ const updateCertificateRequestStatus = async (req, res) => {
                VALUES (?, ?, ?);
             `;
             
-            await db.promise().query(updateVerificationQuery, [req.user.user.id, today, requestId]);
+            await connection.promise().query(updateVerificationQuery, [req.user.user.id, today, requestId]);
         }
 
         if (status === 'verified') {
@@ -196,14 +196,14 @@ const updateCertificateRequestStatus = async (req, res) => {
                 SET status = ?
                 WHERE certificate_id = ?;
             `;
-            await db.promise().query(updateCertificateQuery, [status, requestId]);
+            await connection.promise().query(updateCertificateQuery, [status, requestId]);
         } else if (status === 'rejected') {
             const updateCertificateQuery = `
                 UPDATE certificate
                 SET status = ?, rejection_reason = ?
                 WHERE certificate_id = ?;
             `;
-            await db.promise().query(updateCertificateQuery, [status, rejectionReason, requestId]);
+            await connection.promise().query(updateCertificateQuery, [status, rejectionReason, requestId]);
         }
 
         res.status(200).json({ message: 'Certificate request status updated successfully.' });
@@ -227,7 +227,7 @@ const countTotalCertificates = async (req, res) => {
     try {
         const organizationId = req.params.organization_id;
         const countQuery = 'SELECT COUNT(*) AS totalCertificates FROM certificate WHERE organization_id = ?';
-        const [result] = await db.promise().query(countQuery, [organizationId]);
+        const [result] = await connection.promise().query(countQuery, [organizationId]);
         const totalCertificates = result[0].totalCertificates;
         res.status(200).json({ totalCertificates });
     } catch (error) {
@@ -247,7 +247,7 @@ const countPendingCertificates = async (req, res) => {
     try {
         const organizationId = req.params.organization_id;
         const countQuery = 'SELECT COUNT(*) AS pendingCertificates FROM certificate WHERE organization_id = ? AND status = "pending"';
-        const [result] = await db.promise().query(countQuery, [organizationId]);
+        const [result] = await connection.promise().query(countQuery, [organizationId]);
         const pendingCertificates = result[0].pendingCertificates;
 
         res.status(200).json({ pendingCertificates });
@@ -267,7 +267,7 @@ const countApprovedCertificates = async (req, res) => {
     try {
         const organizationId = req.params.organization_id;
         const countQuery = 'SELECT COUNT(*) AS approvedCertificates FROM certificate WHERE organization_id = ? AND status = "verified"';
-        const [result] = await db.promise().query(countQuery, [organizationId]);
+        const [result] = await connection.promise().query(countQuery, [organizationId]);
         const approvedCertificates = result[0].approvedCertificates;
         res.status(200).json({ approvedCertificates });
     } catch (error) {
@@ -286,7 +286,7 @@ const countRejectedCertificates = async (req, res) => {
     try {
         const organizationId = req.params.organization_id;
         const countQuery = 'SELECT COUNT(*) AS rejectedCertificates FROM certificate WHERE organization_id = ? AND status = "rejected"';
-        const [result] = await db.promise().query(countQuery, [organizationId]);
+        const [result] = await connection.promise().query(countQuery, [organizationId]);
         const rejectedCertificates = result[0].rejectedCertificates;
 
         res.status(200).json({ rejectedCertificates });
