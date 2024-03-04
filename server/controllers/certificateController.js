@@ -20,11 +20,11 @@ const createCertificate = async (req, res) => {
             body,
             issued_date,
             expiry_date,
-            file,
+            CertificateFile,
         } = req.body;
 
         // Upload photo
-        const imagePath = file;
+        const imagePath = CertificateFile;
 
         const result = await cloudinaryUploadImage(imagePath);
         if (!result || result.error) {
@@ -41,7 +41,7 @@ const createCertificate = async (req, res) => {
 
         const query = `
             INSERT INTO certificate
-            (student_id, organization_id, name, body, issued_date, expiry_date, file, status)
+            (student_id, organization_id, name, body, issued_date, expiry_date, CertificateFile, status)
             VALUES (?, ?, ?, ?, ?, ?, ?, 'verified');
         `;
 
@@ -88,11 +88,11 @@ const updateCertificate = async (req, res) => {
             issued_date,
             expiry_date,
             status,
-            file,
+            CertificateFile,
         } = req.body;
 
         // Upload photo
-        const imagePath = file;
+        const imagePath = CertificateFile;
 
         const result = await cloudinaryUploadImage(imagePath);
         if (!result || result.error) {
@@ -108,7 +108,7 @@ const updateCertificate = async (req, res) => {
 
         const query = `
             UPDATE certificate
-            SET student_id = ?, organization_id = ?, name = ?, body = ?, issued_date = ?, expiry_date = ?, status = ?, file = ?
+            SET student_id = ?, organization_id = ?, name = ?, body = ?, issued_date = ?, expiry_date = ?, status = ?, CertificateFile = ?
             WHERE certificate_id = ?;
         `;
 
