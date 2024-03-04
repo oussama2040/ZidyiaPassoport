@@ -1,5 +1,5 @@
 import express from 'express';
-import { updateProfile,addRequestCertificate } from '../controllers/studentController.js';
+import { updateProfile,addRequestCertificate,getAllCertificatesForStudent ,getVerifiedCertificatesForStudent,shareCertificate} from '../controllers/studentController.js';
 import upload from '../controllers/imageuploadcontroller.js';
 const router = express.Router();
 
@@ -9,5 +9,11 @@ router.post('/addRequest', upload.fields([
     { name: 'CertificateFile'},
     { name: 'TranscriptFile'}
 ]), addRequestCertificate);
+
+
+router.get('/certificates/:studentId', getAllCertificatesForStudent);
+router.get('/certificates/verified/:studentid', getVerifiedCertificatesForStudent);
+router.post('/certificates/share/:certificateId', shareCertificate);
+
 
 export default router;

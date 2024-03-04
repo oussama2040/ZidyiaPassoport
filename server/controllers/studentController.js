@@ -1,16 +1,109 @@
-//update profile(username,password,profilepic(default),bio(default),location(default))
-//send verification request(tenant,academic ID,document(transcript,certificate),certificate name,desc,issuing date/expiry date)
-//---------------fill template(specific template sent by specific tenant with more info (Full name,marks,...))
+//--------fill template(specific template sent by specific tenant with more info (Full name,marks,...))
+import connection from '../config/connection.js';
+import { uploadImage } from './imageuploadcontroller.js';
+import bcrypt from 'bcrypt';
+
+
+
 //view all requests to check status/specific request according to status
+// Function to retrieve all verification requests or requests with a specific status
+const getAllCertificatesForStudent = async (req, res) => {
+    try {
+        const studentId = req.params.studentId; 
+        const query = `
+            SELECT
+                cert.*,
+                student.first_name,
+                student.last_name,
+                verification.verification_date,
+                verification.note
+            FROM
+                certificate cert
+                JOIN student ON cert.student_id = student.student_id
+                LEFT JOIN certificateverification verification ON cert.certificate_id = verification.certificate_id
+            WHERE
+                cert.student_id = ?
+            ORDER BY
+                cert.issued_date DESC;
+        `;
+
+        const [rows] = await connection.promise().query(query, [studentId]);
+
+        res.status(200).json({
+            certificates: rows,
+        });
+    } catch (error) {
+        console.error('Error retrieving certificates:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+// retrieve all verified certificates for a student
+// view all customized certificate
+const getVerifiedCertificatesForStudent = async (req, res) => {
+    const studentId = req.params.studentId; 
+    try {
+        const query = `
+            SELECT
+                cert.*,
+                student.first_name,
+                student.last_name,
+                verification.verification_date,
+                verification.note
+            FROM
+                certificate cert
+                JOIN student ON cert.student_id = student.student_id
+                LEFT JOIN certificateverification verification ON cert.certificate_id = verification.certificate_id
+            WHERE
+                cert.status = 'verified' AND cert.student_id = ?
+            ORDER BY
+                cert.issued_date DESC;
+        `;
+
+        const [rows] = await connection.promise().query(query, [studentId]);
+
+        res.status(200).json({
+            certificates: rows, 
+        });
+    } catch (error) {
+        console.error("Error retrieving verified certificates:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
 // view all customized certificate
 // view all customized certificate
 //share verified certificates only only only only
 //share certificate and transcript with external organizations or employers
+const shareCertificate = async (req, res) => {
+    const studentId = req.user.user.id;
+    const certificateId = req.params.certificateId;
+
+    try {
+        // Check if the certificate exists, is verified, student_id
+        const [certificate] = await connection
+            .promise()
+            .query('SELECT * FROM certificate WHERE certificate_id = ? AND status = "verified" AND student_id = ?', [certificateId, studentId]);
 
 
-import connection from '../config/connection.js';
-import { uploadImage } from './imageuploadcontroller.js';
-import bcrypt from 'bcrypt';
+        res.status(200).json({ message: 'Certificate shared successfully.' });
+    } catch (error) {
+        console.error('Error sharing certificate:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
+
+
+export {
+    getAllCertificatesForStudent,
+    getVerifiedCertificatesForStudent,
+    shareCertificate,
+};
+
+
+
 
 const updateProfile = async (req, res) => {
     const { first_name, last_name, password, bio, location, mobile } = req.body;
@@ -145,6 +238,7 @@ const addRequestCertificate = async (req, res) => {
                 message: 'Failed to add certificate request.'
             });
         }
+
     } catch (error) {
         console.error('Error adding certificate request:', error);
         res.status(500).json({
