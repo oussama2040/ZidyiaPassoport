@@ -1,7 +1,6 @@
 import express from 'express';
 import { registerstudent, studentverification } from '../controllers/register.js';
 import { loginStudent } from '../controllers/login.js';
-import { validateToken } from '../Middleware/validateTokenHandler.js';
 import { requestPasswordReset, resetPassword } from '../controllers/forgetpass.js';
 import upload from '../controllers/imageuploadcontroller.js';
 
