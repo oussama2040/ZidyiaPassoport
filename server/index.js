@@ -4,8 +4,9 @@ import cors from "cors";
 import connection from "./config/connection.js";
 import userroute from "./routes/userRoute.js";
 import authorroute from "./routes/authRoute.js";
-import accesstoken from "./controllers/accessTokenController.js";
+// import accesstoken from "./controllers/accessTokenController.js";
 import cookieParser from "cookie-parser";
+import studentRoutes from './routes/studentRoute.js'
 
 const app = express();
 app.use(
@@ -33,7 +34,8 @@ if (process.env.NODE_ENV === "development") {
 // routes
 app.use(userroute);
 app.use("/author", authorroute);
-app.use(accesstoken);
+app.use('/students', studentRoutes);
+// app.use(accesstoken);
 
 // connecting to databse ==> listening to requests
 
