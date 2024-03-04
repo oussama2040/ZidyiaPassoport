@@ -15,6 +15,7 @@ import tenent from "./routes/tenent.js";
 
 // import accesstoken from "./controllers/accessTokenController.js";
 import cookieParser from "cookie-parser";
+import studentRoutes from './routes/studentRoute.js'
 
 const app = express();
 app.use(
@@ -49,6 +50,8 @@ app.use("/student", student);
 app.use("/subscriber",subscriber)
 app.use("/tenent",tenent)
 
+// app.use(accesstoken);
+app.use('/students', studentRoutes);
 // app.use(accesstoken);
 
 // connecting to databse ==> listening to requests
