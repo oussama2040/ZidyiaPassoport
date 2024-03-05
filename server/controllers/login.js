@@ -29,7 +29,7 @@ const loginStudent = asyncHandler(async (req, res) => {
                     email: student.email,
                     id: student.student_id,
                 }
-            }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
+            }, process.env.STUDENT_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
 
             const refreshToken = jwt.sign({
                 student: {
@@ -38,7 +38,7 @@ const loginStudent = asyncHandler(async (req, res) => {
                     email: student.email,
                     id: student.student_id,
                 }
-            }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
+            }, process.env.STUDENT_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
 
             // Save the refresh token and the access token in a secure cookie
             res.cookie('accessToken', accessToken, { httpOnly: true, secure: true});
@@ -93,7 +93,7 @@ const loginTenent = asyncHandler(async (req, res) => {
                     tenentname:tenent.name,
                     tenentlocation:tenent.location,
                 }
-            }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
+            }, process.env.TENENT_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
 
             const refreshToken = jwt.sign({
                 tenent: {
@@ -102,7 +102,7 @@ const loginTenent = asyncHandler(async (req, res) => {
                     tenentname:tenent.name,
                     tenentlocation:tenent.location,
                 }
-            }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
+            }, process.env.TENENT_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
 
             // Save the refresh token and the access token in a secure cookie
             res.cookie('TenentaccessToken', accessToken, { httpOnly: true, secure: true});
@@ -165,7 +165,7 @@ const loginSubscriber = asyncHandler(async (req, res) => {
                         subscriberlocation:subscriber.location,
                         expiry_date:subscriber.expiry_date
                     }
-                }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
+                }, process.env.SUBSCRIBER_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
     
                 const refreshToken = jwt.sign({
                     subscriber: {
@@ -175,7 +175,7 @@ const loginSubscriber = asyncHandler(async (req, res) => {
                         subscriberlocation:subscriber.location,
                         expiry_date:subscriber.expiry_date
                     }
-                }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
+                }, process.env.SUBSCRIBER_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
     
                 // Save the refresh token and the access token in a secure cookie
                 res.cookie('subscriberaccessToken', accessToken, { httpOnly: true, secure: true});
