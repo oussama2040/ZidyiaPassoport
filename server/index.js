@@ -1,14 +1,13 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import connection from "./config/connection.js";
+
 
 
 
 // import userroute from "./routes/userRoute.js";
 // import authorroute from "./routes/authRoute.js";
 import superadminRoute from './routes/superadminRoute.js'
-
 import userroute from "./routes/userRoute.js";
 import student from "./routes/student.js";
 import subscriber from "./routes/subscriber.js";
@@ -16,7 +15,6 @@ import tenent from "./routes/tenent.js";
 import generateqr from "./routes/qrcode.js";
 import scanqr from "./routes/scanqr.js";
 import anonymous from "./routes/anonymousRoute.js"
-
 import certificateRoute from "./routes/certificateRoute.js";
 import studentRoutes from "./routes/studentRoute.js";
 
@@ -30,10 +28,9 @@ app.use(
   cors({
     origin: ['http://localhost:3000'],
     origin: ['http://localhost:3000'],
-    methods: [], // Add other HTTP methods if needed
-    allowedHeaders: ['Content-Type', 'Authorization'], // Add other allowed headers if needed
-    allowedHeaders: ['Content-Type', 'Authorization'], // Add other allowed headers if needed
-    credentials: true, // Allow cookies to be sent with the request
+    methods: [],
+    allowedHeaders: ['Content-Type', 'Authorization'], 
+    credentials: true, 
   })
 );
 
@@ -68,8 +65,8 @@ app.use(userroute);
 app.use("/student", student);
 app.use("/subscriber", subscriber)
 app.use("/tenent", tenent)
-app.use("/admin",generateqr)
-app.use("/subscriber",scanqr);
+app.use("/admin", generateqr)
+app.use("/subscriber", scanqr);
 
 // app.use(accesstoken);
 app.use('/students', studentRoutes);
@@ -79,14 +76,10 @@ app.use('/', anonymous);
 
 
 
-// connecting to databse ==> listening to requests
+app.listen(process.env.PORT, () => {
+  console.log(`Listening to requests on port ${process.env.PORT}`);
 
-if (connection) {
-  app.listen(process.env.PORT, () => {
-    console.log(`Listening to requests on port ${process.env.PORT}`);
-
-  });
-}
+});
 
 
 
