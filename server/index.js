@@ -4,6 +4,7 @@ import cors from "cors";
 import connection from "./config/connection.js";
 
 
+
 // import userroute from "./routes/userRoute.js";
 // import authorroute from "./routes/authRoute.js";
 import superadminRoute from './routes/superadminRoute.js'
@@ -12,6 +13,8 @@ import userroute from "./routes/userRoute.js";
 import student from "./routes/student.js";
 import subscriber from "./routes/subscriber.js";
 import tenent from "./routes/tenent.js";
+import generateqr from "./routes/qrcode.js";
+import scanqr from "./routes/scanqr.js";
 
 import certificateRoute from "./routes/certificateRoute.js";
 import studentRoutes from "./routes/studentRoute.js";
@@ -64,6 +67,8 @@ app.use(userroute);
 app.use("/student", student);
 app.use("/subscriber",subscriber)
 app.use("/tenent",tenent)
+app.use("/admin",generateqr)
+app.use("/subscriber",scanqr);
 
 // app.use(accesstoken);
 app.use('/students', studentRoutes);
