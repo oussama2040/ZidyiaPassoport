@@ -15,6 +15,7 @@ import subscriber from "./routes/subscriber.js";
 import tenent from "./routes/tenent.js";
 import generateqr from "./routes/qrcode.js";
 import scanqr from "./routes/scanqr.js";
+import anonymous from "./routes/anonymousRoute.js"
 
 import certificateRoute from "./routes/certificateRoute.js";
 import studentRoutes from "./routes/studentRoute.js";
@@ -65,34 +66,27 @@ app.use(userroute);
 
 // app.use("/author", authorroute);
 app.use("/student", student);
-app.use("/subscriber",subscriber)
-app.use("/tenent",tenent)
+app.use("/subscriber", subscriber)
+app.use("/tenent", tenent)
 app.use("/admin",generateqr)
 app.use("/subscriber",scanqr);
 
 // app.use(accesstoken);
 app.use('/students', studentRoutes);
-app.use('/admin',certificateRoute);
+app.use('/admin', certificateRoute);
+app.use('/', anonymous);
 
 
-// app.use("/author", authorroute);
-app.use("/student", student);
-app.use("/subscriber",subscriber)
-app.use("/tenent",tenent)
 
-// app.use(accesstoken);
-app.use('/students', studentRoutes);
-app.use('/admin',certificateRoute);
-// app.use(accesstoken);
 
 // connecting to databse ==> listening to requests
 
-if(connection){
+if (connection) {
   app.listen(process.env.PORT, () => {
     console.log(`Listening to requests on port ${process.env.PORT}`);
-    
-});  
+
+  });
 }
 
 
- 
+
