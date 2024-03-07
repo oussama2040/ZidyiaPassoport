@@ -296,6 +296,45 @@ const countRejectedCertificates = async (req, res) => {
     }
 };
 
+/**___________________________________________
+ * @desc     Filter the number of certificates/requests by date span and status
+ * @route    /certificates/organization/count/byDate
+ * @method   GET
+ * @access   private 
+ * ---------------------------------------------**/
+const countCertificatesByStatusAndDateRange = async (req, res) => {
+    try {
+        const organizationId = req.tenent.organization_id;
+        const { status, startDate, endDate } = req.body;
+    
+        let countQuery = 'SELECT COUNT(*) AS certificateCount FROM certificate WHERE organization_id = ?';
+        const queryParams = [organizationId];
+    
+        if (status) {
+            countQuery += ' AND status = ?';
+            queryParams.push(status);
+        }
+    
+        if (startDate && endDate) {
+            countQuery += ' AND issued_date BETWEEN ? AND ?';
+            queryParams.push(startDate, endDate);
+        }
+    
+        // Prepare the statement
+        const statement = 'SELECT COUNT(*) AS certificateCount FROM certificate WHERE organization_id = ?';
+        const [result] = await connection.promise().execute(statement, queryParams);
+    
+        const certificateCount = result[0].certificateCount;
+    
+        res.status(200).json({ certificateCount });
+    } catch (error) {
+        console.error('Error counting certificates:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+    
+};
+
+
 
 export {
     createCertificate,
@@ -305,5 +344,6 @@ export {
     countTotalCertificates,
     countPendingCertificates,
     countApprovedCertificates,
-    countRejectedCertificates
+    countRejectedCertificates,
+    countCertificatesByStatusAndDateRange
 };
