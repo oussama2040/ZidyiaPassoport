@@ -1,0 +1,315 @@
+/* * {
+    border: 1px solid red;
+} */
+
+.banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #07393C;
+    height: 50px;
+    color: #F5F5F5;
+    font-size: 14px;
+    margin-top: 0;
+}
+
+.header {
+    background-color: #F5F5F5;
+    box-shadow: 0px 1px 5px 0px rgba(148, 144, 144, 0.54);
+    display: flex;
+    width: 100%;
+    margin: 2px 0 50px;
+    align-items: center;
+    padding-top: 20px;
+    height: 90px;
+    position: relative;
+}
+
+.logo {
+    font-size: 30px;
+    line-height: 20px;
+    font-weight: bold;
+    padding: 0 20px 0 100px ;
+    margin-right: 200px;
+    margin-left: 10%;
+
+  }
+  
+
+ .navBar {
+    display: flex;
+    align-items: center;
+    margin-right: 150px;
+    width: 400px;
+    font-weight: 400;
+ } 
+
+
+ .navBar div ul {
+    justify-content: space-around;
+ }
+ .navBar div ul li:hover{
+    font-weight: 600;
+ }
+
+ .hamburger {
+   display: none;
+ }
+
+ .activeTab {
+   border-bottom: 2px solid #07393C;
+   padding-bottom: 2px;
+   font-weight: 600;
+ }
+ 
+.iconContainer {
+   display: flex;
+   align-items: center;
+   margin-right: 8%;
+   margin-left: 8%;
+}
+ .searchBar {
+    width: 320px;
+    position: relative;
+    font-size: 14px;
+ }
+
+ .searchIconSmall {
+   display: none;
+   cursor: pointer;
+ }
+
+ .searchIcon {
+    scale: 1.5;
+    position: absolute;
+    top: 13px;
+    right: 15px;
+    cursor: pointer;
+ }
+
+
+ .wishIcon {
+   cursor: pointer;
+   scale: 1.6;
+   margin-left: 50px;
+ }
+
+
+ .shopCartIcon {
+   cursor: pointer;
+   scale: 1.6;
+   margin-left: 50px;
+   margin-right: 10%;
+ }
+
+ .searchIcon:hover, .wishIcon:hover, .shopCartIcon:hover, .searchIconSmall:hover {
+   scale: 1.9;
+ }
+
+ .accountIcon {
+   font-size: 18px;
+   margin-left: 10%;
+   padding: 0 8px;
+   line-height: 35px;
+   background-color: #07393C;
+   color: #fff;
+   width: 35px;
+   height: 35px;
+   text-align: center;
+   border-radius: 50%;
+ }
+
+ .suggestionsContainer {
+   position: absolute;
+   top: 80px;
+   right: 20%;
+   background-color: #ffffffde;
+   width: 310px;
+   max-height: 400px;
+   padding: 20px;
+   z-index: 100;
+   overflow-y: scroll;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   display: none;
+
+ }
+ .show {
+   display: block;
+ }
+
+ .suggestionsContainer::-webkit-scrollbar {
+   display: none;
+}
+
+.suggestion {
+   cursor: pointer;
+   border-bottom: 1px solid gray;
+   padding: 8px 5px;
+   background-color: #f5f5f577;
+}
+
+.suggestion:hover {
+   background-color: #fff;
+   font-weight: 500;
+}
+
+
+
+
+ /* media queries */
+ @media screen and (max-width: 1600px) {
+ .logo {
+   margin-left: 3%;
+   font-size: 25px;
+   margin-right: 150px;
+ }
+
+ .searchBar {
+   width: 280px;
+   font-size: 13px ;
+}
+ }
+
+ @media screen and (max-width: 1500px) {
+   .iconContainer {
+      margin-left: 5%;
+   }
+   .navBar {
+      min-width: 350px;
+      margin-left: 100px;
+      margin-right: 0;
+   }
+   .accountIcon {
+      margin-left: -150px;
+   }
+
+   .searchBar {
+      display: none;
+   }
+   .visible {
+      display: flex;
+      position: absolute;
+      top: 100px;
+      right: 333px;
+      width: 300px;
+      border: 1px solid #07393C;
+   }
+   .searchIconSmall {
+      display: block;
+      scale: 1.5;
+      margin-left: 200px;
+      cursor: pointer;
+    }
+    .shopCartIcon {
+      scale: 1.6;
+      margin-right:200px;
+    }
+    .logo {
+      margin-right: 100px;
+    }
+
+   }
+   
+   @media screen and (min-width: 1341px) and (max-width: 1500px) {
+    .cartIndicator {
+      left: 26px;
+      }
+    }
+
+
+   @media screen and (max-width: 1340px) {
+   .iconContainer {
+      z-index: 1;
+      position: absolute;
+      height: 200px;
+      right: -50px;
+      top: 100px;
+      width: 50px;
+      flex-direction: column;
+      align-items:center;
+      justify-content: space-evenly;
+      background-color: #F5F5F5;
+      border-radius: 5px;
+      box-shadow: 0px 1px 5px 0px rgba(148, 144, 144, 0.54);
+   }
+   .accountIcon {
+      margin-left:0px ;
+   }
+   .visible {
+      display: flex;
+      position: absolute;
+      top: 26px;
+      right: 55px;
+      width: 300px;
+      border: 1px solid #07393C;
+   }
+   .searchIconSmall, .shopCartIcon, .wishIcon {
+      margin: 0 5px;
+   }
+   .navBar {
+      margin-left: 20%;
+      margin-right: 10%;
+   }
+   }
+
+   @media screen and (max-width: 976px) {
+      .logo {
+         padding-left: 20px;
+      }
+
+   }
+
+   @media screen and (max-width: 791px) {
+      .banner {
+         font-size: 12px;
+      }
+      .logo {
+         padding-left: 20px;
+      }
+      .navBar {
+         display: none;
+      }
+      .extended {
+        width: 100%;
+        display: block;
+        position: absolute;
+        top: 80px;
+        z-index: 2;
+      }
+      .extended div ul {
+         width: 100%;
+         margin: auto;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+      }
+
+      .extended div ul .item {
+         width: 100%;
+         margin: auto !important;
+         padding: 10px 5px;
+         width: 100%;
+         box-shadow: 0px 1px 5px 0px rgba(148, 144, 144, 0.54);
+         text-align: center;
+         background-color: #F5F5F5;
+      }
+      .hamburger {
+         display: block;
+         scale: 1.4;
+         position: absolute;
+         right: 30px;
+         top: 46px;
+         cursor: pointer;
+       }
+       
+       .iconContainer {
+         right: -40px;
+       }
+   }
+
+   @media screen and (max-width: 733px) {
+      .iconContainer {
+         right: -30px;
+       }
+   }
