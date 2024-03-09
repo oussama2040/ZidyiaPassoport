@@ -4,7 +4,7 @@ const router = express.Router();
 import upload from '../controllers/imageuploadcontroller.js';
 
 
-router.get("/generateQR/:studentId/:studentName",upload.single("filename"),generateqrcode)
+router.get("/generateQR/:studentId/:studentName",generateqrcode)
 
 
 export default router;
