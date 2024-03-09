@@ -1,11 +1,13 @@
 import React from 'react';
 import Certificate from '../Components/certificatebuilder';
+import SideBarStudent from '../Components/SideBar/SideBarStudent';
+
 
 function Home() {
   return (
-    <div>
+    <div className='flex'>
+      <SideBarStudent />
       <Certificate/>
-      
     </div>
   )
 }
