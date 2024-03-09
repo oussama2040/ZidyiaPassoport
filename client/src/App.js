@@ -8,7 +8,8 @@ import Home from "./Pages/Home.js";
 // import ForgetPass from "./Pages/ForgetPass.js";
 // import ResetPass from "./Pages/ResetPass.js";
 // import NotFound from "./Pages/NotFound.js";
-// import Admin from "./Pages/Admin.js";
+import Admin from "./Pages/Admin.js";
+import SupperAdmin from "./Pages/SupperAdmin.js";
 
 export default function App() {
 
@@ -21,9 +22,10 @@ export default function App() {
         <Routes>
                 <>
                 <Route index element={<Home />} />  
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/Supperadmin" element={<SupperAdmin />} />
                   {/* <Route path="/admin" element={<Admin />} />
-                  <Route path="/login" element={<Login />} />                
-                                  
+                  <Route path="/login" element={<Login />} />                                        
                   <Route path="/login" element={<Login />} />                
                   <Route path="/forgetpassword" element={<ForgetPass />} />
                   <Route path="/resetpassword" element={<ResetPass />} />                
