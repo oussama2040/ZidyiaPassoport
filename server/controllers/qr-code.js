@@ -4,14 +4,20 @@ import qr from 'qr-image';
 import fs from 'fs';
 import crypto from 'crypto';
 import connection from '../config/connection.js';
-import { uploadImage } from './imageuploadcontroller.js';
+import { v2 as cloudinary } from 'cloudinary';
+import dotenv from 'dotenv';
 
-
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Endpoint to generate QR code
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+});
+
 const generateqrcode = async (req, res) => {
     try {
         const studentId = req.params.studentId;
@@ -33,9 +39,7 @@ const generateqrcode = async (req, res) => {
         const qr_png = qr.image(qrDataString, { type: 'png' });
 
         // Define filename for the QR code image
-        const filename = await uploadImage(`qr_code_${studentId}_${studentName}.png`);
-
-        // const file_name=await uploadImage(filename)
+        const filename = `qr_code_${studentId}_${studentName}.png`;
 
         // Define the path to the folder where QR codes will be stored
         const qrCodeFolder = path.join(__dirname, '..', 'qrcodes', 'qr_codes');
@@ -50,18 +54,26 @@ const generateqrcode = async (req, res) => {
         const qrFileStream = fs.createWriteStream(qrFilePath);
         qr_png.pipe(qrFileStream);
 
-        // //upload generated qrcode to cloudinary  
-        // let QR= await uploadImage(qrFilePath);
+        qrFileStream.on('finish', async () => {
+            try {
+                // Upload the generated QR code image to Cloudinary
+                const cloudResult = await cloudinary.uploader.upload(qrFilePath, { folder: 'qrcodes' });
 
-        // Insert the data into the database using a prepared statement
-        const [result] = await connection.promise().execute(
-            'INSERT INTO qrcodes (file_name, hashed_data) VALUES (?,?)',
-            [filename,hashedData ]
-        );
+                // Insert the data into the database using a prepared statement
+                await connection.promise().execute(
+                    'INSERT INTO qrcodes (file_name, hashed_data, cloudinary_url) VALUES (?, ?, ?)',
+                    [filename, hashedData, cloudResult.secure_url]
+                );
 
-        qrFileStream.on('finish', () => {
-            console.log(`QR Code generated successfully for student ${studentName}!`);
-            res.send(filename); // Send the filename as response
+                console.log(`QR Code generated successfully for student ${studentName}!`);
+                res.send(filename); // Send the filename as response
+            } catch (uploadError) {
+                console.error('Error uploading QR code to Cloudinary:', uploadError);
+                res.status(500).send('Error uploading QR code to Cloudinary');
+            } finally {
+                // Close the file stream
+                qrFileStream.close();
+            }
         });
     } catch (error) {
         console.error('Error generating QR code:', error);
