@@ -1,0 +1,211 @@
+.analyticsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    width: 55%;
+    height: fit-content;
+    margin: 20px 50px 0 0;
+    background-color: #576371;
+    border-radius: 20px;
+    padding: 50px 65px;
+    grid-gap: 50px; 
+}
+
+.countContainer {
+    font-size: 15px;
+    padding: 60px 5px; 
+    font-weight: 600;
+    text-align: center;
+    border-radius: 20px;
+    width: 180px;
+    height: 180px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease-in-out;
+}
+
+.countContainer:hover {
+    transform: scale(1.09); 
+}
+
+
+.count {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+/* precentages component */
+
+.analyticsContainerPerc {
+    width: 20%;
+    background-color: #576371;
+    height: fit-content;
+    margin: 20px 50px 0 0;
+    border-radius: 20px;
+    padding: 60px; 
+}
+
+.doughnutCont {
+    margin-bottom: 37px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Tenant Creation Component */
+.TenantCreationContainer {
+    width: 70%;
+    height: 90vh;
+    margin: 20px 50px 0 0;
+    background-color: #576371;
+    border-radius: 20px;
+    padding: 50px 65px;
+}
+
+.TenantCreationContainer h2 {
+    margin: 30px auto;
+    text-align: center;
+    color: #ffffffd4;
+    font-size: 25px;
+}
+
+
+.TenantCreationContainer form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 60px auto;
+}
+
+
+
+.TenantCreationContainer label {
+    color: #ffffff9a;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+.TenantCreationContainer input {
+    background-color: inherit;
+    border: 1px solid #ffffff71;
+    color: #fff;
+    border-radius: 5px;
+    height: 50px;
+    padding: 0 20px;
+}
+
+
+
+.TenantCreationContainer button {
+    background-color: #5DD3B3;
+    width: 100px;
+    margin-top: 20px;
+    height: 35px;
+    border-radius: 30px;
+    align-self: flex-end; 
+}
+
+.validationError {
+    margin-top: -30px;
+    color: rgba(255, 0, 0, 0.643);
+}
+
+.successCreate {
+    margin-top: -30px;
+    color: rgba(0, 255, 30, 0.643);
+}
+
+
+/* suubscriber creation component */
+.SubscriberCreationContainer {
+    width: 70%;
+    height: 90vh;
+    margin: 20px 50px 0 0;
+    background-color: #576371;
+    border-radius: 20px;
+    padding: 50px 65px;
+}
+
+.SubscriberCreationContainer h2 {
+    margin: 30px auto 50px;
+    color: #ffffffd4;
+    font-size: 25px;
+    text-align: center;
+}
+
+.SubscriberCreationContainer thead {
+    color: #fffffff5;
+    text-align: left;
+}
+
+.SubscriberCreationContainer thead th{
+    height: 50px;
+    padding: 0 25px;
+    margin-bottom: 50px;
+}
+.SubscriberCreationContainer tbody {
+    color: #ffffffc3;
+}
+
+.SubscriberCreationContainer tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.SubscriberCreationContainer tbody td {
+    height: 50px;
+    padding: 15px 25px;
+}
+
+.SubscriberCreationContainer tbody tr:hover {
+    background-color: #5dd3b32c;
+    color: #fff;
+}
+
+
+
+.SubscriberCreationContainer button {
+    background-color: #5DD3B3;
+    width: 80px;
+    font-size: 12px;
+    height: 35px;
+    border-radius: 30px;
+}
+.SubscriberCreationContainer button:active {
+    background-color: #5dd3b371;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999; 
+}
+
+.popup {
+    position: fixed; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    background-color: #576371;
+    width: 700px;
+    height: 500px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; 
+}
+
+.popupInner {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    color: #fff;
+    font-size: 18px;
+}   
+.popupInner p {
+    margin-top: 10px;
+}
