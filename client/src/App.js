@@ -14,7 +14,8 @@ import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
 
 export default function App() {
-
+  const organizationId = 4;
+  const studentId = 2;
 
 
 
@@ -26,7 +27,7 @@ export default function App() {
                 <Route index element={<Home />} />  
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/Supperadmin" element={<SupperAdmin />} />
-                <Route path="/admin/customize" element={<SendAdmincustomize  />} />
+                <Route path="/admin/customize" element={<SendAdmincustomize organizationId={organizationId} />} />
                 <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled />} />
                   {/* <Route path="/admin" element={<Admin />} />
                   <Route path="/login" element={<Login />} />                                        
