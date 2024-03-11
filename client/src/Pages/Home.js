@@ -5,8 +5,8 @@ import SideBarStudent from '../Components/SideBar/SideBarStudent';
 
 function Home() {
   return (
-    <div className='flex'>
-      <SideBarStudent />
+    <div style={{ display: 'flex', flexDirection: 'row' ,backgroundColor:'#384450'}}>
+      <SideBarStudent />  
       <Certificate/>
     </div>
   )

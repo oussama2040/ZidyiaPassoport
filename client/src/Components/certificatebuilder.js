@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import './Certificate.css';
+import axios from 'axios';
 
 const Certificate = () => {
   // State variables to manage user inputs
@@ -23,18 +24,27 @@ const Certificate = () => {
   const certificateRef = useRef(null);
 
   // Function to handle screenshot capture
-  const handleCapture = () => {
-    html2canvas(certificateRef.current).then((canvas) => {
-      // Convert the canvas to an image
-      const imageUrl = canvas.toDataURL();
+  const handleCapture = async () => {
+    try {
+        const canvas = await html2canvas(certificateRef.current);
+        canvas.toBlob(async (blob) => {
+            // Create FormData object
+            const formData = new FormData();
+            formData.append('certificateImage', blob, 'certificate.png');
 
-      // Create a link element to download the image
-      const link = document.createElement('a');
-      link.href = imageUrl;
-      link.download = 'certificate.png';
-      link.click();
-    });
-  };
+            // Make a POST request to your server to upload the image to Cloudinary
+            const response = await axios.post('http://localhost:5000/tenent/savecertificate', formData);
+
+            // Handle the response from the server
+            console.log(response.data);
+        }, 'image/png');
+    } catch (error) {
+        // Handle any errors that occur during the request
+        console.error('Error capturing and saving certificate:', error);
+    }
+};
+
+  
 
   // Function to handle form submission
   const handleSubmit = (e) => {
@@ -207,3 +217,4 @@ const Certificate = () => {
 };
 
 export default Certificate;
+

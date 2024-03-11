@@ -30,6 +30,27 @@ const uploadImage = async (imageBuffer) => {
   }
 };
 
+const uploadImageInFolder = async (imageBuffer, folderName) => {
+  try {
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader.upload_stream(
+        { folder: folderName }, // Specify the folder name
+        (error, result) => {
+          if (error) {
+            reject(error.message);
+          } else {
+            resolve(result.secure_url);
+            console.log(result);
+          }
+        }
+      ).end(imageBuffer);
+    });
+  } catch (error) {
+    throw new Error(`Error uploading image: ${error.message}`);
+  }
+};
+
+
 const uploadMultipleImages = async (imageBuffers) => {
   try {
     const uploadPromises = imageBuffers.map((imageBuffer) => {
@@ -42,5 +63,5 @@ const uploadMultipleImages = async (imageBuffers) => {
   }
 };
 
-export  { uploadImage, uploadMultipleImages };
+export  { uploadImage, uploadMultipleImages, uploadImageInFolder };
 export default upload

@@ -46,6 +46,8 @@ body {
   width: 800px;
   height: 600px;
   padding: 30px;
+  margin-right: 30px;
+  margin-top: 20px;
   color: #333;
   font-family: 'Open Sans', sans-serif;
   box-shadow: 0 0 5px rgba(0, 0, 0, .5);
@@ -200,20 +202,61 @@ body {
 }
 
 .form-input{
-  margin-top: 20px;
+ display: flex;
+ flex-direction: row;
+ margin-top: 13px;
+ text-wrap: nowrap;
+ word-spacing: normal;
+}
+.form-input input{
+  margin-left: 10px;
+}
+
+.form-input select{
+  margin-left: 10px;
 }
 /* Certificate.css */
 
 .capture-button {
-  background-color: #618597; /* Blue background color */
+  background-color: #5DD3B3; /* Blue background color */
   color: white; /* White text color */
   padding: 5px 10px; /* Padding around the button text */
   border: none; /* No border */
   border-radius: 5px; /* Rounded corners */
   cursor: pointer; /* Change cursor to pointer on hover */
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-left: 75px;
+  transition: transform 0.3s ease-in-out;
+  ;
 }
 
 .capture-button:hover {
-  background-color: #0056b3; /* Darker blue background color on hover */
+  background-color: #384450;
+  color:white; /* Darker blue background color on hover */
+  transform: scale(1.1);
+  
+}
+
+
+/* ------------certificate editor---------------------------------- */
+.certificate-editor{
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: 90vh;
+  margin-left: 10px;
+  margin-top: 20px;
+  background-color: #576371;
+  border-radius:20px;
+  color :white;
+  padding-left: 30px;
+  padding-top: 20px;
+  font-family: 'Core Rhino 45', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+.certificate-editor h2{
+  font-size: 30px;
+  font-family: "Corinthia", sans-serif;
+  text-align: center;
 }
