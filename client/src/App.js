@@ -14,7 +14,8 @@ import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
 
 export default function App() {
-
+  const organizationId = 4;
+  const studentId = 2;
 
 
 

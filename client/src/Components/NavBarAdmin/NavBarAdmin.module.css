@@ -32,6 +32,10 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-right: 20px;
+    height: 30PX;
+    display: flex;
+    align-items: center;
+    border-radius:40px ;
   }
 
   .NavBarAdminLogout:hover {
