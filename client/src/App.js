@@ -22,13 +22,13 @@ export default function App() {
     <div>
       <Router>
         <Routes>
-                <>
-                <Route index element={<Home />} />  
-                <Route path="/admin" element={<Admin />} />
-                <Route path="/Supperadmin" element={<SupperAdmin />} />
-                <Route path="/admin/customize" element={<SendAdmincustomize  />} />
-                <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled />} />
-                  {/* <Route path="/admin" element={<Admin />} />
+          <>
+            <Route index element={<Home />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/Superadmin" element={<SupperAdmin />} />
+            <Route path="/admin/customize" element={<SendAdmincustomize />} />
+            <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled />} />
+            {/* <Route path="/admin" element={<Admin />} />
                   <Route path="/login" element={<Login />} />                                        
                   <Route path="/login" element={<Login />} />                
                   <Route path="/forgetpassword" element={<ForgetPass />} />
@@ -36,8 +36,8 @@ export default function App() {
                   <Route path="/registerverify/:token" element={<VerificationComponent />} />
                   <Route path="/register" element={<Signup />} />               
                   <Route path="*" element={<NotFound />} /> */}
-                </>
-        </Routes>   
+          </>
+        </Routes>
       </Router>
     </div>
   );
