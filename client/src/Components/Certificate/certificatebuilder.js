@@ -1,17 +1,17 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useEffect } from 'react';
 import html2canvas from 'html2canvas';
 import './Certificate.css';
 import axios from 'axios';
 
 const Certificate = () => {
-  // State variables to manage user inputs
+  // State variables to manage Tenent's Admin inputs
   const [outerBorderColor, setOuterBorderColor] = useState('#000000');
   const [innerBorderColor, setInnerBorderColor] = useState('#000000');
-  const [backgroundColor, setBackgroundColor] = useState('#618597'); // Set initial background color
+  const [backgroundColor, setBackgroundColor] = useState('#5DD3B3'); // Set initial background color
   const [fontFamily, setFontFamily] = useState('Arial, sans-serif');
   const [fontWeight, setFontWeight] = useState('normal');
   const [fontColor, setFontColor] = useState('#000000');
-  const [logo, setLogo] = useState(null);
+  // const [logo, setLogo] = useState(null);
   const [qrCode, setQrCode] = useState(null);
   const [badgeImage, setBadgeImage] = useState(null);
   const [facultyName, setFacultyName] = useState('');
@@ -19,39 +19,105 @@ const Certificate = () => {
   const [major, setMajor] = useState('');
   const [presidentName, setPresidentName] = useState('');
   const [deanName, setDeanName] = useState('');
+ 
+
+  // ---------------------------------------------------------------------------------------------------------
 
   // Ref for the certificate container
   const certificateRef = useRef(null);
 
   // Function to handle screenshot capture
-  const handleCapture = async () => {
+  const [organizationInfo, setOrganizationInfo] = useState(null);
+  useEffect(() => {
+   
+    const fetchOrganizationInfo = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/tenent/organizationinfo');
+            setOrganizationInfo(response.data);
+            console.log(response.data)
+        } catch (error) {
+            console.error('Error fetching organization info:', error);
+        }
+    };
+
+    fetchOrganizationInfo();
+}, []);
+console.log(organizationInfo)
+// -----------------------------------------------------------------------------------
+const [studentInfo, setstudentInfo] = useState(null);
+  useEffect(() => {
+   
+    const fetchtudentInfo = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/student/studentinfo');
+            setstudentInfo(response.data);
+            console.log(response.data)
+        } catch (error) {
+            console.error('Error fetching organization info:', error);
+        }
+    };
+
+    fetchtudentInfo();
+}, []);
+console.log(studentInfo)
+// ------------------------------------------------------------------------------------
+const getCurrentDate = () => {
+  // Create a new Date object
+  const currentDate = new Date();
+
+  
+  const day = currentDate.getDate();
+  const month = currentDate.getMonth() + 1; // January is 0, so we add 1
+  const year = currentDate.getFullYear();
+
+ 
+  const formattedDate = `${day}/${month}/${year}`;
+
+  return formattedDate;
+};
+// ---------------------------------------------------------------------------------------
+// Function to handle screenshot capture
+const handleCapture = async () => {
     try {
         const canvas = await html2canvas(certificateRef.current);
         canvas.toBlob(async (blob) => {
-            // Create FormData object
             const formData = new FormData();
             formData.append('certificateImage', blob, 'certificate.png');
 
-            // Make a POST request to your server to upload the image to Cloudinary
             const response = await axios.post('http://localhost:5000/tenent/savecertificate', formData);
-
-            // Handle the response from the server
             console.log(response.data);
         }, 'image/png');
     } catch (error) {
-        // Handle any errors that occur during the request
         console.error('Error capturing and saving certificate:', error);
     }
 };
+// ----------------------------------------------------------------------------------
+const [startDate, setStartDate] = useState('');
+const [endDate, setEndDate] = useState('');
 
-  
+  const handleStartDateChange = (date) => {
+    setStartDate(date);
+  };
+
+  const handleEndDateChange = (date) => {
+    setEndDate(date);
+  };
+
+  // ------------------------------------------------------------------------------------------------------------------
 
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Process the form data
-    // Update the certificate layout
+    console.log("starting date",startDate);
+    console.log("ending date",endDate);
+   
   };
+// -----------------------------------------------------------------------------------------
+
+
+
+
+
 
   return (
     <div className="certificate-form">
@@ -67,15 +133,16 @@ const Certificate = () => {
                 <div className="row">
                   <div className="col-xs-4"></div>
                   <div className="col-xs-4 text-center">
-                    {logo && <img src={URL.createObjectURL(logo)} alt="Logo" className="logo" />}
+                    {/* {logo && <img src={URL.createObjectURL(logo)} alt="Logo" className="logo" />} */}
+                    {badgeImage && <img src={URL.createObjectURL(badgeImage)} alt="Badge" className="badge-image" />}
                   </div>
                   <div className="col-xs-4"></div>
                 </div>
               </div>
-              <h2 className="cursive">University Of Lebanon</h2>
+              <h2 className="cursive">{organizationInfo && organizationInfo.name}</h2>
               <span className="pm-certificate-texts">Based on the University's Statute</span>
               <span className="pm-certificate-texts">Upon the Recommendation of the "{facultyName}"</span>
-              <span className="pm-certificate-texts">The "University Of Lebanon" has conferred upon</span>
+              <span className="pm-certificate-texts">The "{organizationInfo && organizationInfo.name}" has conferred upon</span>
             </div>
           </div>
           <div className="row pm-certificate-body">
@@ -85,7 +152,7 @@ const Certificate = () => {
                 <div className="row">
                   <div className="col-xs-2"></div>
                   <div className="pm-certificate-name margin-0 col-xs-8 text-center">
-                    <span className="pm-name-text underline bold">Rayan Soltan</span>
+                    <span className="pm-name-text underline bold">{studentInfo && studentInfo.first_name}  {studentInfo && studentInfo.last_name}</span>
                   </div>
                   <div className="col-xs-2"></div>
                 </div>
@@ -95,7 +162,7 @@ const Certificate = () => {
                 <div className="row">
                   <div className="col-xs-2"></div>
                   <div className="pm-student-birth-details col-xs-8 text-center">
-                    <span className="pm-birth-text block">Born on <span className="underline bold">17/11/1999</span> in <span className="underline bold">Nabatieh</span></span>
+                    <span className="pm-birth-text block">Started on <span className="underline bold">{startDate}</span> till <span className="underline bold">{endDate}</span></span>
                   </div>
                   <div className="col-xs-2"></div>
                 </div>
@@ -124,24 +191,25 @@ const Certificate = () => {
             <div className="col-xs-12">
               <div className="row pm-certificate-footer">
                 <div className="col-xs-4 pm-certified text-center">
-                  <span className="pm-credits-text block sans underline">Khaldeh, Lebanon</span>
+                  <span className="pm-credits-text block sans underline">{organizationInfo && organizationInfo.location}</span>
                   <span className="bold block">President: {presidentName}</span>
                 </div>
                 <div className="col-xs-4">
-                  <div>
-                    {badgeImage && <img src={URL.createObjectURL(badgeImage)} alt="Badge" className="badge-image" />}
-                  </div>
+                <div className="qr-code-container">
+                 {qrCode && <img src={URL.createObjectURL(qrCode)} alt="QR Code" className="qr-code-image" />}
+                </div>
                 </div>
                 <div className="col-xs-4 pm-certified text-center">
-                  <span className="pm-credits-text block sans underline">On 26/7/2023</span>
+                  <span className="pm-credits-text block sans underline">On {getCurrentDate()} </span>
                   <span className="bold block">Dean: {deanName}</span>
                 </div>
               </div>
             </div>
           </div>
-          {qrCode && <img src={URL.createObjectURL(qrCode)} alt="QR Code" className="qr-code-image" />}
+         
         </div>
       </div>
+      
       {/* Certificate Editor Form */}
       <div className="certificate-editor">
         <h2>Certificate Editor</h2>
@@ -195,9 +263,15 @@ const Certificate = () => {
             <label>Dean Name:</label>
             <input type="text" value={deanName} onChange={(e) => setDeanName(e.target.value)} />
           </div>
-          <div className="form-input">
-            <label>Upload Logo:</label>
-            <input type="file" accept="image/*" onChange={(e) => setLogo(e.target.files[0])} />
+          <div className='universityDate'>
+      <div className="form-input">
+        <label>Start:</label>
+        <input type="date"  className="dateinput" onChange={(e) => handleStartDateChange(e.target.value)} />
+      </div>
+      <div className="form-input">
+        <label>End:</label>
+        <input type="date" className="dateinput" onChange={(e) => handleEndDateChange(e.target.value)} />
+      </div>
           </div>
           <div className="form-input">
             <label>Upload QR Code:</label>

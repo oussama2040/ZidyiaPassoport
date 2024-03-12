@@ -275,3 +275,30 @@ const addRequestCertificate = async (req, res) => {
 };
 
 export { addRequestCertificate };
+
+
+const getstudentInfo = async (req, res) => {
+    // {studentID}=req.params;
+    const studentID=1;
+    try {
+        
+        const [rows] = await connection.promise().execute(
+            'SELECT first_name,last_name FROM student WHERE student_id = ?',
+            [studentID] 
+        );
+
+     
+        if (rows.length > 0) {
+           
+            const { first_name,last_name } = rows[0];
+            res.status(200).json({ first_name,last_name }); 
+        } else {
+            res.status(404).json({ error: 'student info not found' }); 
+        }
+    } catch (error) {
+        console.error('Error retrieving student info:', error);
+        res.status(500).json({ error: 'Internal server error' }); 
+    }
+};
+
+export {getstudentInfo};

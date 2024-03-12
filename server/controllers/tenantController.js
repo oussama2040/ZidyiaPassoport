@@ -1,6 +1,7 @@
 import connection from '../config/connection.js';
 import { uploadImageInFolder } from './imageuploadcontroller.js';
 
+// Save the verified certificate on cloudinery and  its secure url in the database
 
 const SaveVerifiedCertificate = async (req, res) => {
     try {
@@ -38,4 +39,35 @@ const SaveVerifiedCertificate = async (req, res) => {
     }
 };
 
-export default SaveVerifiedCertificate;
+export {SaveVerifiedCertificate};
+
+
+// --------------------------------------------------------------------------------
+
+// get organization info:
+
+const getOrganizationInfo = async (req, res) => {
+    // organizationID=req.tenent.tenentid;
+    const organizationID=9;
+    try {
+        
+        const [rows] = await connection.promise().execute(
+            'SELECT name,location FROM tenent WHERE organization_id = ?',
+            [organizationID] 
+        );
+
+     
+        if (rows.length > 0) {
+           
+            const { name, location } = rows[0];
+            res.status(200).json({ name, location }); 
+        } else {
+            res.status(404).json({ error: 'Organization info not found' }); 
+        }
+    } catch (error) {
+        console.error('Error retrieving organization info:', error);
+        res.status(500).json({ error: 'Internal server error' }); 
+    }
+};
+
+export {getOrganizationInfo};
