@@ -138,7 +138,6 @@ export const getIssuedCertificatesCount = async (req, res) => {
 
 // number of requests // skipped to verify requirements 
 //number of pending documnets
-
 export const countPendingDocs = async (req, res) => {
     try {
         const query = 'SELECT COUNT(*) AS PendingDocs FROM document WHERE status = "pending"';

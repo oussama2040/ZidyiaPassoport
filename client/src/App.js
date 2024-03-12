@@ -16,7 +16,8 @@ import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFille
 import CustomizeCertificate from "./Pages/customizeCertificate.js";
 
 export default function App() {
-
+  const organizationId = 4;
+  const studentId = 2;
 
 
 
@@ -24,15 +25,15 @@ export default function App() {
     <div>
       <Router>
         <Routes>
-                <>
-                <Route index element={<Home />} />  
-                <Route path="/admin" element={<Admin />} />
-                <Route path="/Supperadmin" element={<SupperAdmin />} />
-                <Route path="/admin/customize" element={<SendAdmincustomize  />} />
-                <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled />} />
+          <>
+            <Route index element={<Home />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/Superadmin" element={<SupperAdmin />} />
+            <Route path="/admin/customize" element={<SendAdmincustomize />} />
+            <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled />} />
                 <Route path="/admin/customizecertificate" element={<CustomizeCertificate />} />
 
-                  {/* <Route path="/admin" element={<Admin />} />
+            {/* <Route path="/admin" element={<Admin />} />
                   <Route path="/login" element={<Login />} />                                        
                   <Route path="/login" element={<Login />} />                
                   <Route path="/forgetpassword" element={<ForgetPass />} />
@@ -40,8 +41,8 @@ export default function App() {
                   <Route path="/registerverify/:token" element={<VerificationComponent />} />
                   <Route path="/register" element={<Signup />} />               
                   <Route path="*" element={<NotFound />} /> */}
-                </>
-        </Routes>   
+          </>
+        </Routes>
       </Router>
     </div>
   );
