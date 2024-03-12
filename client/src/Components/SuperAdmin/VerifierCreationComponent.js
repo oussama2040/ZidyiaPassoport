@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './superAdmin.module.css';
 
-const TenantCreationContainer = () => {
+const VerifierCreationContainer = () => {
     const [formData, setFormData] = useState({
         admin_email: '',
         name: '',
@@ -41,9 +41,9 @@ const TenantCreationContainer = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/superadmin/create-tenant', formData);
-            setSuccess("Tenant has been created successfully")
-            setTimeout(()=> {
+            const response = await axios.post('http://localhost:5000/superadmin/create-subscriber', formData);
+            setSuccess("Subscriber has been created successfully")
+            setTimeout(() => {
                 setSuccess("")
             }, 3000)
             setFormData({ admin_email: '', name: '', location: '' });
@@ -60,15 +60,15 @@ const TenantCreationContainer = () => {
 
 
     return (
-        <div className={styles.TenantCreationContainer}>
-            <h2>Create Tenant</h2>
+        <div className={styles.VerifierCreationContainer}>
+            <h2>Create Verifier</h2>
             <form onSubmit={handleSubmit} autoComplete="off">
-                <label htmlFor="email">Tenant Email</label>
+                <label htmlFor="email">Verifier Email</label>
                 <input id="email" placeholder="someone@example.com" name="admin_email" value={formData.admin_email} onChange={handleChange} autoComplete="off" />
-                <label htmlFor="name">Tenant Name</label>
-                <input id="name" name="name" placeholder="Tenant Name" value={formData.name} onChange={handleChange} autoComplete="off" />
+                <label htmlFor="name">Verifier Name</label>
+                <input id="name" name="name" placeholder="Verifier Name" value={formData.name} onChange={handleChange} autoComplete="off" />
 
-                <label htmlFor="location">Tenant Location</label>
+                <label htmlFor="location">Verifier Location</label>
                 <input id="location" name="location" placeholder="City, Country" value={formData.location} onChange={handleChange} autoComplete="off" />
                 <button type="submit">Submit</button>
                 {error && <p className={styles.validationError}>{error}</p>}
@@ -79,4 +79,4 @@ const TenantCreationContainer = () => {
     );
 };
 
-export default TenantCreationContainer;
+export default VerifierCreationContainer;
