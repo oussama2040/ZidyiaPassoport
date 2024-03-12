@@ -12,6 +12,7 @@ import Admin from "./Pages/Admin.js";
 import SupperAdmin from "./Pages/SupperAdmin.js";
 import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.js";
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
+import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
 
 export default function App() {
   const organizationId = 4;
@@ -27,8 +28,10 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/Superadmin" element={<SupperAdmin />} />
-            <Route path="/admin/customize" element={<SendAdmincustomize />} />
+            <Route path="/admin/customize" element={<SendAdmincustomize organizationId={organizationId} />} />
             <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled />} />
+            <Route path="/student/customize" element={<GetSendStudentCustomFields  organizationId={organizationId}  studentId={studentId} />} />
+                
             {/* <Route path="/admin" element={<Admin />} />
                   <Route path="/login" element={<Login />} />                                        
                   <Route path="/login" element={<Login />} />                

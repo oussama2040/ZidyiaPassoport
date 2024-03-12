@@ -37,47 +37,64 @@ function GetAdmincustomize({ organizationId }) {
   return (
     <div className={styles.CustomizeGetMain}>
       <form >
-      <h1 className={styles.CustomizformTitle}> Custom Fields Form </h1> 
+      <h1 className={styles.CustomizformTitle}> Customize Form </h1> 
         {customFields.map((field) => (
           <div key={field.field_id}  className={styles.CustomizefieldContainer}>
             <label>
             <div className={styles.customizeFieldNametext}>{field.fieldName}:</div>
               
               {field.fieldType === 'text' && (
+                <div>
                 <input
                 className={styles.customizeInputte}
                   type="text"
                   placeholder={`Enter ${field.fieldName}`}
                   required={!field.isOptional}
                 />
+                    {field.isOptional ? " " : <span style={{ color: 'red' , marginLeft:"20px" }}>*</span>}
+                </div>
               )}
 
               {field.fieldType === 'date' && (
+                <div>
                 <input
                 className={styles.customizeInputdate}
                   type="date"
                   placeholder={`Enter ${field.fieldName}`}
                 />
+                    {field.isOptional ? " " : <span style={{ color: 'red' , marginLeft:"20px" }}>*</span>}
+                </div>
               )}
 
               {field.fieldType === 'file' && (
-                <input
+                <div>
+                <input  
                 className={styles.customizeInputfile}
                   type="file"
                   placeholder={`Enter ${field.fieldName}`}
                 />
+                 {field.isOptional ? " " : <span style={{ color: 'red' , marginLeft:"20px" }}>*</span>}
+                </div>
               )}
 
+
           {field.fieldType === 'dropdown' && (
-            <select required={!field.isOptional}>
-              <option value="" >Select {field.fieldName}</option>
+            <div>
+            <select required={!field.isOptional} 
+            className={styles.studentcustomizeDropdownOptions}>
+              
+              <option value="" className={styles.studentcustomizeDropdownOptionsSelect}>Select {field.fieldName}</option>
               {field.options &&
                 JSON.parse(field.options).map((option, index) => (
-                  <option key={index} value={option} >
+                  <option key={index} value={option} className={styles.studentcustomizeDropdownOptionsSelect} >
                     {option}
                   </option>
                 ))}
+                
             </select>
+            {field.isOptional ? " " : <span style={{ color: 'red' , marginLeft:"20px" }}>*</span>}
+                </div>
+            
           )}
 
           {field.fieldType === 'checkbox' && (
@@ -89,6 +106,7 @@ function GetAdmincustomize({ organizationId }) {
                     {option}
                   </label>
                 ))}
+                      {field.isOptional ? " " : <span style={{ color: 'red' , marginLeft:"20px" }}>*</span>}
             </div>
           )}
 
@@ -105,11 +123,11 @@ function GetAdmincustomize({ organizationId }) {
                     {option}
                   </label>
                 ))}
-                
+              {field.isOptional ? " " : <span style={{ color: 'red' , marginLeft:"20px" }}>*</span>}
             </div>
               )}
       
-      {field.isOptional ? " " : <span style={{ color: 'red' , marginLeft:"20px" }}>*</span>}
+
             </label>
           </div>
         ))}

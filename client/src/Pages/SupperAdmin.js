@@ -16,7 +16,7 @@ function SupperAdmin() {
   return (
     <div>
       <NavBarSupperAdmin />
-      <div style={{ display: 'flex', flexDirection: 'row', backgroundColor: '#384450' }}>
+      <div style={{ display: 'flex', flexDirection: 'row'}}>
         <SideBarSupperAdmin activeTab={activeTab} handleTabClick={handleTabClick} />
         {activeTab === 'Analytics' && (
           <>
