@@ -8,7 +8,7 @@ import { BiCustomize } from "react-icons/bi";
 import { IoGitPullRequestSharp } from "react-icons/io5";
 import { TbFileCertificate } from "react-icons/tb";
 import { LiaCertificateSolid } from "react-icons/lia";
-import ZidyiaLogo from './ZidyiaLogo';
+import ZidyiaLogo from './ZidyiaLogo.js';
 
 
 
