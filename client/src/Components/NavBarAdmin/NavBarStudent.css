@@ -1,0 +1,82 @@
+.NavBarStudentMain {
+    height: 50px;
+    background-color: #384450;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -20px;
+}
+
+.NavBarWelcome {
+    color: #fff;
+    font-family: 'Core Rhino 45', sans-serif;
+    font-size: 30px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    margin: 10px;
+    color: #fff;
+}
+
+.Search {
+    align-items: center;
+}
+
+.Search input {
+    width: 100%;
+    background-color: #384450;
+    padding-left: 3.5rem;
+    padding-right: 1rem; 
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem; 
+    border-radius: 0.90rem; 
+    font-size: 0.875rem;
+    border-width: 1px; 
+    border-color: #94949f;
+    transition: border-color 0.2s;
+    color: #94949f;
+}
+
+
+
+.userSettings {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 20px;
+    font-weight: 500;
+}
+
+.dark-light svg {
+    width: 20px;
+    color: #94949f;
+}
+
+.userMenu {
+    position: relative;
+    margin-right: 8px;
+    padding-right: 8px;
+    border-right: 2px solid #d6d6db;
+}
+
+.userMenu:before {
+    position: absolute;
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    right: 6px;
+    top: -1px;
+}
+
+.user-profile {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
