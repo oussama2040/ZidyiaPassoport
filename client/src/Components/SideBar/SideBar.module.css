@@ -1,5 +1,4 @@
 
-
 .SideBarMain{
     width: 240px;
     height: 90vh;
@@ -65,7 +64,8 @@
 }
 
 .ZidyiaPassportLogo{
-    margin-top: 30vh;
+    position: absolute;
+    bottom: 0%;
 }
 
 .ZidyiaPassportLogo img{
@@ -73,6 +73,7 @@
     height: 66px;
     object-fit: contain;
     margin-left: 30px;
+    margin-bottom: 100px;
 }
 
 
