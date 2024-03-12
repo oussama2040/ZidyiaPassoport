@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useState } from "react";
 import "./App.css";
-import Home from "./Pages/Home.js";
+
 // import Login from "./Pages/Login.js";
 // import VerificationComponent from "./Pages/Registerverify.js"
 // import Signup from "./Pages/Signup.js";
@@ -9,10 +9,12 @@ import Home from "./Pages/Home.js";
 // import ResetPass from "./Pages/ResetPass.js";
 // import NotFound from "./Pages/NotFound.js";
 import Admin from "./Pages/Admin.js";
+import Home from "./Pages/Home.js";
 import SupperAdmin from "./Pages/SupperAdmin.js";
 import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.js";
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
 import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
+import CustomizeCertificate from "./Pages/customizeCertificate.js";
 
 export default function App() {
   const organizationId = 4;
@@ -30,6 +32,7 @@ export default function App() {
             <Route path="/Superadmin" element={<SupperAdmin />} />
             <Route path="/admin/customize" element={<SendAdmincustomize organizationId={organizationId} />} />
             <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled />} />
+            <Route path="/admin/customizecertificate" element={<CustomizeCertificate />} />
             <Route path="/student/customize" element={<GetSendStudentCustomFields  organizationId={organizationId}  studentId={studentId} />} />
                 
             {/* <Route path="/admin" element={<Admin />} />

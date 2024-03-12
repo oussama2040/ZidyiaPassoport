@@ -8,7 +8,7 @@ import { MdVerified } from "react-icons/md";
 import { CgTranscript } from "react-icons/cg";
 import { MdOutlineContactSupport } from "react-icons/md";
 
-import ZidyiaLogo from './ZidyiaLogo';
+import ZidyiaLogo from './ZidyiaLogo.js';
 
 
 function SideBarStudent() {

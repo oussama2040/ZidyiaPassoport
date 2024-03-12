@@ -118,11 +118,40 @@
 /* suubscriber creation component */
 .SubscriberCreationContainer {
     width: 70%;
+    display: block;
     height: 90vh;
+    overflow-y: auto;
     margin: 20px 50px 0 0;
     background-color: #576371;
     border-radius: 20px;
     padding: 50px 65px;
+}
+
+
+.SubscriberCreationContainer::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+.SubscriberCreationContainer::-webkit-scrollbar-track {
+    background: none;
+}
+
+
+.SubscriberCreationContainer::-webkit-scrollbar-thumb {
+    background: #384450; 
+    border-radius: 5px; 
+
+}
+.SubscriberCreationContainer::-webkit-scrollbar-thumb:hover {
+    background: #888888; 
+}
+
+
+
+.SubscriberCreationContainer table {
+    margin: auto;
+    width: 100%;
 }
 
 .SubscriberCreationContainer h2 {
@@ -208,4 +237,20 @@
 }   
 .popupInner p {
     margin-top: 10px;
+}
+
+.subsSuccess {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: fit-content;
+    padding: 0 20px;
+    height: 150px;
+    background-color:#5dd3b3df;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+    color: #111010bd;
+    font-size: 20px;
+    line-height: 150px;
+    text-align: center;
 }

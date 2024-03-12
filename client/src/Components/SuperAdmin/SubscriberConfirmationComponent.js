@@ -7,6 +7,7 @@ const SubscriberConfirmation = () => {
     const [subscriptionRequests, setSubscriptionRequests] = useState([]);
     const [selectedRequest, setSelectedRequest] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -26,11 +27,33 @@ const SubscriberConfirmation = () => {
         setShowPopup(true);
     }
 
-    const handleConfirmPopup = () => {
 
+
+    const handleConfirmPopup = async () => {
         console.log('Confirmed:', selectedRequest);
-        setSelectedRequest(null);
-    }
+        console.log("id:", selectedRequest.id);
+
+        try {
+            const response = await axios.post('http://localhost:5000/superadmin/subscriptions', {
+                subscriptionRequestId: selectedRequest.id
+            });
+
+            console.log('Subscription Confirmed:', response.data);
+            setSelectedRequest(null);
+            setShowPopup(false);
+            setSuccessMessage(`Subscription for ${selectedRequest.subscriber_name} created successfully.`);
+            setTimeout(() => {
+                setSuccessMessage("");
+            }, 3000);
+            setSubscriptionRequests(prevRequests =>
+                prevRequests.filter(request => request.id !== selectedRequest.id)
+            );
+        } catch (error) {
+            console.error('Error occurred while making POST request:', error);
+        }
+    };
+
+
 
     const handleCancelPopup = () => {
         setSelectedRequest(null);
@@ -39,6 +62,7 @@ const SubscriberConfirmation = () => {
 
     return (
         <div className={styles.SubscriberCreationContainer}>
+            {successMessage && <div className={styles.subsSuccess}>{successMessage}</div>}
             <h2>Subscription Requests</h2>
             <table>
                 <thead>
@@ -77,7 +101,9 @@ const SubscriberConfirmation = () => {
                                 onCancel={handleCancelPopup}
                             />
                         )}
+
                     </div>
+
 
                 </div>
             )}
