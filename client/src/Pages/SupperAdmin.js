@@ -4,6 +4,7 @@ import NavBarSupperAdmin from '../Components/NavBarAdmin/NavBarSupperAdmin';
 import AnalyticsComponent from '../Components/SuperAdmin/AnalyticsComponent';
 import AnalyticsComponentPerc from '../Components/SuperAdmin/AnalyticsComponentPerc';
 import TenantCreationContainer from '../Components/SuperAdmin/TenantCreationComponent';
+import VerifierCreationContainer from '../Components/SuperAdmin/VerifierCreationComponent';
 import SubscriberConfirmation from '../Components/SuperAdmin/SubscriberConfirmationComponent';
 
 function SupperAdmin() {
@@ -22,7 +23,7 @@ function SupperAdmin() {
   return (
     <div>
       <NavBarSupperAdmin />
-      <div style={{ display: 'flex', flexDirection: 'row'}}>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
         <SideBarSupperAdmin activeTab={activeTab} handleTabClick={handleTabClick} />
         {activeTab === 'Analytics' && (
           <>
@@ -31,7 +32,8 @@ function SupperAdmin() {
           </>
         )}
         {activeTab === 'Create Tenant' && <TenantCreationContainer />}
-        {activeTab === 'Create Verifier' && <SubscriberConfirmation />}
+        {activeTab === 'Subscription Requests' && <SubscriberConfirmation />}
+        {activeTab === 'Create Verifier' && <VerifierCreationContainer />}
         {activeTab === 'Students Account' && <p>student</p>}
       </div>
     </div>

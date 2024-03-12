@@ -254,3 +254,57 @@
     line-height: 150px;
     text-align: center;
 }
+
+
+/* Verifier Creation Component */
+.VerifierCreationContainer {
+    width: 70%;
+    height: 90vh;
+    margin: 20px 50px 0 0;
+    background-color: #576371;
+    border-radius: 20px;
+    padding: 50px 65px;
+}
+
+.VerifierCreationContainer h2 {
+    margin: 30px auto;
+    text-align: center;
+    color: #ffffffd4;
+    font-size: 25px;
+}
+
+
+.VerifierCreationContainer form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 60px auto;
+}
+
+
+
+.VerifierCreationContainer label {
+    color: #ffffff9a;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+.VerifierCreationContainer input {
+    background-color: inherit;
+    border: 1px solid #ffffff71;
+    color: #fff;
+    border-radius: 5px;
+    height: 50px;
+    padding: 0 20px;
+}
+
+
+
+.VerifierCreationContainer button {
+    background-color: #5DD3B3;
+    width: 100px;
+    margin-top: 20px;
+    height: 35px;
+    border-radius: 30px;
+    align-self: flex-end; 
+}

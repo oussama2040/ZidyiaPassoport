@@ -4,6 +4,7 @@ import Nav from './Nav';
 import { GrAnalytics } from "react-icons/gr";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import { IoMdPersonAdd } from "react-icons/io";
+import { GrBusinessService } from "react-icons/gr";
 import { PiStudentBold } from "react-icons/pi";
 import ZidyiaLogo from './ZidyiaLogo';
 import styles from './SideBar.module.css';
@@ -26,6 +27,12 @@ function SideBarSupperAdmin({ activeTab, handleTabClick }) {
           onClick={() => handleTabClick('Create Tenant')}
         />
         <Nav
+          icon={<GrBusinessService />}
+          name="Subscription Requests"
+          active={activeTab === 'Subscription Requests'}
+          onClick={() => handleTabClick('Subscription Requests')}
+        />
+        <Nav
           icon={<IoMdPersonAdd />}
           name="Create Verifier"
           active={activeTab === 'Create Verifier'}
@@ -39,6 +46,7 @@ function SideBarSupperAdmin({ activeTab, handleTabClick }) {
         />
         <ZidyiaLogo />
       </div>
+
     </div>
   );
 }
