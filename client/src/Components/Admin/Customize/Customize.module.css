@@ -1,0 +1,313 @@
+.Customizeflex{
+    display: flex;
+
+}
+
+.Customizeform {
+    width:700px;
+    margin: 25px auto;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #364350;
+  }
+  
+  .CustomizformTitle {
+    width: 368px;
+    height: 20px;
+    margin: 0 172px 20px 0;
+    font-family: 'Core Rhino 45 ', sans-serif;
+    font-weight: bold ;
+    font-size: 20px;
+    color: #fff;
+    
+  }
+  
+  .customizeFieldNametext{
+    font-family: 'Core Rhino 45 ', sans-serif;
+    font-size: 12px;
+    color: #fff;
+    margin-bottom: 5px;
+
+  }
+  .customizeFielddropcheck{
+    font-family: 'Core Rhino 45 ', sans-serif;
+    font-size: 15px;
+    color: #fff;
+    width: 100px;
+    padding: 7px;
+  }
+  .customizeInputtext {
+    background-color: transparent;
+    width: 100%;
+    height: 30px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .customizeInputtext:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  }
+
+.customizeselecttype {
+    width: 100%;
+    padding: 4px; 
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #fff;
+
+  }
+  .customizeselecttypeback {
+  background-color: #1F2731;
+  }
+  
+  .customizeselecttype:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  }
+  
+  .CustomizefieldContainer {
+
+    align-items: center;
+    margin-top: 10px;
+    border-bottom: 2px solid #576371;
+
+  }
+
+
+  
+  .customizeIsOptional {
+    font-family: 'Core Rhino 45 ', sans-serif;
+    font-size: 15px;
+    color: #fff;
+    margin-top: 22px;
+    margin-bottom: 5px;
+  }
+
+  /* -------------drop down , checkboxes , Radio ---------------------- */
+
+  .customizeDropdownOptions,
+  .customizeCheckboxRadioOptions,
+  .customizeCheckboxRadioOptions{
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .customizeDropdownInput,
+  .customizecheckboxInput,
+  .customizeradioInput {
+    padding: 2px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: transparent;
+  }
+  
+  .customizeDropdownInput:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  }
+  
+ 
+  .customizeRemove {
+    width: 100px;
+    height: 30px;
+    background-color: #e74c3c;
+    color: white;
+    padding: 2px;
+    margin-left:160px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+  }
+  .customizeAddOption {
+    width: 100px;
+    height: 30px;
+    background-color: #5DD3B3;
+    color: white;
+    padding: 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+  }
+  
+  .customizeRemove:hover{
+    background-color: #c0392b;
+  }
+
+  
+  .customizeAddOption:hover {
+    background-color: #9be9d4;
+  }
+/* --------------add field , submit bottun --------------------- */
+.Customizebutton{
+    display: flex;
+    justify-content:space-between;
+}
+  .CustomizeAddField,
+  .CustomizeSubmit {
+    width: 150px;
+    background-color: #5DD3B3;
+    color: white;
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 26px;
+    transition: background-color 0.3s;
+  }
+  
+  .CustomizeAddField:hover,
+  .CustomizeSubmit:hover {
+    background-color: #9be9d4;
+  }
+  
+  .CustomizeSubmit {
+    margin-left: 10px;
+  }
+  
+
+
+  .getCustomizeMain{
+    width: 500px;
+    border: 2px solid green;
+  }
+/* ------------file ----------- */
+
+.customizeInputfile {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: transparent;
+  color: #333;
+  cursor: pointer;
+  width: 90%;
+  height: 30px;
+  font-size: 6px;
+  margin-bottom: 10px;
+}
+
+
+.customizeInputfileLabel {
+  font-family: 'Core Rhino 45', sans-serif;
+  font-size: 10px;
+  margin-bottom: 5px;
+
+}
+
+.customizeInputfile:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+  /* ----------Get form customize--------- */
+
+  .CustomizeGetMain{
+    width:330px;
+     margin: 25px auto;
+     margin-right: 60px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #364350;
+  }
+  
+.customizeInputte,
+
+select{
+  padding: 2px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 14px;
+  width: 90%;
+  background-color: transparent;
+  height: 30px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  margin-top: 5px;
+  margin-right: 8px;
+  margin-left: 8px;
+  height: 20px;
+  width: 25px; 
+}
+
+
+/* Styling for checked state */
+input[type="checkbox"]:checked + label::before,
+input[type="radio"]:checked + label::before {
+  content: '\2022';
+  font-size: 20px;
+  color: #007BFF;
+  margin-right: 5px;
+}
+
+.CustomizeDelete{
+  width: 150px;
+  background-color: #5DD3B3;
+  color: white;
+  padding: 10px 15px;
+  margin-top: 50px;
+  cursor: pointer;
+  border-radius: 26px;
+}
+
+.CustomizeDelete:hover{
+ background-color: #9be9d4;
+}
+
+.customizeInputdate {
+  background-color: transparent;
+  color: #fff; /* Set the text color to white */
+  border: 1px solid #ffffff71;
+  border-radius: 10px;
+  height: 30px;
+  padding: 0 20px;
+  width: 90%;
+  margin-bottom: 10px;
+}
+
+.customizeInputdate:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+/* --------drop down -------- */
+.studentcustomizeDropdownOptions{
+  background-color: inherit;
+  border: 1px solid #ffffff71;
+  color: #fff;
+  border-radius: 10px;
+  height: 30px;
+  padding: 0 20px;
+  width: 90%;
+}
+
+.studentcustomizeDropdownOptionsSelect{
+  background-color:#1F2731;
+  color: #ccc;
+}
+.studentcustomizeDropdownOptions:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}

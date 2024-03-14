@@ -1,18 +1,15 @@
 import React from 'react';
-import Certificate from '../Components/certificatebuilder';
-import SideBarStudent from '../Components/SideBar/SideBarStudent';
+import Navbar from '../Components/Home/navbar';
+import Coverphoto from '../Components/Home/coverphoto'
 
-
-function Home() {
+const Home = () => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' ,backgroundColor:'#384450'}}>
-      <SideBarStudent />  
-      <Certificate/>
+    <div>
+        <Navbar/>
+        <Coverphoto/>
+      
     </div>
   )
 }
 
-export default Home
-
-
- 
+export default Home;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Certificate from '../Components/certificate/certificate';
+import Certificate from '../Components/Certificate/Viewcertificate';
 import SideBarStudent from '../Components/SideBar/SideBarStudent';
 import NavBarSupperAdmin from '../Components/NavBarAdmin/NavBarStudent'
 

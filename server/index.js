@@ -17,6 +17,7 @@ import scanqr from "./routes/scanqr.js";
 import anonymous from "./routes/anonymousRoute.js"
 import certificateRoute from "./routes/certificateRoute.js";
 import studentRoutes from "./routes/studentRoute.js";
+import customizeRoute from './routes/customizeRoute.js';
 
 // import authorroute from "./routes/authRoute.js";
 
@@ -28,7 +29,7 @@ app.use(
   cors({
     origin: ['http://localhost:3000'],
     origin: ['http://localhost:3000'],
-    methods: [],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: ['Content-Type', 'Authorization'], 
     credentials: true, 
   })
@@ -71,6 +72,7 @@ app.use("/subscriber", scanqr);
 // app.use(accesstoken);
 app.use('/students', studentRoutes);
 app.use('/admin', certificateRoute);
+app.use(customizeRoute);
 app.use('/', anonymous);
 
 

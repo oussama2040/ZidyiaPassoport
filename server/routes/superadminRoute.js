@@ -1,11 +1,12 @@
 import express from 'express';
-import { getUsersCount, getTenantsCount, getSubscribersCount, getIssuedCertificatesCount, countPendingDocs, countApprovedDocs, countRejectedDocs, createTenant, getSubscribersRequest, CreateSubscriber } from '../controllers/superadminController.js';
+import { getUsersCount, getTenantsCount, getSubscribersCount, getIssuedCertificatesCount, countPendingDocs, countApprovedDocs, countRejectedDocs, createTenant, getSubscribersRequest, CreateSubscriber, CreateVerifier } from '../controllers/superadminController.js';
 
 const router = express.Router();
 
 
 router.post('/superadmin/create-tenant', createTenant);
 router.post('/superadmin/subscriptions', CreateSubscriber);
+router.post('/superadmin/create-subscriber', CreateVerifier);
 router.get('/superadmin/students-count', getUsersCount);
 router.get('/superadmin/tenants-count', getTenantsCount);
 router.get('/superadmin/subscribers-count', getSubscribersCount);

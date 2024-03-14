@@ -8,7 +8,7 @@ import { BiCustomize } from "react-icons/bi";
 import { IoGitPullRequestSharp } from "react-icons/io5";
 import { TbFileCertificate } from "react-icons/tb";
 import { LiaCertificateSolid } from "react-icons/lia";
-import ZidyiaLogo from './ZidyiaLogo';
+import ZidyiaLogo from './ZidyiaLogo.js';
 
 
 
@@ -21,20 +21,21 @@ function SideBarAdmin() {
         <Link to="/admin/analytics">
           <Nav icon={<GrAnalytics />} name="Analytics" />
         </Link>
-        <Link to ="/admin/customize">
-        <Nav icon={< BiCustomize  />} name="Field Customize" />
+        <Link to="/admin/customize">
+          <Nav icon={< BiCustomize />} name="Field Customize" />
         </Link>
-        <Link to ="/admin/reqcustomize">
-        <Nav icon={< BiCustomize  />} name="Request Customize" />
+        <Link to="/admin/reqcustomize">
+          <Nav icon={< BiCustomize />} name="Request Customize" />
         </Link>
-        <Nav icon={< IoGitPullRequestSharp  />} name="Certificate Request" />
-        <Nav icon={< TbFileCertificate  />} name="Certificate Uploaded" />
-        <Nav icon={< LiaCertificateSolid  />} name="Issue Certificates" />
+        <Nav icon={< IoGitPullRequestSharp />} name="Certificate Request" />
+        <Nav icon={< TbFileCertificate />} name="Certificate Uploaded" />
+        <Nav icon={< LiaCertificateSolid />} name="Issue Certificates" />
 
-        <ZidyiaLogo />
 
-        
+
+
       </div>
+      <ZidyiaLogo />
     </div>
   );
 }

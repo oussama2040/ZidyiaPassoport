@@ -1,0 +1,129 @@
+.coverContainer{
+    width: 100%;
+    height: 550px;
+    background-color: #EEEEEE;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+.covercaption{
+    display: flex;
+    flex: 0.5;
+    flex-direction: column;
+   justify-content: center;
+   /* border: 1px solid red; */
+   margin: 0 10px;
+   position: relative;
+
+    
+   
+}
+.captiontitle{
+    font-size: 50px;
+    font-weight: 500;
+    color:#333;
+    z-index: 3;
+
+}
+.greenpart{
+    color: #5DD3B3;
+}
+.captionheader{
+    font-size: 35px;
+    font-weight: 500;
+    color: #333;
+    z-index: 3;
+
+}
+.captionpara{
+    font-size: 20px;
+    font-weight: 300;
+    color: #333;
+    
+}
+.coverpic{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 0.5;
+    margin-top: -30px;
+    /* border: 1px solid red; */
+}
+.firstcertificate{
+    height: 180px;
+    width: 250px;
+    border-radius: 20px;
+    background-color: #D9D9D9;
+    margin: auto;
+    margin-right: 100px;
+    margin-top: 120px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.secondcertificate{
+    height: 180px;
+    width: 250px;
+    border-radius: 20px;
+    background-color: #D9D9D9;
+    margin: auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    margin-left: 190px;
+    margin-top: -190px;
+
+    }
+.certimage{
+    height: 180px;
+    width: 250px;
+    margin: auto;
+    padding: 10px;
+  
+}
+.certimage img {
+    width: 100%;
+    height: 100%;
+}    
+
+
+.designContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+.rotatedImage {
+    position: absolute;
+    top: -50%; 
+    z-index: 2;
+    left: -10%; 
+    width:60%; 
+    height: auto;
+    transform: rotate(-70deg);
+    opacity: 0.5; 
+    overflow: visible;
+   
+    
+  }
+  .notes {
+    width: 300px;
+    height: 100px;
+    background-color: #5dd3b3;
+     background-image: linear-gradient(to right, #5dd3b3, #eeeeee); 
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    position: absolute; /* Set position to absolute */
+    top: 64%; /* Adjust top position */
+    left: 88%; /* Adjust left position */
+    transform: translate(-50%, -50%); /* Center the element horizontally and vertically */
+  }
+  .items{
+    margin: auto;
+    margin: 15px 10px;
+    color: #333;
+    font-weight: 500;
+  }
+  

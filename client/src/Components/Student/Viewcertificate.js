@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './certificate.css';
+import styles from './Viewcertificate.css';
 import { IoIosArrowBack } from "react-icons/io";
 import { certificate as certificateData } from './data';
 import { Link } from 'react-router-dom';
