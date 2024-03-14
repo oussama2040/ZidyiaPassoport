@@ -31,9 +31,6 @@ function SideBarAdmin() {
         <Nav icon={< TbFileCertificate />} name="Certificate Uploaded" />
         <Nav icon={< LiaCertificateSolid />} name="Issue Certificates" />
 
-
-
-
       </div>
       <ZidyiaLogo />
     </div>
