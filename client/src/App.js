@@ -31,7 +31,7 @@ export default function App() {
             <Route path="/admin" element={<Admin />} />
             <Route path="/Superadmin" element={<SupperAdmin />} />
             <Route path="/admin/customize" element={<SendAdmincustomize organizationId={organizationId} />} />
-            <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled />} />
+            <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled  organizationId={organizationId}/>} />
             <Route path="/admin/customizecertificate" element={<CustomizeCertificate />} />
             <Route path="/student/customize" element={<GetSendStudentCustomFields  organizationId={organizationId}  studentId={studentId} />} />
                 
