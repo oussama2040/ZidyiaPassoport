@@ -27,7 +27,10 @@ function SideBarAdmin() {
         <Link to="/admin/reqcustomize">
           <Nav icon={< BiCustomize />} name="Request Customize" />
         </Link>
+        <Link to="/admin/reqcertificate">
         <Nav icon={< IoGitPullRequestSharp />} name="Certificate Request" />
+        </Link>
+        
         <Nav icon={< TbFileCertificate />} name="Certificate Uploaded" />
         <Nav icon={< LiaCertificateSolid />} name="Issue Certificates" />
 
