@@ -4,7 +4,7 @@
     width: 55%;
     height: fit-content;
     margin: 20px 50px 0 0;
-    background-color: #576371;
+    background-color: #384450;
     border-radius: 20px;
     padding: 50px 65px;
     grid-gap: 50px; 
@@ -37,7 +37,7 @@
 
 .analyticsContainerPerc {
     width: 20%;
-    background-color: #576371;
+    background-color: #384450;
     height: fit-content;
     margin: 20px 50px 0 0;
     border-radius: 20px;
@@ -56,7 +56,7 @@
     width: 70%;
     height: 90vh;
     margin: 20px 50px 0 0;
-    background-color: #576371;
+    background-color: #384450;
     border-radius: 20px;
     padding: 50px 65px;
 }
@@ -118,11 +118,40 @@
 /* suubscriber creation component */
 .SubscriberCreationContainer {
     width: 70%;
+    display: block;
     height: 90vh;
+    overflow-y: auto;
     margin: 20px 50px 0 0;
-    background-color: #576371;
+    background-color: #384450;
     border-radius: 20px;
     padding: 50px 65px;
+}
+
+
+.SubscriberCreationContainer::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+.SubscriberCreationContainer::-webkit-scrollbar-track {
+    background: none;
+}
+
+
+.SubscriberCreationContainer::-webkit-scrollbar-thumb {
+    background: #384450; 
+    border-radius: 5px; 
+
+}
+.SubscriberCreationContainer::-webkit-scrollbar-thumb:hover {
+    background: #888888; 
+}
+
+
+
+.SubscriberCreationContainer table {
+    margin: auto;
+    width: 100%;
 }
 
 .SubscriberCreationContainer h2 {
@@ -190,7 +219,7 @@
     align-items: center;
     justify-content: center;
     padding: 50px;
-    background-color: #576371;
+    background-color: #384450;
     width: 700px;
     height: 500px;
     left: 50%;
@@ -208,4 +237,74 @@
 }   
 .popupInner p {
     margin-top: 10px;
+}
+
+.subsSuccess {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: fit-content;
+    padding: 0 20px;
+    height: 150px;
+    background-color:#5dd3b3df;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+    color: #111010bd;
+    font-size: 20px;
+    line-height: 150px;
+    text-align: center;
+}
+
+
+/* Verifier Creation Component */
+.VerifierCreationContainer {
+    width: 70%;
+    height: 90vh;
+    margin: 20px 50px 0 0;
+    background-color: #384450;
+    border-radius: 20px;
+    padding: 50px 65px;
+}
+
+.VerifierCreationContainer h2 {
+    margin: 30px auto;
+    text-align: center;
+    color: #ffffffd4;
+    font-size: 25px;
+}
+
+
+.VerifierCreationContainer form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 60px auto;
+}
+
+
+
+.VerifierCreationContainer label {
+    color: #ffffff9a;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+.VerifierCreationContainer input {
+    background-color: inherit;
+    border: 1px solid #ffffff71;
+    color: #fff;
+    border-radius: 5px;
+    height: 50px;
+    padding: 0 20px;
+}
+
+
+
+.VerifierCreationContainer button {
+    background-color: #5DD3B3;
+    width: 100px;
+    margin-top: 20px;
+    height: 35px;
+    border-radius: 30px;
+    align-self: flex-end; 
 }

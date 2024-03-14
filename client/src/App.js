@@ -22,6 +22,7 @@ import Home from "./Pages/Home.js";
 import SupperAdmin from "./Pages/SupperAdmin.js";
 import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.js";
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
+import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
 import CustomizeCertificate from "./Pages/customizeCertificate.js";
 
 export default function App() {
@@ -55,6 +56,11 @@ export default function App() {
             <Route path="/superAdmin/forgetpassword" element={<SuperAdminForgetPass />} />
             <Route path="/superAdmin/resetpass" element={<SuperAdminResetPass />} />        
 
+            <Route path="/admin/customize" element={<SendAdmincustomize organizationId={organizationId} />} />
+            <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled  organizationId={organizationId}/>} />
+            <Route path="/admin/customizecertificate" element={<CustomizeCertificate />} />
+            <Route path="/student/customize" element={<GetSendStudentCustomFields  organizationId={organizationId}  studentId={studentId} />} />
+                
             {/* <Route path="/admin" element={<Admin />} />
                   <Route path="/login" element={<Login />} />                                        
                   <Route path="/login" element={<Login />} />                

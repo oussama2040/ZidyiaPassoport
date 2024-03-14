@@ -1,14 +1,15 @@
-
-
+.NavActive {
+    background-color: #f0f0f0; /* Background color for active sidebar item */
+  }
+  
 .SideBarMain{
     width: 240px;
     height: 90vh;
     margin: 20px 50px 0 0;
     padding: 20px 0px 0 0px;
-    background-color: #576371;
+    background-color: #384450;
     border-top-right-radius:26px ;
     border-bottom-right-radius:26px ;
-    
     
 }
 
@@ -66,7 +67,8 @@
 }
 
 .ZidyiaPassportLogo{
-    margin-top: 30vh;
+    position: absolute;
+    bottom: 0%;
 }
 
 .ZidyiaPassportLogo img{
@@ -74,6 +76,7 @@
     height: 66px;
     object-fit: contain;
     margin-left: 30px;
+    margin-bottom: 100px;
 }
 
 

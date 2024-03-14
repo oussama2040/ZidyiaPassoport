@@ -90,13 +90,13 @@ function SendAdmincustomize({organizationId}) {
                className={styles.customizeselecttype}
                 value={field.fieldType || ''}
                 onChange={(e) => handleFieldChange(index, 'fieldType', e.target.value)}
-              > <option>choose Type</option>
-                <option value="text">Text</option>
-                <option value="date">Date</option>
-                <option value="file">File</option>
-                <option value="radio">Radio</option>
-                <option value="dropdown">Dropdown</option>
-                <option value="checkbox">Checkbox</option>
+              > <option className={styles.customizeselecttypeback}>choose Type</option>
+                <option className={styles.customizeselecttypeback}value="text">Text</option>
+                <option className={styles.customizeselecttypeback} value="date">Date</option>
+                <option className={styles.customizeselecttypeback} value="file">File</option>
+                <option className={styles.customizeselecttypeback} value="radio">Radio</option>
+                <option className={styles.customizeselecttypeback} value="dropdown">Dropdown</option>
+                <option className={styles.customizeselecttypeback} value="checkbox">Checkbox</option>
               </select>
             </label>
             <label className={styles.customizeIsOptional}>
