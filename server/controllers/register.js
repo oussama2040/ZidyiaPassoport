@@ -4,7 +4,7 @@ import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken'; 
 import nodemailer from 'nodemailer';
 import connection from '../config/connection.js';
-import { uploadImage } from './imageuploadcontroller.js';
+import { uploadImage, uploadMultipleImages } from './imageuploadcontroller.js';
 
 
 //====================================================================================================================
@@ -43,13 +43,14 @@ function sendVerificationEmail(email, verificationToken) {
 // ==============================================================================================================
 // register user
 const registerstudent = async (req, res) => {
-    let ID = await uploadImage(req.file.buffer);
-    const { first_name, last_name, email, password, mobile_number} = req.body;
-    console.log(ID)
+    const multiimages = req.files ? req.files.map((file) => file.buffer) : [];
+    const ID = await uploadMultipleImages(multiimages);
+    const { first_name, last_name, email, password, mobile,academic_id} = req.body;
+    console.log('ID:',ID)
 
     try {
         // Check if all required fields are provided
-        if (!first_name || !last_name || !email || !password || !mobile_number || !ID) {
+        if (!first_name || !last_name || !email || !password || !mobile || !academic_id || !ID) {
             res.status(400).json({ message: 'All fields are mandatory' });
             return;
         }
@@ -80,8 +81,8 @@ const registerstudent = async (req, res) => {
             
                 // Update the verification token and all user data in the database
                 await connection.promise().execute(
-                    'UPDATE student SET first_name = ?, last_name = ?, password = ?, mobile= ?, token = ?,ID=? ?WHERE email = ?', 
-                    [first_name, last_name, hashedPassword, mobile_number, newVerificationToken, ID, email]
+                    'UPDATE student SET first_name = ?, last_name = ?, password = ?, mobile= ?, academic_id= ?,  token = ?,ID=? ?WHERE email = ?', 
+                    [first_name, last_name, hashedPassword, mobile,academic_id, newVerificationToken, ID, email]
                 );
             
                 // Send the verification email with the new token
@@ -104,8 +105,8 @@ const registerstudent = async (req, res) => {
         const verificationToken = jwt.sign({ email }, process.env.EMAIL_VERIFICATION_SECRET, { expiresIn: '1d' });
         // Insert the user data into the database using prepared statements
         const [result] = await connection.promise().execute(
-            'INSERT INTO student (first_name, last_name, email, password, mobile,token,ID) VALUES (?,?, ?, ?, ?,?, ?)',
-            [first_name, last_name, email, hashedPassword, mobile_number,verificationToken,ID]
+            'INSERT INTO student (first_name, last_name, email, password, mobile,academic_id,token,ID) VALUES (?,?, ?, ?, ?,?, ?,?)',
+            [first_name, last_name, email, hashedPassword, mobile,academic_id,verificationToken,ID]
         );
 
         // Send verification email and respond with success

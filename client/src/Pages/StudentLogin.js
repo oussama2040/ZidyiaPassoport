@@ -3,7 +3,7 @@ import LoginComponent from '../Components/loginSign/loginComponent';
 const Login = () => {
   return (
     <div>
-    <LoginComponent />
+    <LoginComponent apiUrl="http://localhost:5000/student/login" userRole="student" />
     </div>
   )
 }
