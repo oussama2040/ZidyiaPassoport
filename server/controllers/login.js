@@ -77,9 +77,11 @@ const loginTenent = asyncHandler(async (req, res) => {
 
     // Check if the user exists
     if (tenantrow.length > 0) {
-        const tenent = tenantrow[0]; // Assuming there's only one user per email        
+        const tenent = tenantrow[0]; // Assuming there's only one user per email  
+        // Verify password
+        const passwordMatch = await bcrypt.compare(password, tenent.password); // comparing plaintext password with hashed password     
 
-        if (password == tenent.password) {
+        if (passwordMatch) {
             // Generate access token and refresh token for the student
             const accessToken = jwt.sign({
                 tenent: {
@@ -107,6 +109,7 @@ const loginTenent = asyncHandler(async (req, res) => {
                     adminemail: tenent.admin_email,
                     tenentname:tenent.name,
                     tenentlocation:tenent.location,
+                    firstPassUpdate:tenent.firstPassUpdate
                 },
                 success: true,
                 message: "Login successful!"
@@ -136,7 +139,9 @@ const loginSubscriber = asyncHandler(async (req, res) => {
     if (subscriberrow.length > 0) {
         const subscriber = subscriberrow[0]; // Assuming there's only one user per email
         
-        if (password == subscriber.password) {
+        // Verify password
+        const passwordMatch = await bcrypt.compare(password, subscriber.password); // comparing plaintext password with hashed password     
+        if (passwordMatch) {
             const expiryDate = new Date(subscriber.expiry_date);
             const currentDate = new Date();
 
@@ -150,7 +155,7 @@ const loginSubscriber = asyncHandler(async (req, res) => {
                 const accessToken = jwt.sign({
                     subscriber: {
                         subscriberid:subscriber.subscriber_id,
-                        email: subscriber.admin_email,
+                        adminemail: subscriber.admin_email,
                         subscribername:subscriber.name,
                         subscriberlocation:subscriber.location,
                         expiry_date:subscriber.expiry_date
@@ -160,7 +165,7 @@ const loginSubscriber = asyncHandler(async (req, res) => {
                 const refreshToken = jwt.sign({
                     subscriber: {
                         subscriberid:subscriber.subscriber_id,
-                        email: subscriber.admin_email,
+                        adminemail: subscriber.admin_email,
                         subscribername:subscriber.name,
                         subscriberlocation:subscriber.location,
                         expiry_date:subscriber.expiry_date
@@ -173,10 +178,11 @@ const loginSubscriber = asyncHandler(async (req, res) => {
                         accessToken: accessToken,
                         refreshToken: refreshToken,
                         subscriberid:subscriber.subscriber_id,
-                        email: subscriber.admin_email,
+                        adminemail: subscriber.admin_email,
                         subscribername:subscriber.name,
                         subscriberlocation:subscriber.location,
-                        expiry_date:subscriber.expiry_date
+                        expiry_date:subscriber.expiry_date,
+                        firstPassUpdate:subscriber.firstPassUpdate
                     },
                     success: true,
                     message: "Login successful!"
@@ -207,9 +213,12 @@ const loginSuperAdmin = asyncHandler(async (req, res) => {
 
     // Check if the user exists
     if (SuperAdminrow.length > 0) {
-        const SuperAdmin = SuperAdminrow[0]; // Assuming there's only one user per email        
+        const SuperAdmin = SuperAdminrow[0]; // Assuming there's only one user per email 
+        
+        // Verify password
+        const passwordMatch = await bcrypt.compare(password, SuperAdmin.password); // comparing plaintext password with hashed password     
 
-        if (password == SuperAdmin.password) {
+        if (passwordMatch) {
             // Generate access token and refresh token for the student
             const accessToken = jwt.sign({
                 SuperAdmin: {

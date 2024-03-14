@@ -19,7 +19,7 @@ function LoginComponent({ apiUrl, userRole }) {
     try {
       const response = await axios.post(apiUrl, formData);
       const { [userRole]: userData, success, message } = response.data;
-      const { accessToken, refreshToken } = userData;
+      const { accessToken, refreshToken, adminemail, firstPassUpdate } = userData;
 
       //const accessToken = SuperAdmin.accessToken
       //const refreshToken = SuperAdmin.refreshToken
@@ -48,23 +48,41 @@ function LoginComponent({ apiUrl, userRole }) {
         // Login was successful
         console.log('Login successful!');
         console.log(`${userRole}:`, userRole); // User data
+        console.log(firstPassUpdate); // User data
        
-          // Redirect to student page if login is successful
-          navigate('/#');
-
-      } else {
-        // Handle other cases, such as incorrect credentials
-        setError(response.data.message);
+          // if the user is a student redirect to student page when login successful, if the user is a super admin redirect to super admin page
+          //if the user is a subscriber or a tenent redirect to update password page, and send the email of the user in the url
+         // Redirect based on user role
+          if (userRole === 'student') {
+            // Redirect to student page
+            navigate('/student/customize');
+            } else if (userRole === 'SuperAdmin') {
+                // Redirect to super admin page
+                navigate('/superadmin');
+            } else {
+                // Check firstPassUpdate
+                if (firstPassUpdate == 1) {
+                  if(userRole === 'tenent'){
+                    navigate(`/admin/customize`);
+                  }else{
+                     // If firstPassUpdate is 1, navigate to ${userRole} page
+                     navigate(`/${userRole}`);
+                  } 
+                } else {
+                    // If firstPassUpdate is 0, navigate to update password page with email in the URL
+                    navigate(`/${userRole}/updatepassword?email=${adminemail}`);
+                }
+            }
+          } else {
+            setError(message);
+          }
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          alert('Email or password incorrect, please try again!!');
+        } else {
+          setError('An error occurred. Please try again.');
+        }
       }
-    } catch (error) {
-      // Handle errors
-      if (error.response && error.response.status === 401) {
-        alert('Email or password incorrect,please try again!!');
-
-      } else {
-        setError('An error occurred. Please try again.'); // Handle generic errors
-      }
-    }
 
   };
   // console.log('Form ', formData);
