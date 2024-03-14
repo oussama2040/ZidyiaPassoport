@@ -24,6 +24,7 @@ import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
 import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
 import CustomizeCertificate from "./Pages/customizeCertificate.js";
+import AdminCertificateReq from "./Components/Admin/CertificateReq/AdminCertificateReq.js";
 
 export default function App() {
   const organizationId = 4;
@@ -33,6 +34,7 @@ export default function App() {
 
   return (
     <div>
+   
       <Router>
         <Routes>
           <>
@@ -59,6 +61,7 @@ export default function App() {
             <Route path="/admin/customize" element={<SendAdmincustomize organizationId={organizationId} />} />
             <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled  organizationId={organizationId}/>} />
             <Route path="/admin/customizecertificate" element={<CustomizeCertificate />} />
+            <Route path="/admin/reqcertificate" element={ <AdminCertificateReq  organizationId={organizationId} /> } />
             <Route path="/student/customize" element={<GetSendStudentCustomFields  organizationId={organizationId}  studentId={studentId} />} />
                 
             {/* <Route path="/admin" element={<Admin />} />
