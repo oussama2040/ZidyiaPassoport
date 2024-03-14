@@ -1,13 +1,12 @@
 import React, { useState, useEffect  } from 'react';
 import styles from './loginSign.module.css';
-import imageecom from '../Assets/ecom.gif';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 
-function ResetPasswordComponent(){
+function ResetPasswordComponent({apiUrl, userRole}){
   
     const navigate = useNavigate();
     const location = useLocation();
@@ -43,8 +42,9 @@ function ResetPasswordComponent(){
         console.log(useremail)
         
         try {
-          const response = await axios.post('http://localhost:5000/author/resetpass', {
-            email: useremail,
+          const urlParams = new URLSearchParams(window.location.search);
+          const token = urlParams.get('token');
+          const response = await axios.post(`${apiUrl}?token=${token}`, {
             password: formData.password,
             verifyPassword: formData.verifyPassword
           });
@@ -54,10 +54,10 @@ function ResetPasswordComponent(){
             // Password reset was successful
             alert(response.data.message); // Display success message to the user
             // Optionally, redirect the user to a different page or perform any other action
-            navigate('/login');
+            navigate(`/${userRole}/login`);
 
           } else {
-            navigate('/resetPassword');
+            navigate(`/${userRole}/resetPassword`);
           }
         } catch (error) {
           console.error('Error submitting form:', error);
@@ -68,7 +68,6 @@ function ResetPasswordComponent(){
   return (
     <div className={styles.backgroudFlex}>
       <div className={styles.rightImage}>
-      <img src={imageecom} alt="App Store" />
       </div>
     
     <div className={`max-w-md mx-auto p-6 ${styles.box}`}>
@@ -110,14 +109,17 @@ function ResetPasswordComponent(){
           Update Password
         </button>
       </form>
-      <div className={styles.haveAccountName}>
-      <h3>You Don't have an account ? </h3>
-
-     <h3> <Link to="/signup" className={styles.loginLink}>
-    Sign up
-     </Link>
-     </h3>
-    </div>
+      {userRole === 'student' && (
+        <div className={styles.haveAccountName}>
+          <h3>You Don't have an account ? </h3>
+          <h3>
+            <Link to="/signup" className={styles.loginLink}>
+              Sign up
+            </Link>
+          </h3>
+        </div>
+      )}
+      
     </div>
     </div>
   );

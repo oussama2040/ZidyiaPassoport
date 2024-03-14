@@ -40,12 +40,11 @@ const loginStudent = asyncHandler(async (req, res) => {
                 }
             }, process.env.STUDENT_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
 
-            // Save the refresh token and the access token in a secure cookie
-            res.cookie('accessToken', accessToken, { httpOnly: true, secure: true});
-            res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true, maxAge: 7 * 24 * 60 * 60 * 1000 }); // 7 days in milliseconds
 
             res.status(200).json({
                 student: {
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
                     first_name: student.first_name,
                     last_name: student.last_name,
                     email: student.email,
@@ -78,13 +77,9 @@ const loginTenent = asyncHandler(async (req, res) => {
 
     // Check if the user exists
     if (tenantrow.length > 0) {
-        const tenent = tenantrow[0]; // Assuming there's only one user per email
+        const tenent = tenantrow[0]; // Assuming there's only one user per email        
 
-        // Verify password and status
-        const passwordMatch = await bcrypt.compare(password, tenent.password); // comparing plaintext password with hashed password
-        
-
-        if (passwordMatch) {
+        if (password == tenent.password) {
             // Generate access token and refresh token for the student
             const accessToken = jwt.sign({
                 tenent: {
@@ -104,12 +99,10 @@ const loginTenent = asyncHandler(async (req, res) => {
                 }
             }, process.env.TENENT_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
 
-            // Save the refresh token and the access token in a secure cookie
-            res.cookie('TenentaccessToken', accessToken, { httpOnly: true, secure: true});
-            res.cookie('TenentrefreshToken', refreshToken, { httpOnly: true, secure: true, maxAge: 7 * 24 * 60 * 60 * 1000 }); // 7 days in milliseconds
-
             res.status(200).json({
                 tenent: {
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
                     tenentid:tenent.organization_id,
                     adminemail: tenent.admin_email,
                     tenentname:tenent.name,
@@ -142,11 +135,8 @@ const loginSubscriber = asyncHandler(async (req, res) => {
     // Check if the user exists
     if (subscriberrow.length > 0) {
         const subscriber = subscriberrow[0]; // Assuming there's only one user per email
-
-        // Verify password
-        const passwordMatch = await bcrypt.compare(password, subscriber.password); // comparing plaintext password with hashed password
         
-        if (passwordMatch) {
+        if (password == subscriber.password) {
             const expiryDate = new Date(subscriber.expiry_date);
             const currentDate = new Date();
 
@@ -177,13 +167,11 @@ const loginSubscriber = asyncHandler(async (req, res) => {
                     }
                 }, process.env.SUBSCRIBER_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
     
-                // Save the refresh token and the access token in a secure cookie
-                res.cookie('subscriberaccessToken', accessToken, { httpOnly: true, secure: true});
-                res.cookie('subscriberrefreshToken', refreshToken, { httpOnly: true, secure: true, maxAge: 7 * 24 * 60 * 60 * 1000 }); // 7 days in milliseconds
-    
                 // Expiry date is valid, user can log in
                 res.status(200).json({
                     subscriber: {
+                        accessToken: accessToken,
+                        refreshToken: refreshToken,
                         subscriberid:subscriber.subscriber_id,
                         email: subscriber.admin_email,
                         subscribername:subscriber.name,
@@ -206,3 +194,54 @@ const loginSubscriber = asyncHandler(async (req, res) => {
     }
 });
 export {loginSubscriber};
+
+//-----------------------------------------------------------------------------------------
+//Tenant login 
+const loginSuperAdmin = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+        res.status(400);
+        throw new Error("All fields are mandatory!");
+    }
+    const [SuperAdminrow] = await connection.promise().execute('SELECT * FROM superadmin WHERE email = ? ', [email]);
+
+    // Check if the user exists
+    if (SuperAdminrow.length > 0) {
+        const SuperAdmin = SuperAdminrow[0]; // Assuming there's only one user per email        
+
+        if (password == SuperAdmin.password) {
+            // Generate access token and refresh token for the student
+            const accessToken = jwt.sign({
+                SuperAdmin: {
+                    SuperAdminid:SuperAdmin.superadmin_id,
+                    adminemail: SuperAdmin.email,
+                }
+            }, process.env.SUPERADMIN_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
+
+            const refreshToken = jwt.sign({
+                SuperAdmin: {
+                    SuperAdminid:SuperAdmin.superadmin_id,
+                    adminemail: SuperAdmin.email,
+                }
+            }, process.env.SUPERADMIN_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
+
+            res.status(200).json({
+                SuperAdmin: {
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
+                    SuperAdminid:SuperAdmin.superadmin_id,
+                    adminemail: SuperAdmin.email,
+                },
+                success: true,
+                message: "Login successful!"
+            });
+        } else {
+            res.status(401);
+            throw new Error("Email or password is not valid!");
+        }
+    } else {
+        res.status(401);
+        throw new Error("super Admin not found!");
+    }
+});
+export {loginSuperAdmin};
