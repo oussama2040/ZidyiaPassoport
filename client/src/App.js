@@ -12,8 +12,10 @@ import ForgetPass from "./Pages/StudentForgetPass.js";
 import ResetPass from "./Pages/StudentResetPass.js";
 import SubscriberForgetPass from "./Pages/SubscriberForgetPass.js";
 import SubscriberResetPass from "./Pages/SubscriberResetPass.js";
+import SubscriberUpdatePass from "./Pages/SubscriberUpdatePass.js";
 import TenentForgetPass from "./Pages/TenentForgetPass.js";
 import TenentResetPass from "./Pages/TenentResetPass.js";
+import TenentUpdatePass from "./Pages/TenentUpdatePass.js";
 import SuperAdminForgetPass from "./Pages/SuperAdminForgetPass.js";
 import SuperAdminResetPass from "./Pages/SuperAdminResetPass.js";
 // import NotFound from "./Pages/NotFound.js";
@@ -50,10 +52,12 @@ export default function App() {
             <Route path="/student/resetpass" element={<ResetPass />} /> 
             <Route path="/tenent/login" element={<TenentLogin />} />
             <Route path="/tenent/forgetpassword" element={<TenentForgetPass />} />
-            <Route path="/tenent/resetpass" element={<TenentResetPass />} />   
+            <Route path="/tenent/resetpass" element={<TenentResetPass />} /> 
+            <Route path="/tenent/updatepassword" element={<TenentUpdatePass />} />   
             <Route path="/subscriber/login" element={<SubscriberLogin />} />
             <Route path="/subscriber/forgetpassword" element={<SubscriberForgetPass />} />
-            <Route path="/subscriber/resetpass" element={<SubscriberResetPass />} />    
+            <Route path="/subscriber/resetpass" element={<SubscriberResetPass />} /> 
+            <Route path="/subscriber/updatepassword" element={<SubscriberUpdatePass />} />    
             <Route path="/superAdmin/login" element={<SuperAdminLogin />} />
             <Route path="/superAdmin/forgetpassword" element={<SuperAdminForgetPass />} />
             <Route path="/superAdmin/resetpass" element={<SuperAdminResetPass />} />        
