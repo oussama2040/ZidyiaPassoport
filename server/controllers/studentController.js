@@ -23,7 +23,7 @@ const getAllCertificatesForStudent = async (req, res) => {
                 tenent.name AS organization_name,
                 tenent.location AS organization_location
             FROM
-                certificate cert
+                request_certificate cert
                 JOIN student ON cert.student_id = student.student_id
                 JOIN tenent ON tenent.organization_id = cert.organization_id
             WHERE
@@ -61,9 +61,9 @@ const getVerifiedCertificatesForStudent = async (req, res) => {
             tenent.name AS organization_name,
             tenent.location AS organization_location
         FROM
-            certificate cert
+            request_certificate cert
             JOIN student ON cert.student_id = student.student_id
-            LEFT JOIN certificateverification verification ON cert.certificate_id = verification.certificate_id
+            LEFT JOIN certificateverification verification ON cert.request_id = verification.certificate_id
             JOIN tenent ON tenent.organization_id = cert.organization_id
         WHERE
             cert.status = 'verified' AND cert.student_id = ?
@@ -103,7 +103,7 @@ const shareCertificate = async (req, res) => {
         // Check if the certificate exists, is verified, student_id
         const [certificate] = await connection
             .promise()
-            .query('SELECT * FROM certificate WHERE certificate_id = ? AND status = "verified" AND student_id = ?', [certificateId, studentId]);
+            .query('SELECT * FROM request_certificate WHERE request_id = ? AND status = "verified" AND student_id = ?', [certificateId, studentId]);
 
 
         res.status(200).json({ message: 'Certificate shared successfully.' });
@@ -231,7 +231,7 @@ const addRequestCertificate = async (req, res) => {
         if (CertificateFile !== undefined) {
             // Insert data into the certificate table
             const [certificateResult] = await connection.promise().execute(
-                `INSERT INTO certificate 
+                `INSERT INTO request_certificate 
             (student_id, organization_id, name, body, issued_date, expiry_date, CertificateFile) 
             VALUES (?, ?, ?, ?, ?, ?, ?)
             `,

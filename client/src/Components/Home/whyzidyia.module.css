@@ -1,0 +1,93 @@
+.whyzidyiacontainer{
+    display: flex;
+flex-direction: column;
+justify-content: center;
+margin-top: 40px;
+width: 100%;
+}
+
+.Cardcontainer {
+    display: flex;
+    margin-top: 40px;
+    padding: 20px 0px;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around; /* Adjust the space between cards */
+  }
+  .whyzidyiatext{
+    font-size: 40px;
+    font-weight: 400;
+    color:#EEEEEE;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    z-index: 2;
+
+}
+.greenpart{
+    color: #5DD3B3;
+}
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Center the content horizontally */
+    width: 270px;
+    height: 270px;
+    border-radius: 20px;
+    /* background-color: #eeeeee; */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Add box shadow for a better look */
+    padding: 20px; /* Add some padding inside the card */
+    margin: 0 10px; /* Add margin between cards */
+  }
+  .icon{
+    font-size: 120px;
+    box-shadow:0px 0px 10px rgba(0, 0, 0, 0.5) ;
+    border-radius: 50%;
+  }
+  .txt{
+    font-size: 18px;
+    font-weight: 400;
+    color: #EEEEEE;
+    margin-top: 30px;
+    opacity: 0.3;
+  }
+  .hrr{
+    opacity: 0.3;
+    margin-top: 20px;
+    width: 150px;
+    margin: 40px auto 0 auto;
+  }
+
+  .Joinzidyia{
+    width: 600px;
+    height: 300px;
+    box-shadow:0px 0px 10px rgba(0, 0, 0, 0.5) ;
+    margin: 50px auto;
+    padding: 20px;
+  }
+  .joinpara{
+    font-size: 20px;
+    color: #EEEEEE;
+    opacity: 0.5;
+    border-radius: 10px;
+    
+    
+  }
+  .inputsub{
+    text-align: center;
+    margin-left: 30%;
+    margin-top: 30px;
+    height: 40px;
+    border-radius: 20px 0 0 20px;
+  }
+  .subbtn{
+    background-color: #5DD3B3;
+    color: #333;
+    font-weight: 500;
+   
+    border-radius: 0px 20px 20px 0px;
+    height: 40px;
+
+  }

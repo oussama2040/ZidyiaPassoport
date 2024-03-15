@@ -40,7 +40,7 @@ const createCertificate = async (req, res) => {
         };
 
         const query = `
-            INSERT INTO certificate
+            INSERT INTO request_certificate
             (student_id, organization_id, name, body, issued_date, expiry_date, CertificateFile, status)
             VALUES (?, ?, ?, ?, ?, ?, ?, 'verified');
         `;
@@ -74,7 +74,7 @@ const updateCertificate = async (req, res) => {
 
         const certificateId = req.params.id;
         // Check if the certificate exists in the database
-        const checkQuery = 'SELECT * FROM certificate WHERE certificate_id = ?';
+        const checkQuery = 'SELECT * FROM request_certificate WHERE request_id = ?';
         const [rows] = await connection.promise().query(checkQuery, [certificateId]);
 
         if (rows.length === 0) {
@@ -107,9 +107,9 @@ const updateCertificate = async (req, res) => {
         };
 
         const query = `
-            UPDATE certificate
+            UPDATE request_certificate
             SET student_id = ?, organization_id = ?, name = ?, body = ?, issued_date = ?, expiry_date = ?, status = ?, CertificateFile = ?
-            WHERE certificate_id = ?;
+            WHERE request_id = ?;
         `;
 
         await connection.promise().query(query, [
@@ -147,7 +147,7 @@ const getAllCertificateRequests = async (req, res) => {
                 student.first_name,
                 student.last_name
             FROM
-                certificate cert
+                request_certificate cert
                 JOIN student ON cert.student_id = student.student_id
             WHERE
                 cert.organization_id = ? AND cert.status = 'pending'
@@ -192,16 +192,16 @@ const updateCertificateRequestStatus = async (req, res) => {
 
         if (status === 'verified') {
             const updateCertificateQuery = `
-                UPDATE certificate
+                UPDATE request_certificate
                 SET status = ?
-                WHERE certificate_id = ?;
+                WHERE request_id = ?;
             `;
             await connection.promise().query(updateCertificateQuery, [status, requestId]);
         } else if (status === 'rejected') {
             const updateCertificateQuery = `
-                UPDATE certificate
+                UPDATE request_certificate
                 SET status = ?, rejection_reason = ?
-                WHERE certificate_id = ?;
+                WHERE request_id = ?;
             `;
             await connection.promise().query(updateCertificateQuery, [status, rejectionReason, requestId]);
         }
@@ -226,7 +226,7 @@ const updateCertificateRequestStatus = async (req, res) => {
 const countTotalCertificates = async (req, res) => {
     try {
         const organizationId = req.params.organization_id;
-        const countQuery = 'SELECT COUNT(*) AS totalCertificates FROM certificate WHERE organization_id = ?';
+        const countQuery = 'SELECT COUNT(*) AS totalCertificates FROM request_certificate WHERE organization_id = ?';
         const [result] = await connection.promise().query(countQuery, [organizationId]);
         const totalCertificates = result[0].totalCertificates;
         res.status(200).json({ totalCertificates });
@@ -246,7 +246,7 @@ const countTotalCertificates = async (req, res) => {
 const countPendingCertificates = async (req, res) => {
     try {
         const organizationId = req.params.organization_id;
-        const countQuery = 'SELECT COUNT(*) AS pendingCertificates FROM certificate WHERE organization_id = ? AND status = "pending"';
+        const countQuery = 'SELECT COUNT(*) AS pendingCertificates FROM request_certificate WHERE organization_id = ? AND status = "pending"';
         const [result] = await connection.promise().query(countQuery, [organizationId]);
         const pendingCertificates = result[0].pendingCertificates;
 
@@ -266,7 +266,7 @@ const countPendingCertificates = async (req, res) => {
 const countApprovedCertificates = async (req, res) => {
     try {
         const organizationId = req.params.organization_id;
-        const countQuery = 'SELECT COUNT(*) AS approvedCertificates FROM certificate WHERE organization_id = ? AND status = "verified"';
+        const countQuery = 'SELECT COUNT(*) AS approvedCertificates FROM request_certificate WHERE organization_id = ? AND status = "verified"';
         const [result] = await connection.promise().query(countQuery, [organizationId]);
         const approvedCertificates = result[0].approvedCertificates;
         res.status(200).json({ approvedCertificates });
@@ -285,7 +285,7 @@ const countApprovedCertificates = async (req, res) => {
 const countRejectedCertificates = async (req, res) => {
     try {
         const organizationId = req.params.organization_id;
-        const countQuery = 'SELECT COUNT(*) AS rejectedCertificates FROM certificate WHERE organization_id = ? AND status = "rejected"';
+        const countQuery = 'SELECT COUNT(*) AS rejectedCertificates FROM request_certificate WHERE organization_id = ? AND status = "rejected"';
         const [result] = await connection.promise().query(countQuery, [organizationId]);
         const rejectedCertificates = result[0].rejectedCertificates;
 
@@ -307,7 +307,7 @@ const countCertificatesByStatusAndDateRange = async (req, res) => {
         const organizationId = req.tenent.organization_id;
         const { status, startDate, endDate } = req.body;
     
-        let countQuery = 'SELECT COUNT(*) AS certificateCount FROM certificate WHERE organization_id = ?';
+        let countQuery = 'SELECT COUNT(*) AS certificateCount FROM request_certificate WHERE organization_id = ?';
         const queryParams = [organizationId];
     
         if (status) {
@@ -321,7 +321,7 @@ const countCertificatesByStatusAndDateRange = async (req, res) => {
         }
     
         // Prepare the statement
-        const statement = 'SELECT COUNT(*) AS certificateCount FROM certificate WHERE organization_id = ?';
+        const statement = 'SELECT COUNT(*) AS certificateCount FROM request_certificate WHERE organization_id = ?';
         const [result] = await connection.promise().execute(statement, queryParams);
     
         const certificateCount = result[0].certificateCount;

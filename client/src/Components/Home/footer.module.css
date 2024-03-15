@@ -1,0 +1,9 @@
+.footercontainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #5DD3B3;
+    
+    height: 300px;
+    
+}
