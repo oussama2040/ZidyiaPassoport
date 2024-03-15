@@ -56,14 +56,15 @@ const generateqrcode = async (req, res) => {
 
         qrFileStream.on('finish', async () => {
             try {
-                // Upload the generated QR code image to Cloudinary
+                
                 const cloudResult = await cloudinary.uploader.upload(qrFilePath, { folder: 'qrcodes' });
 
-                // Insert the data into the database using a prepared statement
+               
                 await connection.promise().execute(
-                    'INSERT INTO qrcodes (file_name, hashed_data, cloudinary_url) VALUES (?, ?, ?)',
-                    [filename, hashedData, cloudResult.secure_url]
+                    'INSERT INTO qrcodes (student_id,file_name, hashed_data, cloudinary_url) VALUES (?,?, ?, ?)',
+                    [studentId,filename, hashedData, cloudResult.secure_url]
                 );
+                console.log(cloudResult.secure_url)
 
                 console.log(`QR Code generated successfully for student ${studentName}!`);
                 res.send(filename); // Send the filename as response
@@ -82,3 +83,42 @@ const generateqrcode = async (req, res) => {
 };
 
 export { generateqrcode };
+// ------------------------------------------------------------------------------------
+
+const getQRCodeUrlByStudentId = async (req, res) => {
+    try {
+        
+        const { studentId } = req.params;
+
+       
+        const [rows] = await connection.promise().execute(
+            'SELECT cloudinary_url FROM qrcodes WHERE student_id = ?',
+            [studentId]
+        );
+
+        
+        if (rows.length > 0) {
+            // Extract the secure URL from the first row
+            const qrCodeUrl = rows[0].cloudinary_url;
+            // Return the secure URL in the response
+            res.json({ qrCodeUrl });
+            console.log(qrCodeUrl)
+        } else {
+          
+            res.status(404).json({ error: 'QR code not found for the student ID' });
+        }
+    } catch (error) {
+       
+        console.error('Error fetching QR code URL:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+export { getQRCodeUrlByStudentId };
+
+// const getqrcodefilepath=async(req, res) => {
+//     const imageName = req.params.qrCode;
+//     const imagePath = path.join(__dirname, 'qrcodes\qr_codes', imageName);
+//     res.sendFile(imagePath);
+//   };
+//   export { getqrcodefilepath };

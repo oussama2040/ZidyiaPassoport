@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Pinyon+Script|Rochester');
 
+
+/* *{
+ box-shadow: 1px 1px 1px  red;
+} */
 .cursive {
-  font-family: 'Pinyon Script', cursive;
-}
+  font-family: 'Open Sans', sans-serif;}
 
 .sans {
   font-family: 'Open Sans', sans-serif;
@@ -194,8 +197,8 @@ body {
 }
 
 .badge-image{
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   margin-top: -35%;
 }
 .logo{
@@ -204,6 +207,7 @@ body {
 }
 .pm-certificate-texts{
   font-size: 15px;
+  margin-top: 5px;
 }
 .logo-container{
   display: flex;
@@ -211,11 +215,12 @@ body {
 }
 .universityDate{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
  
 }
 .dateinput{
   width: 100px;
+  
 }
 .certificate-form{
   display: flex;
@@ -229,15 +234,39 @@ body {
  margin-top: 13px;
  text-wrap: nowrap;
  word-spacing: normal;
+
+}
+.form-input label{
+  width: 120px;
+  font-family: 'Core Rhino 45', sans-serif;
+  font-size: 13px;
+
 }
 .form-input input{
   margin-left: 10px;
-  color: black;
+  color: white;
+  background-color: transparent;
+  /* border: 1px solid #333;
+  border-radius: 8px; */
+  width: 150px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+ text-align: center;
+ font-family: 'Core Rhino 45', sans-serif;
+  
 }
 
 
 .form-input select{
+  width: 150px;
   margin-left: 10px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid #333;
+}
+.form-input select option {
+  background-color: #576371; 
+  color: white; 
 }
 /* Certificate.css */
 
@@ -248,9 +277,12 @@ body {
   border: none; /* No border */
   border-radius: 5px; /* Rounded corners */
   cursor: pointer; /* Change cursor to pointer on hover */
-  margin-top: 15px;
-  margin-left: 75px;
+  margin: 15px 0;
+  margin-left: 10px;
   transition: transform 0.3s ease-in-out;
+  width: 130px;
+  font-size: 11px;
+  font-weight: 400;
   ;
 }
 
@@ -266,9 +298,9 @@ body {
 .certificate-editor{
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: 375px;
   height: 90vh;
-  margin-left: 10px;
+  margin-left: 0px;
   margin-top: 20px;
   background-color: #576371;
   border-radius:20px;
@@ -278,9 +310,17 @@ body {
   font-family: 'Core Rhino 45', sans-serif;
   font-size: 14px;
   font-weight: 500;
+  overflow-y: scroll;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .5);
 }
 .certificate-editor h2{
   font-size: 30px;
   font-family: "Corinthia", sans-serif;
   text-align: center;
+}
+.certificatebtns{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
 }
