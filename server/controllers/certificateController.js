@@ -1,136 +1,6 @@
 import connection from '../config/connection.js';
 import { cloudinaryUploadImage, cloudinaryRemoveImage } from "../utils/cloudinary.js";
 
-
-
-
-/**___________________________________________
- * @desc     Create New Certificates by admin
- * @route    /certificates
- * @method   POST
- * @access   private 
- * ---------------------------------------------**/
-const createCertificate = async (req, res) => {
-
-    try {
-        const {
-            student_id,
-            organization_id,
-            name,
-            body,
-            issued_date,
-            expiry_date,
-            CertificateFile,
-        } = req.body;
-
-        // Upload photo
-        const imagePath = CertificateFile;
-
-        const result = await cloudinaryUploadImage(imagePath);
-        if (!result || result.error) {
-            await cloudinaryRemoveImage(imagePath);
-            return res.status(500).json({ error: 'Error uploading image to Cloudinary.' });
-        }
-
-        const cloudinaryData = {
-            asset_id: result.asset_id,
-            public_id: result.public_id,
-            version: result.version,
-            url: result.secure_url,
-        };
-
-        const query = `
-            INSERT INTO request_certificate
-            (student_id, organization_id, name, body, issued_date, expiry_date, CertificateFile, status)
-            VALUES (?, ?, ?, ?, ?, ?, ?, 'verified');
-        `;
-
-        await connection.promise().query(query, [
-            student_id,
-            organization_id,
-            name,
-            body,
-            issued_date,
-            expiry_date,
-            cloudinaryData.url,
-        ]);
-
-        res.status(201).json({ message: 'Certificate created successfully.' });
-    } catch (error) {
-        console.error('Error creating certificate:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-};
-
-/**___________________________________________
- * @desc     Update Certificate
- * @route    /certificates/:id
- * @method   PUT
- * @access   private
- * ---------------------------------------------**/
-//share qr code, scan it
-const updateCertificate = async (req, res) => {
-    try {
-
-        const certificateId = req.params.id;
-        // Check if the certificate exists in the database
-        const checkQuery = 'SELECT * FROM request_certificate WHERE request_id = ?';
-        const [rows] = await connection.promise().query(checkQuery, [certificateId]);
-
-        if (rows.length === 0) {
-            return res.status(404).json({ error: 'Certificate not found.' });
-        }
-        const {
-            student_id,
-            organization_id,
-            name,
-            body,
-            issued_date,
-            expiry_date,
-            status,
-            CertificateFile,
-        } = req.body;
-
-        // Upload photo
-        const imagePath = CertificateFile;
-
-        const result = await cloudinaryUploadImage(imagePath);
-        if (!result || result.error) {
-            await cloudinaryRemoveImage(imagePath);
-            return res.status(500).json({ error: 'Error uploading image to Cloudinary.' });
-        }
-        const cloudinaryData = {
-            asset_id: result.asset_id,
-            public_id: result.public_id,
-            version: result.version,
-            url: result.secure_url,
-        };
-
-        const query = `
-            UPDATE request_certificate
-            SET student_id = ?, organization_id = ?, name = ?, body = ?, issued_date = ?, expiry_date = ?, status = ?, CertificateFile = ?
-            WHERE request_id = ?;
-        `;
-
-        await connection.promise().query(query, [
-            student_id,
-            organization_id,
-            name,
-            body,
-            issued_date,
-            expiry_date,
-            status,
-            cloudinaryData.url,
-            certificateId,
-        ]);
-
-        res.status(200).json({ message: 'Certificate updated successfully.' });
-    } catch (error) {
-        console.error('Error updating certificate:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-};
-
 /**___________________________________________
  * @desc     Get all certificate requests for admins in a specific organization
  * @route    /admin/certificate-requests/:organizationId
@@ -213,7 +83,39 @@ const updateCertificateRequestStatus = async (req, res) => {
     }
 };
 
+/**___________________________________________
+ * @desc     Update filled Request Status
+ * @route    /admin/filledformRequest/:requestId
+ * @method   PUT
+ * @access   private
+ * ---------------------------------------------**/
+const updatefilledRequestStatus = async (req, res) => {
+    try {
+        const requestId = req.params.requestId;
+        const { status, rejectionReason } = req.body;
 
+        if (status === 'verified') {
+            const updateCertificateQuery = `
+                UPDATE filledforms
+                SET status = ?
+                WHERE filled_form_id = ?;
+            `;
+            await connection.promise().query(updateCertificateQuery, [status, requestId]);
+        } else if (status === 'rejected') {
+            const updateCertificateQuery = `
+                UPDATE filledforms
+                SET status = ?, rejection_reason = ?
+                WHERE filled_form_id = ?;
+            `;
+            await connection.promise().query(updateCertificateQuery, [status, rejectionReason, requestId]);
+        }
+
+        res.status(200).json({ message: 'filled form request status updated successfully.' });
+    } catch (error) {
+        console.error('Error updating filled form  request status:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
 
 
 
@@ -319,8 +221,6 @@ const countCertificatesByStatusAndDateRange = async (req, res) => {
             countQuery += ' AND issued_date BETWEEN ? AND ?';
             queryParams.push(startDate, endDate);
         }
-    
-        // Prepare the statement
         const statement = 'SELECT COUNT(*) AS certificateCount FROM request_certificate WHERE organization_id = ?';
         const [result] = await connection.promise().execute(statement, queryParams);
     
@@ -335,6 +235,127 @@ const countCertificatesByStatusAndDateRange = async (req, res) => {
 };
 
 
+/**___________________________________________
+ * @desc     Create New Certificates by admin
+ * @route    /certificates
+ * @method   POST
+ * @access   private 
+ * ---------------------------------------------**/
+const createCertificate = async (req, res) => {
+
+    try {
+        const {
+            student_id,
+            organization_id,
+            name,
+            body,
+            issued_date,
+            expiry_date,
+            CertificateFile,
+        } = req.body;
+
+        const imagePath = CertificateFile;
+
+        const result = await cloudinaryUploadImage(imagePath);
+        if (!result || result.error) {
+            await cloudinaryRemoveImage(imagePath);
+            return res.status(500).json({ error: 'Error uploading image to Cloudinary.' });
+        }
+
+        const cloudinaryData = {
+            asset_id: result.asset_id,
+            public_id: result.public_id,
+            version: result.version,
+            url: result.secure_url,
+        };
+
+        const query = `
+            INSERT INTO request_certificate
+            (student_id, organization_id, name, body, issued_date, expiry_date, CertificateFile, status)
+            VALUES (?, ?, ?, ?, ?, ?, ?, 'verified');
+        `;
+
+        await connection.promise().query(query, [
+            student_id,
+            organization_id,
+            name,
+            body,
+            issued_date,
+            expiry_date,
+            cloudinaryData.url,
+        ]);
+
+        res.status(201).json({ message: 'Certificate created successfully.' });
+    } catch (error) {
+        console.error('Error creating certificate:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+/**___________________________________________
+ * @desc     Update Certificate
+ * @route    /certificates/:id
+ * @method   PUT
+ * @access   private
+ * ---------------------------------------------**/
+const updateCertificate = async (req, res) => {
+    try {
+        const certificateId = req.params.id;
+        const checkQuery = 'SELECT * FROM request_certificate WHERE request_id = ?';
+        const [rows] = await connection.promise().query(checkQuery, [certificateId]);
+
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'Certificate not found.' });
+        }
+        const {
+            student_id,
+            organization_id,
+            name,
+            body,
+            issued_date,
+            expiry_date,
+            status,
+            CertificateFile,
+        } = req.body;
+
+        const imagePath = CertificateFile;
+
+        const result = await cloudinaryUploadImage(imagePath);
+        if (!result || result.error) {
+            await cloudinaryRemoveImage(imagePath);
+            return res.status(500).json({ error: 'Error uploading image to Cloudinary.' });
+        }
+        const cloudinaryData = {
+            asset_id: result.asset_id,
+            public_id: result.public_id,
+            version: result.version,
+            url: result.secure_url,
+        };
+
+        const query = `
+            UPDATE request_certificate
+            SET student_id = ?, organization_id = ?, name = ?, body = ?, issued_date = ?, expiry_date = ?, status = ?, CertificateFile = ?
+            WHERE request_id = ?;
+        `;
+
+        await connection.promise().query(query, [
+            student_id,
+            organization_id,
+            name,
+            body,
+            issued_date,
+            expiry_date,
+            status,
+            cloudinaryData.url,
+            certificateId,
+        ]);
+
+        res.status(200).json({ message: 'Certificate updated successfully.' });
+    } catch (error) {
+        console.error('Error updating certificate:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
 
 export {
     createCertificate,
@@ -345,5 +366,6 @@ export {
     countPendingCertificates,
     countApprovedCertificates,
     countRejectedCertificates,
-    countCertificatesByStatusAndDateRange
+    countCertificatesByStatusAndDateRange,
+    updatefilledRequestStatus
 };

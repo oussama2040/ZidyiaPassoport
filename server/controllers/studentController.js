@@ -1,16 +1,14 @@
-//--------fill template(specific template sent by specific tenant with more info (Full name,marks,...))
 import connection from '../config/connection.js';
 import { uploadImage } from './imageuploadcontroller.js';
 import bcrypt from 'bcrypt';
 
 
-
-
-//view all requests to check status/specific request according to status
-// Function to retrieve all verification requests or requests with a specific status
-
-// LEFT JOIN certificateverification verification ON cert.certificate_id = verification.certificate_id
-
+/**___________________________________________
+ * @desc    Get All Certificates For Student
+ * @route    /students/certificates/:studentId
+ * @method   GET
+ * @access   private
+ * ---------------------------------------------**/
 const getAllCertificatesForStudent = async (req, res) => {
     try {
         const studentId = req.params.studentId;
@@ -42,33 +40,33 @@ const getAllCertificatesForStudent = async (req, res) => {
     }
 };
 
-
-
-// retrieve all verified certificates for a student
-// view all customized certificate
+/**___________________________________________
+ * @desc    Get Verified Certificates For Student
+ * @route    /students/certificates/verified/:studentId
+ * @method   GET
+ * @access   private
+ * ---------------------------------------------**/
 const getVerifiedCertificatesForStudent = async (req, res) => {
     const studentId = req.params.studentId;
     console.log(studentId);
     try {
         const query = `
         SELECT
-            cert.*,
             student.first_name,
             student.last_name,
             verification.verification_date,
-            verification.note,
             tenent.organization_id,
             tenent.name AS organization_name,
-            tenent.location AS organization_location
+            tenent.location AS organization_location,
+            verification.certificate_url
         FROM
-            request_certificate cert
-            JOIN student ON cert.student_id = student.student_id
-            LEFT JOIN verifiedcertificate verification ON cert.request_id = verification.certificate_id
-            JOIN tenent ON tenent.organization_id = cert.organization_id
+            student
+            LEFT JOIN verifiedcertificate verification ON verification.student_id = student.student_id
+            JOIN tenent ON tenent.organization_id = verification.organization_id
         WHERE
-            cert.status = 'verified' AND cert.student_id = ? AND verification.verification_id IS NOT NULL
+            student.student_id = ? AND verification.verification_id IS NOT NULL
         ORDER BY
-            cert.issued_date DESC;
+            verification.verification_date DESC;
     `;
 
         const [rows, fields] = await connection.promise().query(query, [studentId]);
@@ -87,16 +85,17 @@ const getVerifiedCertificatesForStudent = async (req, res) => {
     }
 };
 
-// view all customized certificate
-// view all customized certificate
-//share verified certificates only only only only
-//share certificate and transcript with external organizations or employers
+/**___________________________________________
+ * @desc    Share only verified Certificate
+ * @route    /students/certificates/share/:certificateId
+ * @method   POST
+ * @access   private
+ * ---------------------------------------------**/
 const shareCertificate = async (req, res) => {
     const studentId = req.user.user.id;
     const certificateId = req.params.certificateId;
 
     try {
-        // Check if the certificate exists, is verified, student_id
         const [certificate] = await connection
             .promise()
             .query('SELECT * FROM request_certificate WHERE request_id = ? AND status = "verified" AND student_id = ?', [certificateId, studentId]);
@@ -119,8 +118,12 @@ export {
 };
 
 
-
-
+/**___________________________________________
+ * @desc    Update Student Profile
+ * @route    /students/updateProfile/:studentId
+ * @method   PUT
+ * @access   private
+ * ---------------------------------------------**/
 const updateProfile = async (req, res) => {
     const { first_name, last_name, password, bio, location, mobile } = req.body;
     const student_id = req.params.studentId;
@@ -198,7 +201,12 @@ const updateProfile = async (req, res) => {
 export { updateProfile };
 
 
-
+/**___________________________________________
+ * @desc    Student Add Request Certificate
+ * @route    /students/addRequest
+ * @method   POST
+ * @access   private
+ * ---------------------------------------------**/
 const addRequestCertificate = async (req, res) => {
     let CertificateFile;
     let TranscriptFile;
@@ -223,9 +231,7 @@ const addRequestCertificate = async (req, res) => {
             TranscriptFile = await uploadImage(req.files.TranscriptFile[0].buffer);
         }
 
-        // Check if CertificateFile is defined before executing the query
         if (CertificateFile !== undefined) {
-            // Insert data into the certificate table
             const [certificateResult] = await connection.promise().execute(
                 `INSERT INTO request_certificate 
             (student_id, organization_id, name, body, issued_date, expiry_date, CertificateFile) 
@@ -297,7 +303,12 @@ const addRequestCertificate = async (req, res) => {
 
 export { addRequestCertificate };
 
-
+/**___________________________________________
+ * @desc    Get Student Info
+ * @route    /student/studentinfo
+ * @method   GET
+ * @access   private
+ * ---------------------------------------------**/
 const getstudentInfo = async (req, res) => {
     // {studentID}=req.params;
     const studentID = 1;
@@ -307,8 +318,6 @@ const getstudentInfo = async (req, res) => {
             'SELECT first_name,last_name FROM student WHERE student_id = ?',
             [studentID]
         );
-
-
         if (rows.length > 0) {
 
             const { first_name, last_name } = rows[0];

@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Certificates = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCertificate, setSelectedCertificate] = useState(null);
-    const [sortCriteria, setSortCriteria] = useState('name'); 
+    const [sortCriteria, setSortCriteria] = useState(''); 
     const [certificates, setCertificates] = useState([]);
 
     const toggleModal = (certificate) => {
@@ -65,8 +65,7 @@ const Certificates = () => {
 
     const sortCertificates = () => {
         switch (sortCriteria) {
-            case 'name':
-                return [...certificates].sort((a, b) => a.name.localeCompare(b.name));
+            
             case 'issued-date':
                 return [...certificates].sort((a, b) => new Date(a.issued_date) - new Date(b.issued_date));
             case 'expiry-date':
@@ -93,7 +92,7 @@ const Certificates = () => {
                     <div class="sorting-dropdown">
                         <select value={sortCriteria} onChange={handleSortChange}>
                             <option value="" disabled selected>Sorting</option>
-                            <option value="name">Name</option>
+                            
                             <option value="issued-by">Issued by (A-Z)</option>
                             <option value="issued-date">Issued date (ascending)</option>
                             <option value="expiry-date">Expiry date (ascending)</option>

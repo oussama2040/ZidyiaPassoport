@@ -397,3 +397,28 @@ margin-top: 5px;
 .bottunVerfiy:hover{
  background-color: #9be9d4;
 }
+
+
+.rejectReason{
+  color: white;
+  padding: 10px;
+  display: flex ;
+  justify-content: space-between;
+  width: 100%;
+}
+.rejectReason input{
+  background-color: transparent;
+  box-sizing: border-box;
+  border: 1px solid red;
+  border-radius: 10px;
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.CustomizeReject{
+  color: red;
+}
+ .CustomizeVerifyt{
+  color: #5DD3B3;
+}

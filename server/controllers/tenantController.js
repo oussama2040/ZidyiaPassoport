@@ -1,8 +1,8 @@
 import connection from '../config/connection.js';
 import { uploadImageInFolder } from './imageuploadcontroller.js';
 
-// Save the verified certificate on cloudinery and  its secure url in the database
 
+// Save the verified certificate on cloudinery and  its secure url in the database
 const SaveVerifiedCertificate = async (req, res) => {
     try {
         // Check if request contains file data
@@ -42,10 +42,12 @@ const SaveVerifiedCertificate = async (req, res) => {
 export {SaveVerifiedCertificate};
 
 
-// --------------------------------------------------------------------------------
-
-// get organization info:
-
+/**___________________________________________
+ * @desc    Get Organization info by id
+ * @route    /admin/organizationinfo
+ * @method   GET
+ * @access   private
+ * ---------------------------------------------**/
 const getOrganizationInfo = async (req, res) => {
     // organizationID=req.tenent.tenentid;
     const organizationID=9;
@@ -69,8 +71,13 @@ const getOrganizationInfo = async (req, res) => {
     }
 };
 export {getOrganizationInfo};
-//-----------------------------------------------------
-// get All organization name and id
+
+/**___________________________________________
+ * @desc    get All organization name and id
+ * @route   /tenent/Allorganization
+ * @method   GET
+ * @access   private
+ * ---------------------------------------------**/
 const getAllOrganizations = async (req, res) => {
     try {
         const [rows] = await connection.promise().execute(

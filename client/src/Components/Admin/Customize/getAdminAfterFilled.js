@@ -10,7 +10,18 @@ function GetAdminAfterFilled({ organizationId }) {
   const [selectedFormImage, setSelectedFormImage] = useState(null);
   const [hasImage, setHasImage] = useState(false);
   const [selectedFilledstudentId, setSelectedFilledstudentId] = useState(null);
+  const [selectedFilledformId, setselectedFilledformId] = useState(null);
+  const [rejectionReason, setRejectionReason] = useState('');
+  const [showRejectionInput, setShowRejectionInput] = useState(false);
 
+  const handleRejectChange = (event) => {
+    setRejectionReason('');
+    setShowRejectionInput(event.target.value === 'reject');
+  };
+
+  const handleRejectionInputChange = (event) => {
+    setRejectionReason(event.target.value);
+  };
 
   useEffect(() => {
     const fetchFormFields = async () => {
@@ -41,15 +52,51 @@ function GetAdminAfterFilled({ organizationId }) {
       setSelectedFormImage(selectedFormData.FileOption);
       setHasImage(!!selectedFormData.FileOption);
       setSelectedFilledstudentId(selectedFormData.student_id);
-      console.log(formData)
+      setselectedFilledformId(selectedFormData.filled_form_id)
+      console.log("FilledformId", selectedFormData.filled_form_id)
     }
   };
 
-  const handleButtonClicked = (filledstudentId) => {
-    console.log(filledstudentId);
-    window.location.href = `/admin/customizecertificate/${filledstudentId}`;
-    // window.location.href = `/admin/customizecertificate/`;
-  };
+  // const handleButtonClicked = (filledstudentId) => {
+  //   console.log(filledstudentId);
+  //   window.location.href = `/admin/customizecertificate/${filledstudentId}`;
+  //   // window.location.href = `/admin/customizecertificate/`;
+  // };
+
+  const handleButtonClicked = async (filledstudentId ,FilledformId) => {
+    try {
+      console.log("filledstudentId",filledstudentId);
+      console.log("FilledformId",FilledformId);
+
+        let requestData;
+        if (showRejectionInput) {
+            requestData = {
+                status: 'rejected',
+                rejectionReason: rejectionReason
+            };
+        } else {
+            requestData = {
+                status: 'verified',
+                rejectionReason: ''
+            };
+        }
+
+        const response = await axios.put(`http://localhost:5000/admin/filledformRequest/${FilledformId}`, requestData);
+         console.log(filledstudentId);
+         window.location.href = `/admin/customizecertificate/${filledstudentId}`;
+
+
+        if (response.status === 200) {
+            console.log('Filled form status updated successfully.');
+        } else {
+            console.error('Failed to update filled form status.');
+        }
+    } catch (error) {
+        console.error('Error updating filled form status:', error);
+ 
+    }
+};
+
   return (
     <div>
       <NavbarAdmin />
@@ -81,11 +128,29 @@ function GetAdminAfterFilled({ organizationId }) {
                   </li>
                 ))}
               </ul>
-              <button className={styles.bottunVerfiy} onClick={() => handleButtonClicked(selectedFilledstudentId)}>verify</button>
+                         {/* radio button verify and reject  */}
+                         <div className={styles.rejectReason}>
+                    <label>
+                      <div className={styles.CustomizeReject}>Reject</div>
+                      
+                      <input type="radio" value="reject" name="rejectionReason" onChange={handleRejectChange} />
+                    </label>
+                    {showRejectionInput && (
+                      <label >
+                      <div className={styles.CustomizeReject}>Rejection Reason</div> 
+                        <input type="text" value={rejectionReason} onChange={handleRejectionInputChange} />
+                      </label>
+                    )}
+                    <label>
+                    <div className={styles.CustomizeVerifyt}>Verify</div> 
+                      <input type="radio" value="verify" name="rejectionReason" onChange={handleRejectChange} />
+                    </label>
+                  </div>
+
+              <button className={styles.bottunVerfiy} onClick={() => handleButtonClicked(selectedFilledstudentId , selectedFilledformId)}>respond</button>
             </div>
-          )}
-
-
+         )} 
+   
         </div>
 
         <div className={`${styles.customizeAfterimageContainer} ${hasImage && styles.imageWithBackground}`}>
