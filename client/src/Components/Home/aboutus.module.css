@@ -1,0 +1,32 @@
+.aboutuscontainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.aboutustitle{
+    font-size: 40px;
+    font-weight: 400;
+    color:#EEEEEE;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+
+}
+.greenpart{
+    color: #5DD3B3;
+}
+.aboutuspara{
+    width: 60%;
+    height: 200px;
+    margin: auto;
+    padding: 20px;
+    color: #EEEEEE;
+    font-size: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    font-weight: 300;
+    padding: 30px 20px;
+    opacity: 0.5;
+
+}

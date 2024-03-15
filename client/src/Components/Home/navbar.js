@@ -22,9 +22,9 @@ const Navbar = () => {
             <li className={Styles.dropdownParent} onClick={toggleDropdown}>
             <a href="#">Login</a>          
             <ul className={`${Styles.dropdown} ${isDropdownActive ? Styles.active : ''}`}>
-              <li><a href="#">Student</a></li>
-              <li><a href="#">Tenent</a></li>
-              <li><a href="#">Subscriber</a></li>
+              <li><a href="/student/login">Student</a></li>
+              <li><a href="/tenent/login">Tenent</a></li>
+              <li><a href="subscriber/login">Subscriber</a></li>
             </ul>
           </li>
             </ul>

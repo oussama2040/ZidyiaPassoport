@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import bodyParser from 'body-parser';
 
 
 
@@ -25,6 +26,10 @@ import customizeRoute from './routes/customizeRoute.js';
 import cookieParser from "cookie-parser";
 
 const app = express();
+// Set maximum request size limit (e.g., 10MB)
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+
 app.use(
   cors({
     origin: ['http://localhost:3000'],

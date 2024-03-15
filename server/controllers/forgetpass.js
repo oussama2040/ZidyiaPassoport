@@ -26,7 +26,7 @@ const sendResetEmail = (studentEmail,verificationToken,Role) => {
         to: studentEmail,
         subject: 'reset your password',
         text: 'Click the following link to reset your password: ',
-        html:`<a href="http://localhost:5000/${Role}/resetpass?token=${verificationToken}">Reset Password</a>`,
+        html:`<a href="http://localhost:3000/${Role}/resetpass?token=${verificationToken}">Reset Password</a>`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -284,3 +284,88 @@ const getSubscriberByVerificationToken = async (verificationToken) => {
 };
 
 export { SubscriberresetPassword};
+
+//----------------------------------------------------------------------------------------------------
+
+//reset password for superAdmin:
+
+
+
+const SuperAdminrequestPasswordReset = asyncHandler(async (req, res) => {
+    try {
+            const superAdminEmail = req.body.email;
+            const [superAdmin] = await connection.promise().execute('SELECT * FROM superadmin WHERE email = ? ', [superAdminEmail]);
+        
+            if (superAdmin.length > 0) {
+              
+                 // Generate a verification token
+                const verificationToken = crypto.randomBytes(20).toString('hex');
+                // Update the resetPassToken in the database with the verification token
+                await connection.promise().execute('UPDATE superadmin SET resetPassToken = ? WHERE email = ?', [verificationToken, superAdminEmail]);
+
+                // Send the reset email
+                const Role="superAdmin"
+                sendResetEmail(superAdminEmail,verificationToken,Role);
+                console.log("email sent successfully")
+                res.status(200).json({ success : true, message: 'A reset password email has been sent. Please check your email inbox.' });
+
+            } else {
+                res.status(401).json({ message: "Email is not valid" });
+            }
+    } catch (error) {
+        console.error('Error resetting password:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+        
+    }
+});
+
+export { SuperAdminrequestPasswordReset };
+
+//========================================verify user==============================================================
+// Function to get a user by verification token
+const getSuperAdminByVerificationToken = async (verificationToken) => {
+    try {
+       
+        const [rows] = await connection.promise().execute('SELECT * FROM superadmin WHERE resetPassToken = ?', [verificationToken]);
+        return rows[0]; // Assuming there's only one user per token
+    } catch (error) {
+        console.error('Error fetching user by verification token:', error);
+        throw new Error('Error fetching user by verification token');
+    }
+};
+
+  //==================================reset the password=================================================================
+
+  const SuperAdminresetPassword = async (req, res) => {
+    try {
+        const userToken = req.query.token; // Get the token from the URL
+        const { password, verifyPassword } = req.body;
+        console.log('Token:', userToken); // Log the token to check if it's correctly passed
+        
+        // Retrieve user by token from the database
+        const superAdmin = await getSuperAdminByVerificationToken(userToken); 
+
+        // Check if user associated with the token exists
+        if (!superAdmin) {
+            return res.status(404).json({ message: 'User not found or invalid token' });
+        }
+
+        // Check if newPassword and confirmPassword match
+        if (password !== verifyPassword) {
+            return res.status(400).json({ message: 'Passwords do not match' });
+        }
+
+        // Hash the new password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Update the user's password in the database
+        await connection.promise().execute('UPDATE superadmin SET password = ? WHERE email = ?', [hashedPassword, superAdmin.email]);
+
+        res.status(200).json({ success : true, message: 'Password reset successfully' });
+    } catch (error) {
+        console.error('Error resetting password:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+export { SuperAdminresetPassword};

@@ -3,7 +3,7 @@ import ForgetPasswordComponent from '../Components/loginSign/forgetPasswordCompo
 function ForgetPass() {
   return (
     <div>
-      <ForgetPasswordComponent />
+      <ForgetPasswordComponent apiUrl="http://localhost:5000/student/resetpassverify" userRole="student" />
     </div>
   )
 }
