@@ -34,8 +34,11 @@
 
 .boxRegister{
     background-color:#2d3741;
-    width:90%;
+    width:100%;
     height: inherit;
+    border-top-right-radius: 25%;
+    border-bottom-right-radius: 25%;
+    box-shadow: -10px 0px 15px 0px rgba(0, 0, 0, 0.5);
     
 }
 
@@ -79,8 +82,8 @@
 }
 .helloTextRegister{
   color: #28EFA9;
-  font-size: 30px;
-  margin-left: 17%;
+  font-size: 32px;
+  margin-left: 15%;
   margin-top: 60%;
   width: 270px;
 }
@@ -132,7 +135,7 @@
     -moz-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
     margin-left:  20px;
-    margin-top: 10px;
+    margin-top: 3px;
   }
   
   .SignUpLoginbutton:hover {
@@ -341,7 +344,7 @@
 /* ------------have an account for register form ----------- */
 .haveAccountNameRegister{
   margin-left: 20px;
-  margin-top: 13px;
+  margin-top: 8px;
   width: 90%;
   display: flex;
   align-items: center;
