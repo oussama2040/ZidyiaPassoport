@@ -21,20 +21,21 @@ function SideBarAdmin() {
         <Link to="/admin/analytics">
           <Nav icon={<GrAnalytics />} name="Analytics" />
         </Link>
-        <Link to ="/admin/customize">
-        <Nav icon={< BiCustomize  />} name="Field Customize" />
+        <Link to="/admin/customize">
+          <Nav icon={< BiCustomize />} name="Field Customize" />
         </Link>
-        <Link to ="/admin/reqcustomize">
-        <Nav icon={< BiCustomize  />} name="Request Customize" />
+        <Link to="/admin/reqcustomize">
+          <Nav icon={< BiCustomize />} name="Request Customize" />
         </Link>
-        <Nav icon={< IoGitPullRequestSharp  />} name="Certificate Request" />
-        <Nav icon={< TbFileCertificate  />} name="Certificate Uploaded" />
-        <Nav icon={< LiaCertificateSolid  />} name="Issue Certificates" />
-
-        <ZidyiaLogo />
-
+        <Link to="/admin/reqcertificate">
+        <Nav icon={< IoGitPullRequestSharp />} name="Certificate Request" />
+        </Link>
         
+        <Nav icon={< TbFileCertificate />} name="Certificate Uploaded" />
+        <Nav icon={< LiaCertificateSolid />} name="Issue Certificates" />
+
       </div>
+      <ZidyiaLogo />
     </div>
   );
 }

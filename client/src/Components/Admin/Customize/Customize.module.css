@@ -1,6 +1,5 @@
 .Customizeflex{
     display: flex;
-
 }
 
 .Customizeform {
@@ -46,12 +45,15 @@
     border-radius: 10px;
     font-size: 14px;
     margin-bottom: 5px;
+    color: #fff;
   }
   
-  .customizeInputtext:focus {
+  .customizeInputtext:focus ,
+  .customizeInputte:focus{
     outline: none;
     border-color: #3498db;
     box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+    color: #fff;
   }
 
 .customizeselecttype {
@@ -116,6 +118,7 @@
     border-radius: 10px;
     font-size: 14px;
     background-color: transparent;
+    color: #fff;
   }
   
   .customizeDropdownInput:focus {
@@ -229,7 +232,6 @@
   }
   
 .customizeInputte,
-
 select{
   padding: 2px;
   margin-bottom: 10px;
@@ -240,6 +242,7 @@ select{
   width: 90%;
   background-color: transparent;
   height: 30px;
+  color:#fff;
 }
 
 input[type="checkbox"],
@@ -249,6 +252,7 @@ input[type="radio"] {
   margin-left: 8px;
   height: 20px;
   width: 25px; 
+  color: #fff;
 }
 
 
@@ -310,4 +314,86 @@ input[type="radio"]:checked + label::before {
   outline: none;
   border-color: #3498db;
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+
+ /* ----------Get Admin After filled customize--------- */
+
+ .customizeafterform{
+  width:400px;
+  margin: 25px auto;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #364350;
+ }
+
+ .customizeAfterimageContainer{
+  margin: 25px auto;
+  padding: 20px;
+  border-radius: 20px;
+  width: 650px;
+ }
+ .customizeAfterimageContainer img{
+  object-fit: cover;
+  width: 100%;
+  height: 80vh;
+ }
+ .customizeAfterDropdown{
+  background-color: inherit;
+  border: 1px solid #ffffff71;
+  color: #fff;
+  border-radius: 10px;
+  height: 30px;
+  padding: 0 20px;
+  width: 100%;
+ }
+ .imageWithBackground {
+  background-color: #364350; 
+}
+.customizeAfterDetails{
+  margin: 25px auto;
+  height: 90%;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #2d3741;
+}
+
+.customizeFieldDetails{
+display: flex;
+border: 1px solid #ffffff71;
+border-radius: 5px;
+margin-top: 5px;
+}
+.customizeFieldName{
+  font-family: 'Core Rhino 45 ', sans-serif;
+  font-size: 14px;
+  color: #fff;
+  font-weight: bold;
+  width: 200px;
+  padding: 10px;
+
+}
+.customizeFieldValue{
+  font-family: 'Core Rhino 45 ', sans-serif;
+  font-size: 14px;
+  color: #ffffff71;
+  font-weight: bold;
+  width: 120px;
+  padding: 10px;
+  width: 100%;
+  
+}
+
+.bottunVerfiy{
+  width: 150px;
+  background-color: #5DD3B3;
+  color: white;
+  padding: 10px 15px;
+  margin-top: 50px;
+  cursor: pointer;
+  border-radius: 26px;
+}
+
+.bottunVerfiy:hover{
+ background-color: #9be9d4;
 }

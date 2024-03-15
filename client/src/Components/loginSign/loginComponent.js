@@ -1,146 +1,172 @@
+import styles from './loginSign.module.css';
+import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import axios from 'axios';
 
-// import styles from './loginSign.module.css';
-// import imageecom from '../Assets/ecom.gif';
-// import { Link } from 'react-router-dom';
-// import React, { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
-// import axios from 'axios';
-// function LoginComponent() {
-//   const navigate = useNavigate(); // Initialize navigate function
-//   const [formData, setFormData] = useState({ email: '', password: '' });
-//   const [error, setError] = useState(null);
-
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const response = await axios.post('http://localhost:5000/author/login', formData);
-//       const { user, success, message } = response.data;
-
-//       const accessToken = user.access_token;
-//       const refreshToken = user.refresh_token;
-//       const userId = user._id
-//       const firstName = user.first_name;
-//       const role = user.role;
-
-//       console.log(accessToken);
-//       console.log(refreshToken);
-//       console.log(userId);
-//       console.log(firstName);
-//       console.log(role);
-//       console.log(response.data);
-//       // Set the access token in the Authorization header
-//       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-//       // Set the refresh token in a cookie
-//       document.cookie = `accessToken=${accessToken}; Secure; Max-Age=${3 * 60 * 60}; path=/;`;
-//       document.cookie = `refreshToken=${refreshToken}; Secure; Max-Age=${7 * 24 * 60 * 60 * 1000};`;
-//       document.cookie = `user_id=${userId}; Secure; Max-Age=${3 * 60 * 60};`;
-//       document.cookie = `first_name=${firstName}; Secure; Max-Age=${3 * 60 * 60};`;
-//       document.cookie = `role=${role}; Secure; Max-Age=${3 * 60 * 60};`;
+function LoginComponent({ apiUrl, userRole }) {
+  const navigate = useNavigate(); // Initialize navigate function
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [error, setError] = useState(null);
 
 
-//       // Assuming your backend returns a success message upon successful login
-//       if (success) {
-//         // Login was successful
-//         console.log('Login successful!');
-//         console.log('User:', user); // User data
-//         const role = user.role;
-//         if (role == "admin") {
-//           // Redirect to home page if login is successful
-//           // navigate('/admin');
-//           window.location.href = "/admin";
-//         }
-//         else {
-//           // Redirect to home page if login is successful
-//           navigate('/');
-//         }
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-//       } else {
-//         // Handle other cases, such as incorrect credentials
-//         setError(response.data.message);
-//       }
-//     } catch (error) {
-//       // Handle errors
-//       if (error.response && error.response.status === 401) {
-//         alert('Email or password incorrect,please try again!!');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(apiUrl, formData);
+      const { [userRole]: userData, success, message } = response.data;
+      const { accessToken, refreshToken, adminemail, firstPassUpdate } = userData;
 
-//       } else {
-//         setError('An error occurred. Please try again.'); // Handle generic errors
-//       }
-//     }
+      //const accessToken = SuperAdmin.accessToken
+      //const refreshToken = SuperAdmin.refreshToken
+      //const studentId = student.id
+      //const firstName = student.first_name;
+      //const lastName = student.last_name;
+      //const email = student.email;
 
-//   };
-//   // console.log('Form ', formData);
-
+      console.log(accessToken);
+      console.log(refreshToken);
+      // console.log(studentId);
+      // console.log(firstName);
+      // console.log(lastName);
+      // console.log(email);
+      // console.log(response.data);
+     
+      //document.cookie = `user_id=${studentId}; Secure; Max-Age=${3 * 60 * 60};`;
+      //document.cookie = `first_name=${firstName}; Secure; Max-Age=${3 * 60 * 60};`;
+      document.cookie = `${userRole}accessToken=${accessToken}; Secure; Max-Age=${3 * 60 * 60};`;
+      document.cookie = `${userRole}refreshToken=${refreshToken}; Secure; Max-Age=${3 * 60 * 60};`;
+      
 
 
+      // Assuming your backend returns a success message upon successful login
+      if (success) {
+        // Login was successful
+        console.log('Login successful!');
+        console.log(`${userRole}:`, userRole); // User data
+        console.log(firstPassUpdate); // User data
+       
+          // if the user is a student redirect to student page when login successful, if the user is a super admin redirect to super admin page
+          //if the user is a subscriber or a tenent redirect to update password page, and send the email of the user in the url
+         // Redirect based on user role
+          if (userRole === 'student') {
+            // Redirect to student page
+            navigate('/student/customize');
+            } else if (userRole === 'SuperAdmin') {
+                // Redirect to super admin page
+                navigate('/superadmin');
+            } else {
+                // Check firstPassUpdate
+                if (firstPassUpdate == 1) {
+                  if(userRole === 'tenent'){
+                    navigate(`/admin/customize`);
+                  }else{
+                     // If firstPassUpdate is 1, navigate to ${userRole} page
+                     navigate(`/${userRole}`);
+                  } 
+                } else {
+                    // If firstPassUpdate is 0, navigate to update password page with email in the URL
+                    navigate(`/${userRole}/updatepassword?email=${adminemail}`);
+                }
+            }
+          } else {
+            setError(message);
+          }
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          alert('Email or password incorrect, please try again!!');
+        } else {
+          setError('An error occurred. Please try again.');
+        }
+      }
 
-//   return (
-//     <div className={styles.backgroudFlex}>
-//       <div className={styles.rightImage}>
-//         <img src={imageecom} alt="App Store" />
-//       </div>
+  };
+  // console.log('Form ', formData);
 
-//       <div className={`max-w-md mx-auto p-6 ${styles.box}`}>
-//         <h2 className={`text-xl font-bold mb-4 ${styles.topicName}`}>Login</h2>
-//         <form onSubmit={handleSubmit}>
-//           <div className="mb-2">
-//             <label htmlFor="email" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Email</label>
-//             <input
-//               type="email"
-//               id="email"
-//               name="email"
-//               value={formData.email}
-//               onChange={handleChange}
-//               className={`w-full p-1 border rounded-md ${styles.inputText}`}
-//               placeholder="Enter your email"
-//               required
-//             />
-//           </div>
-//           <div className="mb-2">
-//             <label htmlFor="password" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Password</label>
-//             <input
-//               type="password"
-//               id="password"
-//               name="password"
-//               value={formData.password}
-//               onChange={handleChange}
-//               className={`w-full p-1 border rounded-md mb-20 ${styles.inputText}`}
-//               placeholder="Enter your password"
-//               required
-//             />
-//           </div>
-//           <button
-//             type="submit"
-//             className={styles.SignUpLoginbutton}
-//           >
-//             Log in
-//           </button>
-//         </form>
-//         <div className={styles.haveAccountName}>
-//           <h3>You Don't have an account ? </h3>
 
-//           <h3> <Link to="/register" className={styles.loginLink}>
-//             Sign up
-//           </Link>
-//           </h3>
-//         </div>
 
-//         <div className={styles.ForgetPass}>
-//           <h3>
-//             <Link to="/forgetpassword" className={styles.loginLink}>
-//               Forget Password ?
-//             </Link>
-//           </h3>
 
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+  return (
+    <div className={styles.backgroudFlex}>
+      <div className={styles.rightImage}>
+      <div className={styles.rightImageContainerLogin}>
+        <div className={styles.helloText} >Hello,Student!</div>
+        <div className={styles.welcomeText} >Welcome to</div>
+        <div className={styles.welcomeText2} >Zidyia Passport!</div>
+        <div className={styles.registerText} >Register with your personal details to use</div>
+        <div className={styles.registerText2} >the platform features.</div>
+        <button
+        type="submit"
+        className={styles.SignUpbutton}
+        >
+        Sign Up
+        </button>
+      </div>
+        
+     </div>
 
-// export default LoginComponent
+      <div className={`max-w-md mx-auto p-6 ${styles.box}`}>
+        <h2 className={`text-xl font-bold mb-4 ${styles.topicName}`}>Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-2">
+            <label htmlFor="email" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className={`w-full p-1 border rounded-md ${styles.inputText}`}
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div className="mb-2">
+            <label htmlFor="password" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className={`w-full p-1 border rounded-md mb-20 ${styles.inputText}`}
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className={styles.SignUpLoginbutton}
+          >
+            Log in
+          </button>
+        </form>
+        {userRole === 'student' && (
+          <div className={styles.haveAccountName}>
+            <h3>You Don't have an account ? </h3>
+            <h3>
+              <Link to="/register" className={styles.loginLink}>
+                Sign up
+              </Link>
+            </h3>
+          </div>
+        )}
+
+        <div className={styles.ForgetPass}>
+          <h3>
+            <Link to={`/${userRole}/forgetpassword`} className={styles.loginLink}>
+              Forget Password ?
+            </Link>
+          </h3>
+
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default LoginComponent
