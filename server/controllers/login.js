@@ -85,19 +85,20 @@ const loginTenent = asyncHandler(async (req, res) => {
             // Generate access token and refresh token for the student
             const accessToken = jwt.sign({
                 tenent: {
-                    tenentid:tenent.organization_id,
+                    tenentid: tenent.organization_id,
                     adminemail: tenent.admin_email,
-                    tenentname:tenent.name,
-                    tenentlocation:tenent.location,
+                    tenentname: tenent.name,
+                    tenentlocation: tenent.location,
                 }
             }, process.env.TENENT_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
 
+
             const refreshToken = jwt.sign({
                 tenent: {
-                    tenentid:tenent.organization_id,
+                    tenentid: tenent.organization_id,
                     adminemail: tenent.admin_email,
-                    tenentname:tenent.name,
-                    tenentlocation:tenent.location,
+                    tenentname: tenent.name,
+                    tenentlocation: tenent.location,
                 }
             }, process.env.TENENT_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
 
@@ -105,11 +106,11 @@ const loginTenent = asyncHandler(async (req, res) => {
                 tenent: {
                     accessToken: accessToken,
                     refreshToken: refreshToken,
-                    tenentid:tenent.organization_id,
+                    tenentid: tenent.organization_id,
                     adminemail: tenent.admin_email,
-                    tenentname:tenent.name,
-                    tenentlocation:tenent.location,
-                    firstPassUpdate:tenent.firstPassUpdate
+                    tenentname: tenent.name,
+                    tenentlocation: tenent.location,
+                    firstPassUpdate: tenent.firstPassUpdate
                 },
                 success: true,
                 message: "Login successful!"
@@ -123,7 +124,7 @@ const loginTenent = asyncHandler(async (req, res) => {
         throw new Error("tenent not found!");
     }
 });
-export {loginTenent};
+export { loginTenent };
 
 //--------------------------------------------------------------------------------------
 // subscriber login:
@@ -138,7 +139,7 @@ const loginSubscriber = asyncHandler(async (req, res) => {
     // Check if the user exists
     if (subscriberrow.length > 0) {
         const subscriber = subscriberrow[0]; // Assuming there's only one user per email
-        
+
         // Verify password
         const passwordMatch = await bcrypt.compare(password, subscriber.password); // comparing plaintext password with hashed password     
         if (passwordMatch) {
@@ -154,35 +155,35 @@ const loginSubscriber = asyncHandler(async (req, res) => {
 
                 const accessToken = jwt.sign({
                     subscriber: {
-                        subscriberid:subscriber.subscriber_id,
+                        subscriberid: subscriber.subscriber_id,
                         adminemail: subscriber.admin_email,
-                        subscribername:subscriber.name,
-                        subscriberlocation:subscriber.location,
-                        expiry_date:subscriber.expiry_date
+                        subscribername: subscriber.name,
+                        subscriberlocation: subscriber.location,
+                        expiry_date: subscriber.expiry_date
                     }
                 }, process.env.SUBSCRIBER_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
-    
+
                 const refreshToken = jwt.sign({
                     subscriber: {
-                        subscriberid:subscriber.subscriber_id,
+                        subscriberid: subscriber.subscriber_id,
                         adminemail: subscriber.admin_email,
-                        subscribername:subscriber.name,
-                        subscriberlocation:subscriber.location,
-                        expiry_date:subscriber.expiry_date
+                        subscribername: subscriber.name,
+                        subscriberlocation: subscriber.location,
+                        expiry_date: subscriber.expiry_date
                     }
                 }, process.env.SUBSCRIBER_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
-    
+
                 // Expiry date is valid, user can log in
                 res.status(200).json({
                     subscriber: {
                         accessToken: accessToken,
                         refreshToken: refreshToken,
-                        subscriberid:subscriber.subscriber_id,
+                        subscriberid: subscriber.subscriber_id,
                         adminemail: subscriber.admin_email,
-                        subscribername:subscriber.name,
-                        subscriberlocation:subscriber.location,
-                        expiry_date:subscriber.expiry_date,
-                        firstPassUpdate:subscriber.firstPassUpdate
+                        subscribername: subscriber.name,
+                        subscriberlocation: subscriber.location,
+                        expiry_date: subscriber.expiry_date,
+                        firstPassUpdate: subscriber.firstPassUpdate
                     },
                     success: true,
                     message: "Login successful!"
@@ -199,7 +200,7 @@ const loginSubscriber = asyncHandler(async (req, res) => {
         throw new Error("Subscriber not found!");
     }
 });
-export {loginSubscriber};
+export { loginSubscriber };
 
 //-----------------------------------------------------------------------------------------
 //Tenant login 
@@ -214,7 +215,7 @@ const loginSuperAdmin = asyncHandler(async (req, res) => {
     // Check if the user exists
     if (SuperAdminrow.length > 0) {
         const SuperAdmin = SuperAdminrow[0]; // Assuming there's only one user per email 
-        
+
         // Verify password
         const passwordMatch = await bcrypt.compare(password, SuperAdmin.password); // comparing plaintext password with hashed password     
 
@@ -222,14 +223,13 @@ const loginSuperAdmin = asyncHandler(async (req, res) => {
             // Generate access token and refresh token for the student
             const accessToken = jwt.sign({
                 SuperAdmin: {
-                    SuperAdminid:SuperAdmin.superadmin_id,
+                    SuperAdminid: SuperAdmin.superadmin_id,
                     adminemail: SuperAdmin.email,
                 }
             }, process.env.SUPERADMIN_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
-
             const refreshToken = jwt.sign({
                 SuperAdmin: {
-                    SuperAdminid:SuperAdmin.superadmin_id,
+                    SuperAdminid: SuperAdmin.superadmin_id,
                     adminemail: SuperAdmin.email,
                 }
             }, process.env.SUPERADMIN_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
@@ -238,7 +238,7 @@ const loginSuperAdmin = asyncHandler(async (req, res) => {
                 SuperAdmin: {
                     accessToken: accessToken,
                     refreshToken: refreshToken,
-                    SuperAdminid:SuperAdmin.superadmin_id,
+                    SuperAdminid: SuperAdmin.superadmin_id,
                     adminemail: SuperAdmin.email,
                 },
                 success: true,
@@ -253,4 +253,4 @@ const loginSuperAdmin = asyncHandler(async (req, res) => {
         throw new Error("super Admin not found!");
     }
 });
-export {loginSuperAdmin};
+export { loginSuperAdmin };

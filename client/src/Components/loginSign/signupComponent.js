@@ -1,5 +1,5 @@
 
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './loginSign.module.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -10,8 +10,8 @@ function SignupComponent() {
     email: '',
     password: '',
     mobile: '',
-    academic_id:'',
-    ID:''
+    academic_id: '',
+    ID: ''
 
   });
   const [errorMessage, setErrorMessage] = useState('');
@@ -19,42 +19,42 @@ function SignupComponent() {
 
   useEffect(() => {
     console.log('Form:', formData);
-}, [formData]); // Log the form data whenever it changes
+  }, [formData]); // Log the form data whenever it changes
 
-const handleChange = (e) => {
+  const handleChange = (e) => {
     setFormData({
-        ...formData,
-        [e.target.name]: e.target.value
+      ...formData,
+      [e.target.name]: e.target.value
     });
-};
+  };
 
-const handleImageChange = (e) => {
-  const file = e.target.files[0]; // Get the first selected file
-  
-  if (!file) {
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]; // Get the first selected file
+
+    if (!file) {
       return; // No file selected, exit function
-  }
+    }
 
-  // Read the file asynchronously
-  const reader = new FileReader();
-  reader.onload = () => {
+    // Read the file asynchronously
+    const reader = new FileReader();
+    reader.onload = () => {
       // Set the image data to the form data
       setFormData({
-          ...formData,
-          ID: reader.result, // Store the ArrayBuffer of the file
+        ...formData,
+        ID: reader.result, // Store the ArrayBuffer of the file
       });
-  };
-  reader.onerror = (error) => {
+    };
+    reader.onerror = (error) => {
       console.error('Error reading file:', error);
+    };
+    reader.readAsArrayBuffer(file); // Read file as ArrayBuffer
   };
-  reader.readAsArrayBuffer(file); // Read file as ArrayBuffer
-};
 
 
 
 
 
-  
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -84,19 +84,19 @@ const handleImageChange = (e) => {
       setSuccessMessage(''); // Clear any previous success messages
     }
   }
-   console.log('Form ', formData);
+  console.log('Form ', formData);
 
 
 
   return (
-    
-            
+
+
     <div className={styles.backgroudFlexRegister}>
 
-      <div className={`max-w-md mx-auto p-6 ${styles.rightImage}`}>
+      <div className={`max-w-l mx-auto p-6 ${styles.rightImage}`}>
         <h2 className={`text-xl font-bold mb-4 ${styles.topicName}`}>Create an account</h2>
         {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
-        {successMessage && <div style={{ color: '#579AD3',textAlign:'center' }}>{successMessage}</div>}
+        {successMessage && <div style={{ color: '#579AD3', textAlign: 'center' }}>{successMessage}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-2">
             <label htmlFor="first_name" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Firstname</label>
@@ -151,43 +151,43 @@ const handleImageChange = (e) => {
             />
           </div>
           <div className="mb-2">
-          <label htmlFor="mobile" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Mobile Number</label>
-          <input
-            type="tel"
-            id="mobile"
-            name="mobile"
-            value={formData.mobile}
-            onChange={handleChange}
-            className={`w-full p-1 border rounded-md ${styles.inputText}`}
-            placeholder="Enter your mobile number"
-            required
-          />
-         </div>
-         <div className="mb-2">
-          <label htmlFor="academic_id" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Academic ID</label>
-          <input
-            type="text"
-            id="academic_id"
-            name="academic_id"
-            value={formData.academic_id}
-            onChange={handleChange}
-            className={`w-full p-1 border rounded-md ${styles.inputText}`}
-            placeholder="Enter your academic ID"
-            required
-          />
-         </div>
-         <div className="mb-2">
-          <label htmlFor="ID" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Upload ID Image</label>
-          <input
-            type="file"
-            id="ID"
-            name="ID"
-            accept="image/*"
-            onChange={handleImageChange}
-            className={`w-full p-1 border rounded-md mb-6 ${styles.inputText}`}
-            multiple
-          />
-         </div>
+            <label htmlFor="mobile" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Mobile Number</label>
+            <input
+              type="tel"
+              id="mobile"
+              name="mobile"
+              value={formData.mobile}
+              onChange={handleChange}
+              className={`w-full p-1 border rounded-md ${styles.inputText}`}
+              placeholder="Enter your mobile number"
+              required
+            />
+          </div>
+          <div className="mb-2">
+            <label htmlFor="academic_id" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Academic ID</label>
+            <input
+              type="text"
+              id="academic_id"
+              name="academic_id"
+              value={formData.academic_id}
+              onChange={handleChange}
+              className={`w-full p-1 border rounded-md ${styles.inputText}`}
+              placeholder="Enter your academic ID"
+              required
+            />
+          </div>
+          <div className="mb-2">
+            <label htmlFor="ID" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Upload ID Image</label>
+            <input
+              type="file"
+              id="ID"
+              name="ID"
+              accept="image/*"
+              onChange={handleImageChange}
+              className={`w-full p-1 border rounded-md mb-6 ${styles.inputText}`}
+              multiple
+            />
+          </div>
           <button
             type="submit"
             className={styles.SignUpLoginbutton}
@@ -198,7 +198,7 @@ const handleImageChange = (e) => {
         <div className={styles.haveAccountName}>
           <h3>Already have an account ? </h3>
 
-          <h3> <Link to="/login" className={styles.loginLink}>
+          <h3> <Link to="/student/login" className={styles.loginLink}>
             Log in
           </Link>
           </h3>
@@ -206,20 +206,20 @@ const handleImageChange = (e) => {
       </div>
 
 
-      <div className={styles.boxRegister}>
-      <div className={styles.rightImageContainerRegister}>
-        <div className={styles.helloText} >Welcome Back!</div>
-        <div className={styles.registerText} >Login By entering your personal details</div>
-        <div className={styles.registerText2} >to use the platform features.</div>
-        <button
-        type="submit"
-        className={styles.SignUpbutton}
-        >
-        Log in
-        </button>
-      </div>
-        
-      </div>
+      {/* <div className={styles.boxRegister}>
+        <div className={styles.rightImageContainerRegister}>
+          <div className={styles.helloText} >Welcome Back!</div>
+          <div className={styles.registerText} >Login By entering your personal details</div>
+          <div className={styles.registerText2} >to use the platform features.</div>
+          <button
+            type="submit"
+            className={styles.SignUpbutton}
+          >
+            Log in
+          </button>
+        </div>
+
+      </div> */}
     </div>
   );
 };
