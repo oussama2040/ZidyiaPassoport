@@ -25,7 +25,7 @@ import SupperAdmin from "./Pages/SupperAdmin.js";
 import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.js";
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
 import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
-import CustomizeCertificate from "./Pages/CustomizeCertificate.js";
+import CustomizeCertificate from "./Pages/customizeCertificate.js";
 import Subscriber from "./Pages/Subscriber.js";
 import AdminCertificateReq from "./Components/Admin/CertificateReq/AdminCertificateReq.js";
 

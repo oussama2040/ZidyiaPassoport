@@ -2,11 +2,12 @@
     width: 50%;
     margin-top: 7%;
     margin-left: 25%;
+    border-top-right-radius: 25%;
+    border-bottom-right-radius: 25%;
     display: flex;
     height: 470px;
-    border-radius: 20%;
     margin-bottom: 50px;
-    box-shadow: 1px 0px 100px #8ab7a7;
+    box-shadow: 1px 0px 10px;
    }
    .backgroudFlexRegister{
     width: 50%;
@@ -14,17 +15,18 @@
     margin-left: 25%;
     display: flex;
     height: 650px;
-    border-radius: 20%;
+    border-top-right-radius: 25%;
+    border-bottom-right-radius: 25%;
     margin-bottom: 50px;
-    box-shadow: 1px 0px 100px #8ab7a7;
+    box-shadow: 1px 0px 10px;
    }
 
    .box{
     background-color:#2d3741;
     width:90%;
     height: inherit;
-    border-top-right-radius: 20%;
-    border-bottom-right-radius: 20%;
+    border-top-right-radius: 25%;
+    border-bottom-right-radius: 25%;
     box-shadow: -10px 0px 15px 0px rgba(0, 0, 0, 0.5);
     
 }
@@ -54,41 +56,61 @@
 }
 
 .rightImageContainerLogin{
-  margin-top: -45%;
+  margin-top: 0%;
+  display: flex;
+  flex-direction: column;
 }
 
-
+.logoImg{
+  width:70%;
+  height:50%;
+  margin-left: 13%;
+  /*border: 1px solid red;*/
+}
+.logoImage{
+  width:100%;
+  height:100%;
+ /* border: 1px solid blue;*/
+}
 .helloText{
   color: #28EFA9;
-  font-size: 40px;
-  margin-left: 5%;
+  font-size: 30px;
+  margin-left: 17%;
+  margin-top: 15%;
+  width: 270px;
+}
+.helloTextRegister{
+  color: #28EFA9;
+  font-size: 30px;
+  margin-left: 17%;
   margin-top: 60%;
+  width: 270px;
 }
 .welcomeText{
   color: #28EFA9;
-  font-size: 35px;
+  font-size: 20px;
   margin-left: 13%;
   margin-top: 5%;
 
 }
 .welcomeText2{
   color: #28EFA9;
-  font-size: 35px;
+  font-size: 15px;
   margin-left: 22%;
   margin-top: 5%;
 
 }
 .registerText{
   color: #28EFA9;
-  font-size: 15px;
-  margin-left: 10%;
-  margin-top: 10%;
+  font-size: 13px;
+  margin-left: 14%;
+  margin-top: 20%;
 
 }
 .registerText2{
   color: #28EFA9;
-  font-size: 15px;
-  margin-left: 23%;
+  font-size: 13px;
+  margin-left: 28%;
 
 }
 
@@ -100,12 +122,12 @@
     padding: 10px 20px;
     border-radius: 15px;
     border: 1px solid #2d3741;
-    background-color: #94E7C0;
+    background-color: #28EFA9;
     font-size: 14px;
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 2px;
-    color: #fff;
+    color: #2d3741;
     overflow: hidden;
     box-shadow: 0 0 0 0 transparent;
     -webkit-transition: all 0.2s ease-in;
@@ -115,11 +137,11 @@
   }
   
   .SignUpLoginbutton:hover {
-    background: #28EFA9;
+    background: #94E7C0;
     -webkit-transition: all 0.2s ease-out;
     -moz-transition: all 0.2s ease-out;
     transition: all 0.2s ease-out;
-    color: #2d3741;
+    color: #fff;
     font-weight: bold;
   }
   
@@ -176,27 +198,27 @@
    padding: 5px 10px;
    border-radius: 10px;
    border: 1px solid #2d3741;
-   background-color: #94E7C0;
+   background-color: #28EFA9;
    font-size: 14px;
    text-transform: uppercase;
    font-weight: 600;
    letter-spacing: 2px;
-   color: #fff;
+   color: #2d3741;
    overflow: hidden;
    box-shadow: 0 0 0 0 transparent;
    -webkit-transition: all 0.2s ease-in;
    -moz-transition: all 0.2s ease-in;
    transition: all 0.2s ease-in;
    margin-left:  35%;
-   margin-top: 10%;
+   margin-top: 4%;
  }
  
  .SignUpbutton:hover {
-   background: #28EFA9;
+   background: #94E7C0;
    -webkit-transition: all 0.2s ease-out;
    -moz-transition: all 0.2s ease-out;
    transition: all 0.2s ease-out;
-   color: #2d3741;
+   color: #fff;
    font-weight: bold;
  }
  
@@ -273,24 +295,25 @@
 
  .inputText {
   height: 30px;
-  border: 2px solid transparent;
+  width: 90%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   outline: none;
-  border-bottom: 2px solid #94E7C0;
-  caret-color: #94E7C0;
-  background-color: #94E7C0;
-  padding: 5px;
+  background-color: transparent;
+  padding: 10px;
   transition: .5s linear;
   font-family: monospace;
   letter-spacing: 1px;
   margin-left: 20px;
-  width: 90%;
+  color: #fff;
 }
 
 .inputText:focus {
-  border: 2px solid #2d3741;
-  caret-color: #2d3741;
-  color:white;
-  box-shadow: 4px 4px 10px #070707;
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  color: #fff;
 }
 
 .inputText:focus::placeholder {
@@ -303,7 +326,7 @@
 /* ------------have an account ----------- */
 .haveAccountName{
   margin-left: 20px;
-  margin-top: 10px;
+  margin-top: 27px;
   width: 90%;
   display: flex;
   align-items: center;
@@ -316,12 +339,28 @@
   margin-bottom: 5px; 
 }
 
+/* ------------have an account for register form ----------- */
+.haveAccountNameRegister{
+  margin-left: 20px;
+  margin-top: 13px;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.haveAccountNameRegister h3 {
+  font-size: 0.9rem; 
+  color: white; 
+  margin-bottom: 5px; 
+}
+
 /* --------------login link ----------------- */
 .loginLink {
   text-decoration: none;
   font-size: 1rem; 
   font-weight: bold;
-  color: #94E7C0; 
+  color: #28EFA9; 
   margin-left: 5px;
   cursor: pointer; 
   transition: color 0.3s ease-in-out; 
@@ -330,7 +369,7 @@
 }
 
 .loginLink:hover {
-  color: #28EFA9;
+  color: #94E7C0;
 } 
 
 /* --------forget password ------------ */
@@ -359,6 +398,29 @@
   height: inherit;
   border-top-right-radius: 20%;
   border-bottom-right-radius: 20%;
-  box-shadow: -10px 0px 15px 0px rgba(198, 221, 199, 0.5);
+  box-shadow: 1px 0px 10px;
   margin-top:10%;
+}
+
+
+/* --------forget password ------------ */
+.ForgetPass h3 {
+  font-size: 1rem; 
+  color: white; 
+  margin-bottom: 5px; 
+}
+
+.test1{
+  color: green;
+}
+
+
+.updatePassbox{
+  background-color:#2d3741;
+  width:90%;
+  height: inherit;
+  border-top-right-radius: 20%;
+  border-bottom-right-radius: 20%;
+  box-shadow: 1px 0px 10px;
+  margin-top:5%;
 }

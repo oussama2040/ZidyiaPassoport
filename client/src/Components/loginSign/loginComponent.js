@@ -1,6 +1,8 @@
 import styles from './loginSign.module.css';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import Zidyia_Logo from './../Assets/Zidyia_Logo.png';
+
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 import axios from 'axios';
 
@@ -94,20 +96,24 @@ function LoginComponent({ apiUrl, userRole }) {
     <div className={styles.backgroudFlex}>
       <div className={styles.rightImage}>
       <div className={styles.rightImageContainerLogin}>
-        <div className={styles.helloText} >Hello,Student!</div>
-        <div className={styles.welcomeText} >Welcome to</div>
-        <div className={styles.welcomeText2} >Zidyia Passport!</div>
-        <div className={styles.registerText} >Register with your personal details to use</div>
-        <div className={styles.registerText2} >the platform features.</div>
-        <button
-        type="submit"
-        className={styles.SignUpbutton}
-        >
-        Sign Up
-        </button>
+        <div className={styles.logoImg}>
+        <img className={styles.logoImage} src={Zidyia_Logo}/>
+        </div>
+          <div className={styles.helloText} >Hello, {userRole}!</div>
+          <div className={styles.welcomeText} >Welcome to Zidyia Passport</div>
+       {userRole === 'student' && (
+          <React.Fragment>
+          <div className={styles.registerText} >Register with your personal details to use</div>
+          <div className={styles.registerText2} >the platform features.</div>
+          <button type="submit" className={styles.SignUpbutton}>
+            <Link to="/student/register" >
+            Sign Up
+            </Link>
+          </button>
+          </React.Fragment>
+        )}
+       </div>
       </div>
-        
-     </div>
 
       <div className={`max-w-md mx-auto p-6 ${styles.box}`}>
         <h2 className={`text-xl font-bold mb-4 ${styles.topicName}`}>Login</h2>
@@ -149,7 +155,7 @@ function LoginComponent({ apiUrl, userRole }) {
           <div className={styles.haveAccountName}>
             <h3>You Don't have an account ? </h3>
             <h3>
-              <Link to="/register" className={styles.loginLink}>
+              <Link to="/student/register" className={styles.loginLink}>
                 Sign up
               </Link>
             </h3>

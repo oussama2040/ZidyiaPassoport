@@ -66,11 +66,8 @@ function ResetPasswordComponent({apiUrl, userRole}){
       };
   // console.log('Form ', formData);
   return (
-    <div className={styles.backgroudFlex}>
-      <div className={styles.rightImage}>
-      </div>
     
-    <div className={`max-w-md mx-auto p-6 ${styles.box}`}>
+    <div className={`max-w-md mx-auto p-6 ${styles.updatePassbox}`}>
       <h2 className={`text-xl font-bold mb-4 ${styles.topicName}`}>Forget Password</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-2">
@@ -113,14 +110,13 @@ function ResetPasswordComponent({apiUrl, userRole}){
         <div className={styles.haveAccountName}>
           <h3>You Don't have an account ? </h3>
           <h3>
-            <Link to="/signup" className={styles.loginLink}>
+            <Link to="/student/register" className={styles.loginLink}>
               Sign up
             </Link>
           </h3>
         </div>
       )}
       
-    </div>
     </div>
   );
 };
