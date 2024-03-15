@@ -5,6 +5,8 @@ import axios from 'axios';
 
 const Profile = () => {
     const [countries, setCountries] = useState([]);
+    const [profile_Img, setProfileImg] = useState(null);
+
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
@@ -12,7 +14,6 @@ const Profile = () => {
         bio: '',
         location: '',
         mobile: '',
-        profile_img: null
       });
     
       const handleChange = (e) => {
@@ -20,11 +21,7 @@ const Profile = () => {
         setFormData({ ...formData, [id]: value });
       };
     
-      const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        setFormData({ ...formData, profile_img: file });
-      };
-    
+
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -35,7 +32,7 @@ const Profile = () => {
           formDataToSend.append('bio', formData.bio);
           formDataToSend.append('location', formData.location);
           formDataToSend.append('mobile', formData.mobile);
-          formDataToSend.append('profile_img', formData.profile_img);
+          formDataToSend.append('profile_img', profile_Img);
     
           console.log(formDataToSend);
           const studentId = 1; 
@@ -49,10 +46,6 @@ const Profile = () => {
           console.error('Error updating profile:', error);
         }
       };
-
-  
-   
-
 
     useEffect(() => {
         fetch('https://restcountries.com/v2/all')
@@ -119,9 +112,11 @@ const Profile = () => {
                         </div>
                         <div className='ContainerProfileImage'>
                             <label className="titleProfilePhoto">Profile Photo</label>
-                            <input id="profile_img" type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }} />
-                            {formData.profile_img && (
-                                <img src={URL.createObjectURL(formData.profile_img)} alt="Profile" />
+                            <input id="profile_img" type="file" accept="image/*" onChange={(e) => setProfileImg(e.target.files[0])} 
+                             style={{ display: 'none' }} />
+                            
+                            {profile_Img && (
+                                <img src={URL.createObjectURL(profile_Img)} alt="Profile" />
                             )}
                             <div className='btnUpdate' onClick={() => document.getElementById("profile_img").click()}>
                                 <a href="#">

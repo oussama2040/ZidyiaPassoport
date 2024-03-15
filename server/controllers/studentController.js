@@ -63,18 +63,14 @@ const getVerifiedCertificatesForStudent = async (req, res) => {
         FROM
             request_certificate cert
             JOIN student ON cert.student_id = student.student_id
-            LEFT JOIN certificateverification verification ON cert.request_id = verification.certificate_id
+            LEFT JOIN verifiedcertificate verification ON cert.request_id = verification.certificate_id
             JOIN tenent ON tenent.organization_id = cert.organization_id
         WHERE
-            cert.status = 'verified' AND cert.student_id = ?
+            cert.status = 'verified' AND cert.student_id = ? AND verification.verification_id IS NOT NULL
         ORDER BY
             cert.issued_date DESC;
     `;
 
-        // const [rows] = await connection.promise().query(query, [studentId]);
-        // res.status(200).json({
-        //     certificates: rows, 
-        // });
         const [rows, fields] = await connection.promise().query(query, [studentId]);
 
         if (rows && rows.length > 0) {
@@ -206,7 +202,7 @@ export { updateProfile };
 const addRequestCertificate = async (req, res) => {
     let CertificateFile;
     let TranscriptFile;
-
+    let insertedCertificateId;
     const {
         student_id,
         organization_id,
@@ -246,7 +242,7 @@ const addRequestCertificate = async (req, res) => {
                 ]
             );
 
-            const insertedCertificateId = certificateResult ? certificateResult.insertId : null;
+            insertedCertificateId = certificateResult ? certificateResult.insertId : null;
 
             if (insertedCertificateId && TranscriptFile) {
                 // If TranscriptFile is provided, insert into the transcript table
@@ -287,7 +283,7 @@ const addRequestCertificate = async (req, res) => {
         return res.status(201).json({
             success: true,
             message: 'Certificate request added successfully.',
-            certificate_id: insertedCertificateId
+            request_id: insertedCertificateId
         });
     } catch (error) {
         console.error('Error adding certificate request:', error);

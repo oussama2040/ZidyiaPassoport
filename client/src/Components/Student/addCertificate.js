@@ -7,12 +7,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Certificate = () => {
     const [organizations, setOrganizations] = useState([]);
-    const [certificateImage, setCertificateImage] = useState(null);
     const [certificateName, setCertificateName] = useState('');
     const [institution, setInstitution] = useState('');
     const [issueDate, setIssueDate] = useState('');
     const [expiryDate, setExpiryDate] = useState('');
     const [body, setBody] = useState('');
+
+    const [certificateImage, setCertificateImage] = useState(null);
+
 
     useEffect(() => {
         fetchOrganizations();
@@ -32,17 +34,18 @@ const Certificate = () => {
         }
     };
 
-    const handleImageChange = (event) => {
-        const file = event.target.files[0];
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        
+        reader.onloadend = () => {
+          setCertificateImage(reader.result);
+        };
+        
         if (file) {
-            const reader = new FileReader();
-            reader.onload = () => {
-                setCertificateImage(reader.result);
-            };
-            reader.readAsDataURL(file);
+          reader.readAsDataURL(file);
         }
-    };
-
+      };
 
     const handleCreateCertificate = async (event) => {
         event.preventDefault();
@@ -61,6 +64,7 @@ const Certificate = () => {
 
             console.log('CertificateFile:', certificateImage);
             formData.append('CertificateFile', certificateImage); 
+
             const response = await axios.post('http://localhost:5000/students/addRequest', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -87,7 +91,7 @@ const Certificate = () => {
                             type="file"
                             id="imageInput"
                             accept="image/*"
-                            onChange={handleImageChange}
+                             onChange={(e) => setCertificateImage(e.target.files[0])} 
                         />
 
                         <label htmlFor="imageInput" className="ChooseCertificate">
@@ -96,7 +100,7 @@ const Certificate = () => {
                         {certificateImage && (
                             <div className="cert">
                                 <div className="img">
-                                    <img id="selectedImage" src={certificateImage} alt="" />
+                                    <img id="selectedImage" src={URL.createObjectURL(certificateImage)} alt="" />
                                 </div>
                             </div>
                         )}

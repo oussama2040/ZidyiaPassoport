@@ -178,17 +178,17 @@ const updateCertificateRequestStatus = async (req, res) => {
         const requestId = req.params.requestId;
         const { status, rejectionReason } = req.body;
 
-        if (status === 'verified') {
-            const today = new Date().toISOString().split('T')[0];
+        // if (status === 'verified') {
+        //     const today = new Date().toISOString().split('T')[0];
             
-            const updateVerificationQuery = `
-               INSERT INTO certificateverification
-               (organization_id, verification_date, certificate_id)
-               VALUES (?, ?, ?);
-            `;
+        //     const updateVerificationQuery = `
+        //        INSERT INTO certificateverification
+        //        (organization_id, verification_date, certificate_id)
+        //        VALUES (?, ?, ?);
+        //     `;
             
-            await connection.promise().query(updateVerificationQuery, [req.user.user.id, today, requestId]);
-        }
+        //     await connection.promise().query(updateVerificationQuery, [req.user.user.id, today, requestId]);
+        // }
 
         if (status === 'verified') {
             const updateCertificateQuery = `

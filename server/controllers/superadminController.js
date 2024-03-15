@@ -119,7 +119,7 @@ export const getSubscribersCount = async (req, res) => {
 // Count issued certificates
 export const getIssuedCertificatesCount = async (req, res) => {
     try {
-        const query = 'SELECT COUNT(*) AS IssuedCertCount FROM certificate WHERE status = "verified"';
+        const query = 'SELECT COUNT(*) AS IssuedCertCount FROM request_certificate WHERE status = "verified"';
         db.query(query, (error, results) => {
             if (error) {
                 console.error('Error querying database:', error);
