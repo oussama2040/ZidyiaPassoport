@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './CertificateReq.module.css';
 import { IoMdClose } from 'react-icons/io';
 import axios from 'axios';
-
+import { LiaCertificateSolid } from "react-icons/lia";
 const CertificateCard = ({ certificate }) => {
   const [selectedCertificate, setSelectedCertificate] = useState(null);
   const [rejectionReason, setRejectionReason] = useState('');
@@ -27,12 +27,12 @@ const CertificateCard = ({ certificate }) => {
       if (showRejectionInput) {
         requestData = {
           status: 'rejected',
-          rejection_section: rejectionReason
+          rejectionReason: rejectionReason
         };
       } else {
         requestData = {
           status: 'verified',
-          rejection_section: ''
+          rejectionReason: ''
         };
       }
 
@@ -55,6 +55,7 @@ const CertificateCard = ({ certificate }) => {
     <div className={`flex flex-wrap ${styles.CertificateCardFlex}`}>
       {certificate.map((cert, index) => (
         <div key={cert.certificate_id} className={`mb-4 w-full md:w-1/2 lg:w-1/4 ${index < 4 ? 'mr-4' : ''} ${styles.CertificateCard}`} onClick={() => handleCertificateClick(cert)}>
+          <LiaCertificateSolid  className={styles.certificateIcon}/>
           <img className="w-full h-64 object-cover object-center" src={cert.CertificateFile} alt="Certificate" />
           <div className="p-4">
             <h2 className={styles.customizeFieldNametext}>{cert.first_name} {cert.last_name}</h2>
@@ -67,7 +68,7 @@ const CertificateCard = ({ certificate }) => {
         <div className={styles.Certificateoverlay} onClick={() => setSelectedCertificate(null)}>
           <div className={styles.CertificateoverlayContent} onClick={(e) => e.stopPropagation()}>
             <button className={styles.closebtn} onClick={() => setSelectedCertificate(null)}><IoMdClose /></button>
-            <img className={`w-full object-cover object-center ${styles.certificateOverlayImg}`} src={selectedCertificate.CertificateFile} alt="Certificate" />
+            <img className={` ${styles.certificateOverlayImg}`} src={selectedCertificate.CertificateFile} alt="Certificate" />
             <div>
               <h2 className={styles.customizeFieldTopicName}>{selectedCertificate.first_name} {selectedCertificate.last_name}</h2>
               <h2 className={styles.customizeFieldTopicName}>{selectedCertificate.name}</h2>
@@ -81,19 +82,20 @@ const CertificateCard = ({ certificate }) => {
               </div>
               <div className={styles.rejectReason}>
                 <label>
-                  Reject:
+                  <div className={styles.CustomizeReject}>Reject</div>
+                  
                   <input type="radio" value="reject" name="rejectionReason" onChange={handleRejectChange} />
-                </label>
-                <label>
-                  Verify:
-                  <input type="radio" value="verify" name="rejectionReason" onChange={handleRejectChange} />
                 </label>
                 {showRejectionInput && (
                   <label >
-                   <div >Rejection Reason:</div> 
+                   <div className={styles.CustomizeReject}>Rejection Reason</div> 
                     <input type="text" value={rejectionReason} onChange={handleRejectionInputChange} />
                   </label>
                 )}
+                <label>
+                 <div className={styles.CustomizeVerifyt}>Verify</div> 
+                  <input type="radio" value="verify" name="rejectionReason" onChange={handleRejectChange} />
+                </label>
               </div>
               <button className={styles.ReasonBtn} type="button" onClick={handleRespond}>Respond</button>
             </div>

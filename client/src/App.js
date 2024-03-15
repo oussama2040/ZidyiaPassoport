@@ -12,10 +12,8 @@ import ForgetPass from "./Pages/StudentForgetPass.js";
 import ResetPass from "./Pages/StudentResetPass.js";
 import SubscriberForgetPass from "./Pages/SubscriberForgetPass.js";
 import SubscriberResetPass from "./Pages/SubscriberResetPass.js";
-import SubscriberUpdatePass from "./Pages/SubscriberUpdatePass.js";
 import TenentForgetPass from "./Pages/TenentForgetPass.js";
 import TenentResetPass from "./Pages/TenentResetPass.js";
-import TenentUpdatePass from "./Pages/TenentUpdatePass.js";
 import SuperAdminForgetPass from "./Pages/SuperAdminForgetPass.js";
 import SuperAdminResetPass from "./Pages/SuperAdminResetPass.js";
 // import NotFound from "./Pages/NotFound.js";
@@ -25,15 +23,12 @@ import SupperAdmin from "./Pages/SupperAdmin.js";
 import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.js";
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
 import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
-import CustomizeCertificate from "./Pages/CustomizeCertificate.js";
-import Subscriber from "./Pages/Subscriber.js";
+import CustomizeCertificate from "./Pages/customizeCertificate.js";
 import AdminCertificateReq from "./Components/Admin/CertificateReq/AdminCertificateReq.js";
 
 export default function App() {
   const organizationId = 4;
   const studentId = 2;
-
-
 
   return (
     <div>
@@ -49,12 +44,10 @@ export default function App() {
             <Route path="/student/resetpass" element={<ResetPass />} /> 
             <Route path="/tenent/login" element={<TenentLogin />} />
             <Route path="/tenent/forgetpassword" element={<TenentForgetPass />} />
-            <Route path="/tenent/resetpass" element={<TenentResetPass />} /> 
-            <Route path="/tenent/updatepassword" element={<TenentUpdatePass />} />   
+            <Route path="/tenent/resetpass" element={<TenentResetPass />} />   
             <Route path="/subscriber/login" element={<SubscriberLogin />} />
             <Route path="/subscriber/forgetpassword" element={<SubscriberForgetPass />} />
-            <Route path="/subscriber/resetpass" element={<SubscriberResetPass />} /> 
-            <Route path="/subscriber/updatepassword" element={<SubscriberUpdatePass />} />    
+            <Route path="/subscriber/resetpass" element={<SubscriberResetPass />} />    
             <Route path="/superAdmin/login" element={<SuperAdminLogin />} />
             <Route path="/superAdmin/forgetpassword" element={<SuperAdminForgetPass />} />
 
@@ -67,7 +60,6 @@ export default function App() {
             <Route path="/admin/customizecertificate" element={<CustomizeCertificate />} />
             <Route path="/admin/reqcertificate" element={ <AdminCertificateReq  organizationId={organizationId} /> } />
             <Route path="/student/customize" element={<GetSendStudentCustomFields  organizationId={organizationId}  studentId={studentId} />} />
-            <Route path="/subscriber/ScanQrCode" element={<Subscriber/>}/>
                 
             {/* <Route path="/admin" element={<Admin />} />
                   <Route path="/login" element={<Login />} />                                        

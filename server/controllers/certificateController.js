@@ -178,17 +178,17 @@ const updateCertificateRequestStatus = async (req, res) => {
         const requestId = req.params.requestId;
         const { status, rejectionReason } = req.body;
 
-        if (status === 'verified') {
-            const today = new Date().toISOString().split('T')[0];
+        // if (status === 'verified') {
+        //     const today = new Date().toISOString().split('T')[0];
             
-            const updateVerificationQuery = `
-               INSERT INTO certificateverification
-               (organization_id, verification_date, certificate_id)
-               VALUES (?, ?, ?);
-            `;
+        //     const updateVerificationQuery = `
+        //        INSERT INTO certificateverification
+        //        (organization_id, verification_date, certificate_id)
+        //        VALUES (?, ?, ?);
+        //     `;
             
-            await connection.promise().query(updateVerificationQuery, [req.user.user.id, today, requestId]);
-        }
+        //     await connection.promise().query(updateVerificationQuery, [req.user.user.id, today, requestId]);
+        // }
 
         if (status === 'verified') {
             const updateCertificateQuery = `
@@ -214,6 +214,33 @@ const updateCertificateRequestStatus = async (req, res) => {
 };
 
 
+const updatefilledRequestStatus = async (req, res) => {
+    try {
+        const requestId = req.params.requestId;
+        const { status, rejectionReason } = req.body;
+
+        if (status === 'verified') {
+            const updateCertificateQuery = `
+                UPDATE filledforms
+                SET status = ?
+                WHERE filled_form_id = ?;
+            `;
+            await connection.promise().query(updateCertificateQuery, [status, requestId]);
+        } else if (status === 'rejected') {
+            const updateCertificateQuery = `
+                UPDATE filledforms
+                SET status = ?, rejection_reason = ?
+                WHERE filled_form_id = ?;
+            `;
+            await connection.promise().query(updateCertificateQuery, [status, rejectionReason, requestId]);
+        }
+
+        res.status(200).json({ message: 'filled form request status updated successfully.' });
+    } catch (error) {
+        console.error('Error updating filled form  request status:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
 
 
 
@@ -345,5 +372,6 @@ export {
     countPendingCertificates,
     countApprovedCertificates,
     countRejectedCertificates,
-    countCertificatesByStatusAndDateRange
+    countCertificatesByStatusAndDateRange,
+    updatefilledRequestStatus
 };
