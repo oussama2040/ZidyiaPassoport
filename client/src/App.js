@@ -20,6 +20,11 @@ import SuperAdminResetPass from "./Pages/SuperAdminResetPass.js";
 import Admin from "./Pages/Admin.js";
 import Home from "./Pages/Home.js";
 import SupperAdmin from "./Pages/SupperAdmin.js";
+import StudentViewCertificate from "./Pages/StudentViewCertificate.js";
+import StudentAddCertificate from "./Pages/StudentaddCertificate.js";
+import StudentProfile from "./Pages/StudentProfile.js";
+import StudentAllRequests from "./Pages/StudentAllRequest.js";
+
 import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.js";
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
 import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
@@ -70,7 +75,12 @@ export default function App() {
                   <Route path="/registerverify/:token" element={<VerificationComponent />} />
                   <Route path="/register" element={<Signup />} />               
                   <Route path="*" element={<NotFound />} /> */}
-          </>
+                  <Route path="/student/viewCertificate" element={<StudentViewCertificate />} />
+                  <Route path="/student/addCertificate" element={<StudentAddCertificate/>} />
+                  <Route path="/student/profile" element={<StudentProfile/>} />
+                  <Route path="/student/requestCertificate" element={<StudentAllRequests/>} />
+                </>
+        
         </Routes>
       </Router>
     </div>

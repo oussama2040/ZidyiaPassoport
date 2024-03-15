@@ -11,6 +11,7 @@
     border-top-right-radius:26px ;
     border-bottom-right-radius:26px ;
     
+    
 }
 
 .LogoMain{
@@ -56,6 +57,17 @@
     transition: background-color 0.3s, color 0.3s; 
 }
 
+
+.NavMain {
+    display: flex;
+    justify-content: start;
+    padding-left: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; 
+}
+
 .active {
     background-color: #5DD3B3; 
     background-image: linear-gradient(to left, #5DD3B3, #86d5c0); 
@@ -69,9 +81,12 @@
 .ZidyiaPassportLogo{
     position: absolute;
     bottom: 0%;
+    position: absolute;
+    bottom: 0%;
 }
 
 .ZidyiaPassportLogo img{
+    width: 55px;
     width: 55px;
     height: 66px;
     object-fit: contain;

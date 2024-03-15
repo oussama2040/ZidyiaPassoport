@@ -7,10 +7,6 @@ import {
 
 const router = express.Router();
 
-// Authentication middleware 
-const authenticateUser = (req, res, next) => { req.user = { user: { id: 1, }, }; next(); };
-router.use(authenticateUser);
-
 router.post('/certificates', createCertificate);
 router.put('/certificates/:id', updateCertificate);
 router.get('/certificates/organization/:organization_id/count', countTotalCertificates);
