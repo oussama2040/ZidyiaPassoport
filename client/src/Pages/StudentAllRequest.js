@@ -1,16 +1,16 @@
 import React from 'react';
-import Profile from '../Components/Student/profile';
+import AllCertificate from '../Components/Student/RequestCertificate';
 import SideBarStudent from '../Components/SideBar/SideBarStudent';
 import NavBarStudent from '../Components/NavBarAdmin/NavBarStudent'
 
 
 function Home() {
   return (
-    <div style={{ backgroundColor: '#384450' }}>
+    <div>
       <NavBarStudent />
-      <div style={{ display: 'flex', flexDirection: 'row', backgroundColor: '#384450' }}>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
         <SideBarStudent />
-        <Profile />
+        <AllCertificate />
       </div>
     </div>
   )

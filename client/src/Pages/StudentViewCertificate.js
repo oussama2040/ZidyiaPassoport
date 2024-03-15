@@ -1,16 +1,16 @@
 import React from 'react';
-import AddCertificate from '../Components/Certificate/addCertificate';
+import Certificate from '../Components/Student/Viewcertificate';
 import SideBarStudent from '../Components/SideBar/SideBarStudent';
 import NavBarSupperAdmin from '../Components/NavBarAdmin/NavBarStudent'
 
 
 function Home() {
   return (
-    <div style={{ backgroundColor: '#384450' }}>
+    <div>
       <NavBarSupperAdmin />
-      <div style={{ display: 'flex', flexDirection: 'row', backgroundColor: '#384450' }}>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
         <SideBarStudent />
-        <AddCertificate />
+        <Certificate />
       </div>
     </div>
   )
