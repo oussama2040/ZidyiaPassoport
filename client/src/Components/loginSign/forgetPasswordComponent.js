@@ -165,7 +165,7 @@ function ForgetPasswordComponent({apiUrl, userRole}) {
         <div className={styles.haveAccountName}>
           <h3>You Don't have an account ? </h3>
           <h3>
-            <Link to="/register" className={styles.loginLink}>
+            <Link to="/student/register" className={styles.loginLink}>
               Sign up
             </Link>
           </h3>

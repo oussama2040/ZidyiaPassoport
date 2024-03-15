@@ -195,7 +195,7 @@ function SignupComponent() {
             Sign Up
           </button>
         </form>
-        <div className={styles.haveAccountName}>
+        <div className={styles.haveAccountNameRegister}>
           <h3>Already have an account ? </h3>
 
           <h3> <Link to="/student/login" className={styles.loginLink}>
@@ -206,20 +206,22 @@ function SignupComponent() {
       </div>
 
 
-      {/* <div className={styles.boxRegister}>
-        <div className={styles.rightImageContainerRegister}>
-          <div className={styles.helloText} >Welcome Back!</div>
-          <div className={styles.registerText} >Login By entering your personal details</div>
-          <div className={styles.registerText2} >to use the platform features.</div>
-          <button
-            type="submit"
-            className={styles.SignUpbutton}
-          >
-            Log in
-          </button>
-        </div>
-
-      </div> */}
+      <div className={styles.boxRegister}>
+      <div className={styles.rightImageContainerRegister}>
+        <div className={styles.helloTextRegister} >Welcome Back!</div>
+        <div className={styles.registerText} >Login By entering your personal details</div>
+        <div className={styles.registerText2} >to use the platform features.</div>
+        <button
+        type="submit"
+        className={styles.SignUpbutton}
+        >
+        <Link to="/student/login" className={styles.SignUpLink}>
+        Log In
+        </Link>
+        </button>
+      </div>
+        
+      </div>
     </div>
   );
 };

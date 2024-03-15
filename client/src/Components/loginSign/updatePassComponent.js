@@ -63,11 +63,8 @@ function UpdatePasswordComponent({apiUrl, userRole}){
       };
   // console.log('Form ', formData);
   return (
-    <div className={styles.backgroudFlex}>
-      <div className={styles.rightImage}>
-      </div>
-    
-    <div className={`max-w-md mx-auto p-6 ${styles.box}`}>
+  
+    <div className={`max-w-md mx-auto p-6 ${styles.updatePassbox}`}>
       <h2 className={`text-xl font-bold mb-4 ${styles.topicName}`}>Update Password</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-2">
@@ -117,7 +114,6 @@ function UpdatePasswordComponent({apiUrl, userRole}){
         </div>
       )}
       
-    </div>
     </div>
   );
 };
