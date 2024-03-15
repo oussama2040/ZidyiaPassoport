@@ -29,12 +29,12 @@ export default function App() {
           <>
             <Route index element={<Home />} />
             <Route path="/admin" element={<Admin />} />
-            <Route path="/Superadmin" element={<SupperAdmin />} />
+            <Route path="/superadmin" element={<SupperAdmin />} />
             <Route path="/admin/customize" element={<SendAdmincustomize organizationId={organizationId} />} />
             <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled />} />
             <Route path="/admin/customizecertificate" element={<CustomizeCertificate />} />
-            <Route path="/student/customize" element={<GetSendStudentCustomFields  organizationId={organizationId}  studentId={studentId} />} />
-                
+            <Route path="/student/customize" element={<GetSendStudentCustomFields organizationId={organizationId} studentId={studentId} />} />
+
             {/* <Route path="/admin" element={<Admin />} />
                   <Route path="/login" element={<Login />} />                                        
                   <Route path="/login" element={<Login />} />                

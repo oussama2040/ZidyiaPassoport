@@ -34,7 +34,7 @@ function SupperAdmin() {
         {activeTab === 'Create Tenant' && <TenantCreationContainer />}
         {activeTab === 'Subscription Requests' && <SubscriberConfirmation />}
         {activeTab === 'Create Verifier' && <VerifierCreationContainer />}
-        {activeTab === 'Students Account' && <p>student</p>}
+        {activeTab === 'Students Account' && <p>student accounts</p>}
       </div>
     </div>
   );
