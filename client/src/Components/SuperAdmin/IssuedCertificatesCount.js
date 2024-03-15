@@ -19,11 +19,13 @@ const IssuedCertificates = ({ style }) => {
     }, []);
 
     return (
+        <>
         <div className={styles.countContainer} style={style}>
             <p>Issued Certificates</p>
             <p className={styles.count}>{issuedCertCount}</p>
 
         </div>
+        </>
     );
 };
 
