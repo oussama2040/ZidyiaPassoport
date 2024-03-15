@@ -10,6 +10,7 @@
     box-shadow: 1px 0px 10px;
    }
    .backgroudFlexRegister{
+    background-color:#384450;
     width: 50%;
     margin-top: 2%;
     margin-left: 25%;
@@ -22,7 +23,7 @@
    }
 
    .box{
-    background-color:#2d3741;
+    background-color:#384450;
     width:90%;
     height: inherit;
     border-top-right-radius: 25%;
@@ -35,9 +36,6 @@
     background-color:#2d3741;
     width:90%;
     height: inherit;
-    border-top-right-radius: 17%;
-    border-bottom-right-radius: 17%;
-    box-shadow: -10px 0px 15px 0px rgba(0, 0, 0, 0.5);
     
 }
 
@@ -134,6 +132,7 @@
     -moz-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
     margin-left:  20px;
+    margin-top: 10px;
   }
   
   .SignUpLoginbutton:hover {
@@ -193,7 +192,7 @@
   }
   /*--------------------sign up button--------------------------------*/
   .SignUpbutton {
-    width:30%;
+  width:30%;
    position: relative;
    padding: 5px 10px;
    border-radius: 10px;

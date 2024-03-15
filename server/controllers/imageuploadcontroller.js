@@ -17,15 +17,18 @@ const uploadImage = async (imageBuffer) => {
       cloudinary.uploader.upload_stream(
         (error, result) => {
           if (error) {
+            console.error('Error uploading image to Cloudinary:', error.message);
             reject(error.message);
           } else {
             resolve(result.secure_url);
+            console.log('Image uploaded to Cloudinary:', result);
             console.log(result)
           }
         }
       ).end(imageBuffer);
     });
   } catch (error) {
+    console.error('Error uploading image:', error.message);
     throw new Error(`Error uploading image: ${error.message}`);
   }
 };

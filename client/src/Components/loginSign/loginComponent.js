@@ -10,6 +10,27 @@ function LoginComponent({ apiUrl, userRole }) {
   const navigate = useNavigate(); // Initialize navigate function
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null)
+
+
+
+  const userIdentity = () => {
+    const path = window.location.pathname;
+    if (path === "/student/login") {
+      setUser("Student");
+    } else if (path === "/tenent/login") {
+      setUser("Tenant");
+    } else if (path === "/subscriber/login") {
+      setUser("Verifier");
+    }
+    else if (path === "/superadmin/login") {
+      setUser("Superadmin");
+    }
+  }
+  useEffect(() => {
+    userIdentity();
+  }, []);
+
 
 
   const handleChange = (e) => {
@@ -37,12 +58,12 @@ function LoginComponent({ apiUrl, userRole }) {
       // console.log(lastName);
       // console.log(email);
       // console.log(response.data);
-     
+
       //document.cookie = `user_id=${studentId}; Secure; Max-Age=${3 * 60 * 60};`;
       //document.cookie = `first_name=${firstName}; Secure; Max-Age=${3 * 60 * 60};`;
       document.cookie = `${userRole}accessToken=${accessToken}; Secure; Max-Age=${3 * 60 * 60};`;
       document.cookie = `${userRole}refreshToken=${refreshToken}; Secure; Max-Age=${3 * 60 * 60};`;
-      
+
 
 
       // Assuming your backend returns a success message upon successful login
@@ -51,40 +72,40 @@ function LoginComponent({ apiUrl, userRole }) {
         console.log('Login successful!');
         console.log(`${userRole}:`, userRole); // User data
         console.log(firstPassUpdate); // User data
-       
-          // if the user is a student redirect to student page when login successful, if the user is a super admin redirect to super admin page
-          //if the user is a subscriber or a tenent redirect to update password page, and send the email of the user in the url
-         // Redirect based on user role
-          if (userRole === 'student') {
-            // Redirect to student page
-            navigate('/student/customize');
-            } else if (userRole === 'SuperAdmin') {
-                // Redirect to super admin page
-                navigate('/superadmin');
+
+        // if the user is a student redirect to student page when login successful, if the user is a super admin redirect to super admin page
+        //if the user is a subscriber or a tenent redirect to update password page, and send the email of the user in the url
+        // Redirect based on user role
+        if (userRole === 'student') {
+          // Redirect to student page
+          navigate('/student/customize');
+        } else if (userRole === 'SuperAdmin') {
+          // Redirect to super admin page
+          navigate('/superadmin');
+        } else {
+          // Check firstPassUpdate
+          if (firstPassUpdate === 1) {
+            if (userRole === 'tenent') {
+              navigate(`/admin/customize`);
             } else {
-                // Check firstPassUpdate
-                if (firstPassUpdate == 1) {
-                  if(userRole === 'tenent'){
-                    navigate(`/admin/customize`);
-                  }else{
-                     // If firstPassUpdate is 1, navigate to ${userRole} page
-                     navigate(`/${userRole}`);
-                  } 
-                } else {
-                    // If firstPassUpdate is 0, navigate to update password page with email in the URL
-                    navigate(`/${userRole}/updatepassword?email=${adminemail}`);
-                }
+              // If firstPassUpdate is 1, navigate to ${userRole} page
+              navigate(`/${userRole}`);
             }
           } else {
-            setError(message);
+            // If firstPassUpdate is 0, navigate to update password page with email in the URL
+            navigate(`/${userRole}/updatepassword?email=${adminemail}`);
           }
-      } catch (error) {
-        if (error.response && error.response.status === 401) {
-          alert('Email or password incorrect, please try again!!');
-        } else {
-          setError('An error occurred. Please try again.');
         }
+      } else {
+        setError(message);
       }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        alert('Email or password incorrect, please try again!!');
+      } else {
+        setError('An error occurred. Please try again.');
+      }
+    }
 
   };
   // console.log('Form ', formData);

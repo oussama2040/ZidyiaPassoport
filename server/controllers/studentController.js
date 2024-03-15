@@ -1,33 +1,34 @@
-//--------fill template(specific template sent by specific tenant with more info (Full name,marks,...))
 import connection from '../config/connection.js';
 import { uploadImage } from './imageuploadcontroller.js';
 import bcrypt from 'bcrypt';
 
 
-
-
-//view all requests to check status/specific request according to status
-// Function to retrieve all verification requests or requests with a specific status
+/**___________________________________________
+ * @desc    Get All Certificates For Student
+ * @route    /students/certificates/:studentId
+ * @method   GET
+ * @access   private
+ * ---------------------------------------------**/
 const getAllCertificatesForStudent = async (req, res) => {
     try {
-        const studentId = req.params.studentId; 
+        const studentId = req.params.studentId;
         const query = `
             SELECT
                 cert.*,
                 student.first_name,
                 student.last_name,
-                verification.verification_date,
-                verification.note
+                tenent.organization_id,
+                tenent.name AS organization_name,
+                tenent.location AS organization_location
             FROM
-                certificate cert
+                request_certificate cert
                 JOIN student ON cert.student_id = student.student_id
-                LEFT JOIN certificateverification verification ON cert.certificate_id = verification.certificate_id
+                JOIN tenent ON tenent.organization_id = cert.organization_id
             WHERE
                 cert.student_id = ?
             ORDER BY
                 cert.issued_date DESC;
         `;
-
         const [rows] = await connection.promise().query(query, [studentId]);
 
         res.status(200).json({
@@ -39,54 +40,65 @@ const getAllCertificatesForStudent = async (req, res) => {
     }
 };
 
-
-
-// retrieve all verified certificates for a student
-// view all customized certificate
+/**___________________________________________
+ * @desc    Get Verified Certificates For Student
+ * @route    /students/certificates/verified/:studentId
+ * @method   GET
+ * @access   private
+ * ---------------------------------------------**/
 const getVerifiedCertificatesForStudent = async (req, res) => {
-    const studentId = req.params.studentId; 
+    const studentId = req.params.studentId;
+    console.log(studentId);
     try {
         const query = `
-            SELECT
-                cert.*,
-                student.first_name,
-                student.last_name,
-                verification.verification_date,
-                verification.note
-            FROM
-                certificate cert
-                JOIN student ON cert.student_id = student.student_id
-                LEFT JOIN certificateverification verification ON cert.certificate_id = verification.certificate_id
-            WHERE
-                cert.status = 'verified' AND cert.student_id = ?
-            ORDER BY
-                cert.issued_date DESC;
-        `;
+        SELECT
+            student.first_name,
+            student.last_name,
+            verification.verification_date,
+            tenent.organization_id,
+            tenent.name AS organization_name,
+            tenent.location AS organization_location,
+            verification.certificate_url
+        FROM
+            student
+            LEFT JOIN verifiedcertificate verification ON verification.student_id = student.student_id
+            JOIN tenent ON tenent.organization_id = verification.organization_id
+        WHERE
+            student.student_id = ? AND verification.verification_id IS NOT NULL
+        ORDER BY
+            verification.verification_date DESC;
+    `;
 
-        const [rows] = await connection.promise().query(query, [studentId]);
+        const [rows, fields] = await connection.promise().query(query, [studentId]);
 
-        res.status(200).json({
-            certificates: rows, 
-        });
+        if (rows && rows.length > 0) {
+            res.status(200).json({
+                certificates: rows,
+            });
+        } else {
+            res.status(404).json({ error: "No certificates found" });
+        }
+
     } catch (error) {
         console.error("Error retrieving verified certificates:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 };
 
-// view all customized certificate
-// view all customized certificate
-//share verified certificates only only only only
-//share certificate and transcript with external organizations or employers
+/**___________________________________________
+ * @desc    Share only verified Certificate
+ * @route    /students/certificates/share/:certificateId
+ * @method   POST
+ * @access   private
+ * ---------------------------------------------**/
 const shareCertificate = async (req, res) => {
     const studentId = req.user.user.id;
     const certificateId = req.params.certificateId;
 
     try {
-        // Check if the certificate exists, is verified, student_id
         const [certificate] = await connection
             .promise()
-            .query('SELECT * FROM certificate WHERE certificate_id = ? AND status = "verified" AND student_id = ?', [certificateId, studentId]);
+            .query('SELECT * FROM request_certificate WHERE request_id = ? AND status = "verified" AND student_id = ?', [certificateId, studentId]);
 
 
         res.status(200).json({ message: 'Certificate shared successfully.' });
@@ -106,8 +118,12 @@ export {
 };
 
 
-
-
+/**___________________________________________
+ * @desc    Update Student Profile
+ * @route    /students/updateProfile/:studentId
+ * @method   PUT
+ * @access   private
+ * ---------------------------------------------**/
 const updateProfile = async (req, res) => {
     const { first_name, last_name, password, bio, location, mobile } = req.body;
     const student_id = req.params.studentId;
@@ -169,7 +185,7 @@ const updateProfile = async (req, res) => {
         const updateQuery = `UPDATE student SET ${updateFields.join(', ')} WHERE student_id = ?`;
 
         const [result] = await connection.promise().execute(updateQuery, queryParams);
-    
+
         const affectedRows = result ? result.affectedRows : 0;
         if (affectedRows > 0) {
             res.status(200).json({ success: true, message: 'Profile updated successfully.' });
@@ -185,11 +201,16 @@ const updateProfile = async (req, res) => {
 export { updateProfile };
 
 
-
+/**___________________________________________
+ * @desc    Student Add Request Certificate
+ * @route    /students/addRequest
+ * @method   POST
+ * @access   private
+ * ---------------------------------------------**/
 const addRequestCertificate = async (req, res) => {
     let CertificateFile;
     let TranscriptFile;
-
+    let insertedCertificateId;
     const {
         student_id,
         organization_id,
@@ -210,59 +231,65 @@ const addRequestCertificate = async (req, res) => {
             TranscriptFile = await uploadImage(req.files.TranscriptFile[0].buffer);
         }
 
-        // Insert data into the certificate table
-        const [certificateResult] = await connection.promise().execute(
-            `INSERT INTO certificate 
+        if (CertificateFile !== undefined) {
+            const [certificateResult] = await connection.promise().execute(
+                `INSERT INTO request_certificate 
             (student_id, organization_id, name, body, issued_date, expiry_date, CertificateFile) 
             VALUES (?, ?, ?, ?, ?, ?, ?)
             `,
-            [
-                student_id ,
-                organization_id ,
-                name ,
-                body ,
-                issued_date,
-                expiry_date ,
-                CertificateFile 
-            ]
-        );
-
-        const insertedCertificateId = certificateResult ? certificateResult.insertId : null;
-
-        if (insertedCertificateId && TranscriptFile) {
-            // If TranscriptFile is provided, insert into the transcript table
-            const [transcriptResult] = await connection.promise().execute(
-                `INSERT INTO transcript 
-                (student_id, organization_id, TranscriptFile) 
-                VALUES ( ?, ?, ?)
-                `,
                 [
-                   
-                    student_id ,
-                    organization_id ,
-                    TranscriptFile
+                    student_id,
+                    organization_id,
+                    name,
+                    body,
+                    issued_date,
+                    expiry_date,
+                    CertificateFile
                 ]
             );
 
-            const insertedTranscriptId = transcriptResult ? transcriptResult.insertId : null;
+            insertedCertificateId = certificateResult ? certificateResult.insertId : null;
 
-            if (insertedTranscriptId) {
-                return res.status(201).json({
-                    success: true,
-                    message: 'Certificate and Transcript request added successfully.',
-                    
-                });
-            } else {
-                return res.status(500).json({
-                    success: false,
-                    message: 'Failed to add Transcript request.'
-                });
+            if (insertedCertificateId && TranscriptFile) {
+                // If TranscriptFile is provided, insert into the transcript table
+                const [transcriptResult] = await connection.promise().execute(
+                    `INSERT INTO transcript 
+                (student_id, organization_id, TranscriptFile) 
+                VALUES ( ?, ?, ?)
+                `,
+                    [
+
+                        student_id,
+                        organization_id,
+                        TranscriptFile
+                    ]
+                );
+
+                const insertedTranscriptId = transcriptResult ? transcriptResult.insertId : null;
+
+                if (insertedTranscriptId) {
+                    return res.status(201).json({
+                        success: true,
+                        message: 'Certificate and Transcript request added successfully.',
+
+                    });
+                } else {
+                    return res.status(500).json({
+                        success: false,
+                        message: 'Failed to add Transcript request.'
+                    });
+                }
             }
+        } else {
+            return res.status(400).json({
+                success: false,
+                message: 'Certificate file is required.'
+            });
         }
         return res.status(201).json({
             success: true,
             message: 'Certificate request added successfully.',
-            certificate_id: insertedCertificateId
+            request_id: insertedCertificateId
         });
     } catch (error) {
         console.error('Error adding certificate request:', error);
@@ -276,29 +303,32 @@ const addRequestCertificate = async (req, res) => {
 
 export { addRequestCertificate };
 
-
+/**___________________________________________
+ * @desc    Get Student Info
+ * @route    /student/studentinfo
+ * @method   GET
+ * @access   private
+ * ---------------------------------------------**/
 const getstudentInfo = async (req, res) => {
     // {studentID}=req.params;
-    const studentID=1;
+    const studentID = 1;
     try {
-        
+
         const [rows] = await connection.promise().execute(
             'SELECT first_name,last_name FROM student WHERE student_id = ?',
-            [studentID] 
+            [studentID]
         );
-
-     
         if (rows.length > 0) {
-           
-            const { first_name,last_name } = rows[0];
-            res.status(200).json({ first_name,last_name }); 
+
+            const { first_name, last_name } = rows[0];
+            res.status(200).json({ first_name, last_name });
         } else {
-            res.status(404).json({ error: 'student info not found' }); 
+            res.status(404).json({ error: 'student info not found' });
         }
     } catch (error) {
         console.error('Error retrieving student info:', error);
-        res.status(500).json({ error: 'Internal server error' }); 
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
-export {getstudentInfo};
+export { getstudentInfo };

@@ -4,6 +4,7 @@ import upload from '../controllers/imageuploadcontroller.js';
 const router = express.Router();
 
 
+
 router.put('/updateProfile/:studentId',upload.single("profile_img"), updateProfile);
 router.post('/addRequest', upload.fields([
     { name: 'CertificateFile'},
@@ -12,7 +13,7 @@ router.post('/addRequest', upload.fields([
 
 
 router.get('/certificates/:studentId', getAllCertificatesForStudent);
-router.get('/certificates/verified/:studentid', getVerifiedCertificatesForStudent);
+router.get('/certificates/verified/:studentId', getVerifiedCertificatesForStudent);
 router.post('/certificates/share/:certificateId', shareCertificate);
 
 
