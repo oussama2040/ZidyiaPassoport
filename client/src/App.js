@@ -39,11 +39,7 @@ export default function App() {
         <Routes>
           <>
             <Route index element={<Home />} />
-            <Route path="/admin" element={<Admin />} />
             <Route path="/Superadmin" element={<SupperAdmin />} />
-            <Route path="/admin/customize" element={<SendAdmincustomize />} />
-            <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled />} />
-            <Route path="/admin/customizecertificate" element={<CustomizeCertificate />} />
             <Route path="/student/register" element={<Signup />} />
             <Route path="/student/login" element={<Login />} />
             <Route path="/student/forgetpassword" element={<ForgetPass />} />
@@ -56,8 +52,11 @@ export default function App() {
             <Route path="/subscriber/resetpass" element={<SubscriberResetPass />} />    
             <Route path="/superAdmin/login" element={<SuperAdminLogin />} />
             <Route path="/superAdmin/forgetpassword" element={<SuperAdminForgetPass />} />
-            <Route path="/superAdmin/resetpass" element={<SuperAdminResetPass />} />        
 
+
+
+            <Route path="/superAdmin/resetpass" element={<SuperAdminResetPass />} />        
+            <Route path="/admin" element={<Admin />} />
             <Route path="/admin/customize" element={<SendAdmincustomize organizationId={organizationId} />} />
             <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled  organizationId={organizationId}/>} />
             <Route path="/admin/customizecertificate" element={<CustomizeCertificate />} />
