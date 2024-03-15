@@ -6,5 +6,5 @@ const router = express.Router();
 
 
 // Define a route to handle image uploads
-router.post('/scanQRCODE', upload.single("fileData"),scanQRCODE);
+router.post('/scanQRCODE', upload.single("certificate"),scanQRCODE);
 export default router;

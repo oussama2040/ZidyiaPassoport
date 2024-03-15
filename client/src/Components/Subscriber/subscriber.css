@@ -1,0 +1,49 @@
+.subscribercontainer {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    width: 700px;
+    height: 600px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    position: relative; /* Required for pseudo-element */
+    overflow: hidden; /* Hide overflow to prevent scrollbars */
+    border: 5px solid transparent; /* Transparent border */
+    border-radius: 10px; /* Adjust border radius as needed */
+    animation: animateBorder 2s linear infinite; /* Animation */
+}
+
+/* Border animation keyframes */
+@keyframes animateBorder {
+    0% {
+        border-image: linear-gradient(45deg, #5DD3B3, #5DD3B3, #5DD3B3, #333, #5DD3B3, #87ceeb) 2; /* Initial gradient */
+        
+    }
+    100% {
+        border-image: linear-gradient(45deg,#5DD3B3, #87ceeb, #5DD3B3,#5DD3B3, #87ceeb, #5DD3B3) 2; /* Final gradient */
+       
+    }
+}
+
+.subtitle{
+ opacity: 0.5;
+ font-size: 30px;
+ margin: 20px 0;
+ font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.subfile{
+    margin-top: 50px;
+    opacity: 0.5;
+}
+.subbtn{
+    background-color: #5DD3B3;
+    border-radius: 20px;
+    width: 90px;
+    padding: 7px 5px;
+    font-size: 15px;
+    color: white;
+}

@@ -5,7 +5,7 @@ import SideBarStudent from '../Components/SideBar/SideBarStudent';
 
 function CustomizeCertificate() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' ,backgroundColor:'#384450'}}>
+    <div style={{ display: 'flex', flexDirection: 'row'}}>
       <SideBarStudent />  
       <Certificate/>
     </div>

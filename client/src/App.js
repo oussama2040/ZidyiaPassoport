@@ -14,7 +14,8 @@ import SupperAdmin from "./Pages/SupperAdmin.js";
 import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.js";
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
 import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
-import CustomizeCertificate from "./Pages/customizeCertificate.js";
+import CustomizeCertificate from "./Pages/CustomizeCertificate.js";
+import Subscriber from "./Pages/Subscriber.js";
 
 export default function App() {
   const organizationId = 4;
@@ -34,6 +35,7 @@ export default function App() {
             <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled />} />
             <Route path="/admin/customizecertificate" element={<CustomizeCertificate />} />
             <Route path="/student/customize" element={<GetSendStudentCustomFields  organizationId={organizationId}  studentId={studentId} />} />
+            <Route path="/subscriber/ScanQrCode" element={<Subscriber/>}/>
                 
             {/* <Route path="/admin" element={<Admin />} />
                   <Route path="/login" element={<Login />} />                                        

@@ -1,7 +1,9 @@
 import React, { useState, useRef,useEffect } from 'react';
-import html2canvas from 'html2canvas';
+// import html2canvas from 'html2canvas';
+import domtoimage from 'dom-to-image';
 import './Certificate.css';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const Certificate = () => {
   // State variables to manage Tenent's Admin inputs
@@ -13,12 +15,22 @@ const Certificate = () => {
   const [fontColor, setFontColor] = useState('#000000');
   // const [logo, setLogo] = useState(null);
   const [qrCode, setQrCode] = useState(null);
+  const [qrCodeUrl, setQRCodeUrl] = useState('');
+  // const [studentId, setStudentId] = useState('');
+  // const [studentName, setStudentName] = useState('');
   const [badgeImage, setBadgeImage] = useState(null);
   const [facultyName, setFacultyName] = useState('');
   const [degree, setDegree] = useState('');
   const [major, setMajor] = useState('');
   const [presidentName, setPresidentName] = useState('');
   const [deanName, setDeanName] = useState('');
+  // const { studentIdFromURL } = useParams(); // Use useParams to access URL parameters
+
+  // useEffect(() => {
+  //   // Set the student ID from the URL parameter when the component mounts
+  //   setStudentId(studentIdFromURL);
+  // }, [studentIdFromURL]);
+
  
 
   // ---------------------------------------------------------------------------------------------------------
@@ -53,7 +65,7 @@ const [studentInfo, setstudentInfo] = useState(null);
             setstudentInfo(response.data);
             console.log(response.data)
         } catch (error) {
-            console.error('Error fetching organization info:', error);
+            console.error('Error fetching student info:', error);
         }
     };
 
@@ -76,20 +88,46 @@ const getCurrentDate = () => {
   return formattedDate;
 };
 // ---------------------------------------------------------------------------------------
-// Function to handle screenshot capture
 const handleCapture = async () => {
-    try {
-        const canvas = await html2canvas(certificateRef.current);
-        canvas.toBlob(async (blob) => {
-            const formData = new FormData();
-            formData.append('certificateImage', blob, 'certificate.png');
+  try {
+    // Get the certificate element
+    const certificateElement = certificateRef.current;
 
-            const response = await axios.post('http://localhost:5000/tenent/savecertificate', formData);
-            console.log(response.data);
-        }, 'image/png');
-    } catch (error) {
-        console.error('Error capturing and saving certificate:', error);
-    }
+    // Delay for 2 seconds to ensure font loading
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    // Use dom-to-image to capture the screenshot
+    const dataUrl = await domtoimage.toPng(certificateElement);
+
+    // Convert the data URL to a blob
+    const blob = dataURLToBlob(dataUrl);
+
+    // Create a FormData object to send the blob data
+    const formData = new FormData();
+    formData.append('certificateImage', blob, 'certificate.png');
+
+    // Send the captured image data to the server
+    const response = await axios.post('http://localhost:5000/tenent/savecertificate', formData);
+
+    console.log('Certificate saved successfully:', response.data);
+  } catch (error) {
+    console.error('Error capturing and saving certificate:', error);
+  }
+};
+
+// Helper function to convert data URL to blob
+const dataURLToBlob = (dataURL) => {
+  const parts = dataURL.split(';base64,');
+  const contentType = parts[0].split(':')[1];
+  const raw = window.atob(parts[1]);
+  const rawLength = raw.length;
+  const uInt8Array = new Uint8Array(rawLength);
+
+  for (let i = 0; i < rawLength; ++i) {
+    uInt8Array[i] = raw.charCodeAt(i);
+  }
+
+  return new Blob([uInt8Array], { type: contentType });
 };
 // ----------------------------------------------------------------------------------
 const [startDate, setStartDate] = useState('');
@@ -113,13 +151,35 @@ const [endDate, setEndDate] = useState('');
    
   };
 // -----------------------------------------------------------------------------------------
+const generateQRCode = async () => {
+  try {
+    const studentId = 8;
+    const studentName = 'Rawan';
 
+    // Step 1: Generate QR code and save filename to the database
+    const qrCodeResponse = await axios.get(`http://localhost:5000/admin/generateQR/${studentId}/${studentName}`);
+    const qrCodeFilename = qrCodeResponse.data.qrCodeFilename;
+    setQrCode(qrCodeFilename)
+    console.log(qrCode)
 
+    // Step 2: Retrieve Cloudinary URL using the filename from the database
+    const cloudinaryResponse = await axios.get(`http://localhost:5000/admin/getgeneratedQR/${studentId}`);
+    const qrCodeUrl = cloudinaryResponse.data.qrCodeUrl;
 
+    // Set the Cloudinary URL for the QR code
+    setQRCodeUrl(qrCodeUrl);
+    console.log(qrCodeUrl)
+  } catch (error) {
+    console.error('Error generating QR code:', error);
+  }
+};
+
+//-------------------------------------------------------------------------------------------
 
 
 
   return (
+  
     <div className="certificate-form">
       {/* Certificate Preview */}
       {/* Certificate layout with dynamic styles */}
@@ -152,7 +212,7 @@ const [endDate, setEndDate] = useState('');
                 <div className="row">
                   <div className="col-xs-2"></div>
                   <div className="pm-certificate-name margin-0 col-xs-8 text-center">
-                    <span className="pm-name-text underline bold">{studentInfo && studentInfo.first_name}  {studentInfo && studentInfo.last_name}</span>
+                    <span className="pm-name-text  bold">{studentInfo && studentInfo.first_name}  {studentInfo && studentInfo.last_name}</span>
                   </div>
                   <div className="col-xs-2"></div>
                 </div>
@@ -162,7 +222,7 @@ const [endDate, setEndDate] = useState('');
                 <div className="row">
                   <div className="col-xs-2"></div>
                   <div className="pm-student-birth-details col-xs-8 text-center">
-                    <span className="pm-birth-text block">Started on <span className="underline bold">{startDate}</span> till <span className="underline bold">{endDate}</span></span>
+                    <span className="pm-birth-text block">Started on <span className=" bold">{startDate}</span> till <span className=" bold">{endDate}</span></span>
                   </div>
                   <div className="col-xs-2"></div>
                 </div>
@@ -172,7 +232,7 @@ const [endDate, setEndDate] = useState('');
                 <div className="row">
                   <div className="col-xs-2"></div>
                   <div className="pm-degree-info col-xs-8 text-center">
-                    The Degree of <span className="underline bold">{degree}</span> in <span className="underline bold">{major}</span>
+                    The Degree of <span className=" bold">{degree}</span> in <span className=" bold">{major}</span>
                   </div>
                   <div className="col-xs-2"></div>
                 </div>
@@ -196,7 +256,10 @@ const [endDate, setEndDate] = useState('');
                 </div>
                 <div className="col-xs-4">
                 <div className="qr-code-container">
-                 {qrCode && <img src={URL.createObjectURL(qrCode)} alt="QR Code" className="qr-code-image" />}
+                {qrCodeUrl && <img src={qrCodeUrl} alt="QR Code"  className='qr-code-image'/>}
+
+
+
                 </div>
                 </div>
                 <div className="col-xs-4 pm-certified text-center">
@@ -233,7 +296,7 @@ const [endDate, setEndDate] = useState('');
           </div>
           <div className="form-input">
             <label>Font Weight:</label>
-            <select value={fontWeight} onChange={(e) => setFontWeight(e.target.value)}>
+            <select  className="values" value={fontWeight} onChange={(e) => setFontWeight(e.target.value)}>
               <option value="normal">Normal</option>
               <option value="bold">Bold</option>
               <option value="lighter">Lighter</option>
@@ -273,20 +336,27 @@ const [endDate, setEndDate] = useState('');
         <input type="date" className="dateinput" onChange={(e) => handleEndDateChange(e.target.value)} />
       </div>
           </div>
-          <div className="form-input">
-            <label>Upload QR Code:</label>
-            <input type="file" accept="image/*" onChange={(e) => setQrCode(e.target.files[0])} />
-          </div>
+         
           <div className="form-input">
             <label>Upload Badge:</label>
             <input type="file" accept="image/*" onChange={(e) => setBadgeImage(e.target.files[0])} />
           </div>
+          {/* <div className="form-input">
+            <label>Upload QR Code:</label> 
+            <input type="file" accept="image/*" onChange={(e) => setQrCode(e.target.files[0])} />
+           
+          </div> */}
 
-          {/* Button to capture screenshot */}
+          {/* Button to capture screenshot and generate qr code */}
+          <div className='certificatebtns'>
+          <button  className="capture-button" onClick={generateQRCode}>Generate QR Code</button>
           <button className="capture-button" onClick={handleCapture}>Capture Certificate</button>
+          </div>
         </form>
       </div>
+      
     </div>
+   
   );
 };
 
