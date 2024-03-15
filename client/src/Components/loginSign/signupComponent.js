@@ -11,7 +11,7 @@ function SignupComponent() {
     password: '',
     mobile: '',
     academic_id:'',
-    ID:[]
+    ID:''
 
   });
   const [errorMessage, setErrorMessage] = useState('');
@@ -29,61 +29,61 @@ const handleChange = (e) => {
 };
 
 const handleImageChange = (e) => {
-    const files = e.target.files; // Get all selected files
-    
-    // Use Promise.all to read each file asynchronously
-    Promise.all(Array.from(files).map(file => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                resolve(reader.result); // Resolve with the base64 data URI of the file
-            };
-            reader.onerror = (error) => reject(error);
-            reader.readAsArrayBuffer(file); // Read file as ArrayBuffer
-        });
-    })).then(images => {
-        // Set the images array to the form data
-        setFormData({
-            ...formData,
-            ID: files, // Store the array of File objects
-        });
-    }).catch(error => {
-        console.error('Error reading files:', error);
-    });
+  const file = e.target.files[0]; // Get the first selected file
+  
+  if (!file) {
+      return; // No file selected, exit function
+  }
+
+  // Read the file asynchronously
+  const reader = new FileReader();
+  reader.onload = () => {
+      // Set the image data to the form data
+      setFormData({
+          ...formData,
+          ID: reader.result, // Store the ArrayBuffer of the file
+      });
+  };
+  reader.onerror = (error) => {
+      console.error('Error reading file:', error);
+  };
+  reader.readAsArrayBuffer(file); // Read file as ArrayBuffer
 };
+
+
 
 
 
   
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-        // Send form data to the backend
-        const response = await axios.post('http://localhost:5000/student/register', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          });
-        console.log('Response:', response.data);
-        setSuccessMessage('Registration successful!'); // Display success message to the user
-        setFormData({ // Clear form fields after successful registration
-            first_name: '',
-            last_name: '',
-            email: '',
-            password: '',
-            mobile: '',
-            academic_id:'',
-            ID:[]
-        });
-        setErrorMessage(''); // Clear any previous error messages
-        alert('A verification email has been sent. Please check your email inbox.');
+      // Send form data to the backend
+      const response = await axios.post('http://localhost:5000/student/register', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log('Response:', response.data);
+      setSuccessMessage('Registration successful!'); // Display success message to the user
+      setFormData({
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+        mobile: '',
+        academic_id: '',
+        ID: ''
+      });
+      setErrorMessage(''); // Clear any previous error messages
+      alert('A verification email has been sent. Please check your email inbox.');
     } catch (error) {
-        console.error('Error:', error.response.data);
-        setErrorMessage(error.response.data.message); // Display error message to the user
-        setSuccessMessage(''); // Clear any previous success messages
+      console.error('Error:', error.response.data);
+      setErrorMessage(error.response.data.message); // Display error message to the user
+      setSuccessMessage(''); // Clear any previous success messages
     }
-};
+  }
    console.log('Form ', formData);
 
 

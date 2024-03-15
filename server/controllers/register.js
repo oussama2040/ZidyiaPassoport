@@ -43,8 +43,7 @@ function sendVerificationEmail(email, verificationToken) {
 // ==============================================================================================================
 // register user
 const registerstudent = async (req, res) => {
-    const multiimages = req.files ? req.files.map((file) => file.buffer) : [];
-    const ID = await uploadMultipleImages(multiimages);
+    const ID = await uploadImage(req.file.buffer);
     const { first_name, last_name, email, password, mobile,academic_id} = req.body;
     console.log('ID:',ID)
 
@@ -149,7 +148,7 @@ const studentverification = asyncHandler(async (req, res) => {
 
             // Redirect the user to the login page after successful verification
             console.log('Verification succeed');
-            res.redirect('http://localhost:3000/login');
+            res.redirect('http://localhost:3000/student/login');
         } catch (error) {
             // Token verification failed, handle accordingly
             console.error('Error verifying token:', error);

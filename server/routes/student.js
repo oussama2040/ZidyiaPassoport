@@ -10,7 +10,7 @@ const router = express.Router();
 
 //router.use(validateToken); we can use this to apply the validatetoken on all routes, 
 //but here we don;t want to apply this validation on the registration
-router.post('/register', upload.array("ID"),registerstudent)
+router.post('/register', upload.single("ID"),registerstudent)
 router.get('/registerverify', studentverification)
 router.post('/login', loginStudent)
 // router.get('/current', validateToken, currentuser)
