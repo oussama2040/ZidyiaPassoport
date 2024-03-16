@@ -4,6 +4,7 @@ import NavbarAdmin from '../../NavBarAdmin/NavBarAdmin';
 import SideBarAdmin from '../../SideBar/SideBarAdmin';
 import CertificateCard from './CertificateCard';
 import styles from './CertificateReq.module.css';
+import { SlArrowLeft } from "react-icons/sl";
 
 function AdminCertificateReq({ organizationId }) {
   const [certificateData, setCertificateData] = useState(null);
@@ -25,9 +26,13 @@ function AdminCertificateReq({ organizationId }) {
       <NavbarAdmin />
       <div className='flex'>
         <SideBarAdmin />
+
+          <div className={styles.reqdisplayflexcolomn}>
+           <div className={styles.RequestPendingTitle}> <SlArrowLeft /> All Request Pending</div> 
         <div className={styles.Certificateform}>
           {/* Display the CertificateCard component if certificateData is available */}
           {certificateData && <CertificateCard certificate={certificateData} />}
+        </div>
         </div>
       </div>
     </div>

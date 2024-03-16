@@ -3,6 +3,7 @@ import axios from 'axios';
 import NavbarAdmin from '../../NavBarAdmin/NavBarAdmin'
 import SideBarAdmin from '../../SideBar/SideBarAdmin'
 import styles from './Customize.module.css';
+import { SlArrowLeft } from "react-icons/sl";
 
 function GetAdminAfterFilled({ organizationId }) {
   const [formFields, setFormFields] = useState([]);
@@ -102,6 +103,11 @@ function GetAdminAfterFilled({ organizationId }) {
       <NavbarAdmin />
       <div className='flex'>
         <SideBarAdmin />
+        <div className={styles.reqdisplayflexcolomn}>
+        <div className={styles.RequestPendingTitle}> <SlArrowLeft /> All Request Pending</div> 
+
+        <div className={styles.Mainformsdisplayflex}>
+
         <div className={styles.customizeafterform}>
           <select  className={`${styles.customizeAfterDropdown} `}
           onChange={(e) => handleSelectForm(Number(e.target.value))}>
@@ -151,12 +157,14 @@ function GetAdminAfterFilled({ organizationId }) {
             </div>
          )} 
    
+       
         </div>
-
         <div className={`${styles.customizeAfterimageContainer} ${hasImage && styles.imageWithBackground}`}>
           {selectedFormImage && <img src={selectedFormImage} alt='Form Image' className={styles.formImage} />}
         </div>
       </div>
+    </div>
+    </div>
     </div>
   );
 }
