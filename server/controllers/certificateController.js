@@ -36,6 +36,33 @@ const getAllCertificateRequests = async (req, res) => {
     }
 };
 
+const getAllCertificateVerified = async (req, res) => {
+    try {
+        const organizationId = req.params.organizationId;
+
+        const query = `
+            SELECT
+                verifiedcertificate.*,
+                student.first_name,
+                student.last_name,
+                student.email,
+                student.mobile,
+                student.location
+            FROM
+                verifiedcertificate
+                JOIN student ON verifiedcertificate.student_id = student.student_id
+        `;
+
+        const [rows] = await connection.promise().query(query, [organizationId]);
+
+        res.status(200).json({
+            certificateRequests: rows,
+        });
+    } catch (error) {
+        console.error('Error retrieving certificate requests for admins:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
 
 /**___________________________________________
  * @desc     Update Certificate Request Status
@@ -367,5 +394,6 @@ export {
     countApprovedCertificates,
     countRejectedCertificates,
     countCertificatesByStatusAndDateRange,
-    updatefilledRequestStatus
+    updatefilledRequestStatus,
+    getAllCertificateVerified
 };
