@@ -65,11 +65,15 @@ function CombinedCertificatesChart({ organizationId }) {
         }]
       },
       options: {
-        responsive: true
+        responsive: true,
+        plugins: {
+          legend: {
+              align: 'start'
+          }
+      }
       }
     });
 
-    // Set the new chart instance
     setChartInstance(newChartInstance);
   };
 

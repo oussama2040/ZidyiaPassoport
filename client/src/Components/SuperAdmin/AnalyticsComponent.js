@@ -11,13 +11,14 @@ import IssuedCertificates from './IssuedCertificatesCount'
 const AnalyticsComponent = () => {
     return (
         <div className={styles.analyticsContainer}>
-            <StudentsCount style={{ backgroundColor: '#9df326' }} />
-            <TenantsCount style={{ backgroundColor: '#E45A5A' }} />
-            <SubscriberCount style={{ backgroundColor: '#F2C94C' }} />
-            <PendingDocuments style={{ backgroundColor: '#2F80ED' }} />
-            <ApprovedDocuments style={{ backgroundColor: '#6FCF97' }} />
-            <RejectedDocuments style={{ backgroundColor: '#EB5107' }} />
-            <IssuedCertificates style={{ backgroundColor: '#BB6BD9' }} />
+            <StudentsCount style={{ backgroundColor: 'rgba(157, 243, 38, 0.5)' }} />
+            <TenantsCount style={{ backgroundColor: 'rgba(228, 90, 90, 0.5)' }} />
+            <SubscriberCount style={{ backgroundColor: 'rgba(242, 201, 76, 0.5)' }} />
+            <PendingDocuments style={{ backgroundColor: 'rgba(47, 128, 237, 0.5)' }} />
+            <ApprovedDocuments style={{ backgroundColor: 'rgba(111, 207, 151, 0.5)' }} />
+            <RejectedDocuments style={{ backgroundColor: 'rgba(235, 81, 7, 0.5)' }} />
+            <IssuedCertificates style={{ backgroundColor: 'rgba(187, 107, 217, 0.5)' }} />
+
         </div>
     );
 };

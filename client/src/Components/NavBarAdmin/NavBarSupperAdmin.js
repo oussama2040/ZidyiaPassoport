@@ -3,7 +3,7 @@ import styles from './NavBarAdmin.module.css'
 function NavBarSupperAdmin() {
     return (
         <div className={styles.NavBarAdminMain}>
-          <span class={styles.NavBarAdminDashborad}>
+          <span className={styles.NavBarAdminDashborad}>
           SupperAdmin Panel
           </span>
     

@@ -57,21 +57,33 @@ const AllUsersPieComponent = () => {
         datasets: [
             {
                 data: [students, tenants, subscribers],
-                backgroundColor: ['#9df326', '#E45A5A', '#F2C94C'],
+                backgroundColor: [
+                    'rgba(157, 243, 38, 0.5)', // Increase opacity to 40%
+                    'rgba(228, 90, 90, 0.5)', // Increase opacity to 40%
+                    'rgba(242, 201, 76, 0.5)', // Increase opacity to 40%
+                ],
+                borderWidth: 0,
             }
         ]
+    };
+    const chartOptions = {
+        plugins: {
+            legend: {
+                display: false, // Remove the legend
+            },
+        },
     };
 
 
     return (
         <>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <p style={{ color: '#fff' }} >Users</p>
+                <p style={{ color: '#fff', marginBottom: '10px', marginTop: '-10px' }} >Users</p>
             </div >
             <div className={styles.doughnutCont}>
 
                 {isDataLoaded ? (
-                    <Doughnut data={percentages} className={styles.doughnut} />
+                    <Doughnut data={percentages} options={chartOptions} className={styles.doughnut} />
                 ) : (
                     <p>Loading...</p>
                 )}

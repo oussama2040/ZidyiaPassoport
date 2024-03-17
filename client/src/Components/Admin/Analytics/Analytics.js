@@ -9,22 +9,22 @@ import CombinedDocumentsChart from './CombinedDocumentsChart';
 
 
 function Analytics() {
-const organizationId =4;
+  const organizationId = 4;
   return (
     <div>
       <NavbarAdmin />
       <div className='flex'>
         <SideBarAdmin />
-          <div className={styles.reqdisplayflexcolomn}>
-           <div className={styles.RequestPendingTitle}> <SlArrowLeft /> Analytics </div> 
-        <div className={styles.Analyticsform}>
-          {/* Display the CertificateCard component if certificateData is available */}
-          <TotalCount  organizationId={organizationId} />
-          <div className={styles.chartsContainer}>
-          <CombinedCertificatesChart organizationId={organizationId} />
-          <CombinedDocumentsChart organizationId={organizationId} />
+        <div className={styles.reqdisplayflexcolomn}>
+          <div className={styles.RequestPendingTitle}> <SlArrowLeft /> Analytics </div>
+          <div className={styles.Analyticsform}>
+            {/* Display the CertificateCard component if certificateData is available */}
+            <TotalCount organizationId={organizationId} />
+            <div className={styles.chartsContainer}>
+              <CombinedCertificatesChart organizationId={organizationId} />
+              <CombinedDocumentsChart organizationId={organizationId} />
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>

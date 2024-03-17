@@ -19,7 +19,7 @@ function CombinedDocumentsChart({ organizationId }) {
 
     const fetchChartData = async () => {
         try {
-  
+
             const pendingResponse = await axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/pending`);
             const rejectedResponse = await axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/rejected`);
             const approvedResponse = await axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/approved`);
@@ -66,10 +66,15 @@ function CombinedDocumentsChart({ organizationId }) {
                 }]
             },
             options: {
-                responsive: true
+                responsive: true,
+                plugins: {
+                    legend: {
+                        align: 'start' 
+                    }
+                }
             }
         });
-
+        
         setChartInstance(newChartInstance);
     };
 
