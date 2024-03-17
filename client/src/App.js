@@ -32,6 +32,7 @@ import CustomizeCertificate from "./Pages/customizeCertificate.js";
 import Subscriber from "./Pages/Subscriber.js";
 import AdminCertificateReq from "./Components/Admin/CertificateReq/AdminCertificateReq.js";
 import AdminCertificateUploaded from "./Components/Admin/CertificateUploaded/AdminCertificateUploaded.js";
+import Analytics from "./Components/Admin/Analytics/Analytics.js";
 
 export default function App() {
   const organizationId = 4;
@@ -63,6 +64,7 @@ export default function App() {
 
             <Route path="/superAdmin/resetpass" element={<SuperAdminResetPass />} />        
             <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/analytics" element={<Analytics />} />
             <Route path="/admin/customize" element={<SendAdmincustomize organizationId={organizationId} />} />
             <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled  organizationId={organizationId}/>} />
             <Route path="/admin/customizecertificate" element={<CustomizeCertificate />} />

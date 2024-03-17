@@ -165,6 +165,18 @@ const countTotalCertificates = async (req, res) => {
     }
 };
 
+const countTotalDocuments = async (req, res) => {
+    try {
+        const organizationId = req.params.organization_id;
+        const countQuery = 'SELECT COUNT(*) AS totalDocuments FROM filledforms WHERE organization_id = ?';
+        const [result] = await connection.promise().query(countQuery, [organizationId]);
+        const totalDocuments = result[0].totalDocuments;
+        res.status(200).json({ totalDocuments });
+    } catch (error) {
+        console.error('Error counting total certificates:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
 
 /**___________________________________________
  * @desc     Count the number of pending certificates for the organization
@@ -186,6 +198,19 @@ const countPendingCertificates = async (req, res) => {
     }
 };
 
+const countPendingDocuments= async (req, res) => {
+    try {
+        const organizationId = req.params.organization_id;
+        const countQuery = 'SELECT COUNT(*) AS pendingDocuments FROM filledforms WHERE organization_id = ? AND status = "pending"';
+        const [result] = await connection.promise().query(countQuery, [organizationId]);
+        const pendingDocuments = result[0].pendingDocuments;
+
+        res.status(200).json({ pendingDocuments });
+    } catch (error) {
+        console.error('Error counting pending certificates:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
 /**___________________________________________
  * @desc     Count the number of approved certificates for the organization
  * @route    /certificates/organization/{organization_id}/count/approved
@@ -199,6 +224,19 @@ const countApprovedCertificates = async (req, res) => {
         const [result] = await connection.promise().query(countQuery, [organizationId]);
         const approvedCertificates = result[0].approvedCertificates;
         res.status(200).json({ approvedCertificates });
+    } catch (error) {
+        console.error('Error counting approved certificates:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+const countApprovedDocuments = async (req, res) => {
+    try {
+        const organizationId = req.params.organization_id;
+        const countQuery = 'SELECT COUNT(*) AS approvedDocuments FROM filledforms WHERE organization_id = ? AND status = "verified"';
+        const [result] = await connection.promise().query(countQuery, [organizationId]);
+        const approvedDocuments = result[0].approvedDocuments;
+        res.status(200).json({ approvedDocuments });
     } catch (error) {
         console.error('Error counting approved certificates:', error);
         res.status(500).json({ message: 'Internal server error' });
@@ -219,6 +257,20 @@ const countRejectedCertificates = async (req, res) => {
         const rejectedCertificates = result[0].rejectedCertificates;
 
         res.status(200).json({ rejectedCertificates });
+    } catch (error) {
+        console.error('Error counting rejected certificates:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+const countRejectedDocuments = async (req, res) => {
+    try {
+        const organizationId = req.params.organization_id;
+        const countQuery = 'SELECT COUNT(*) AS rejectedDocuments FROM filledforms WHERE organization_id = ? AND status = "rejected"';
+        const [result] = await connection.promise().query(countQuery, [organizationId]);
+        const rejectedDocuments = result[0].rejectedDocuments;
+
+        res.status(200).json({ rejectedDocuments });
     } catch (error) {
         console.error('Error counting rejected certificates:', error);
         res.status(500).json({ message: 'Internal server error' });
@@ -395,5 +447,9 @@ export {
     countRejectedCertificates,
     countCertificatesByStatusAndDateRange,
     updatefilledRequestStatus,
-    getAllCertificateVerified
+    getAllCertificateVerified,
+    countPendingDocuments,
+    countApprovedDocuments,
+    countRejectedDocuments,
+    countTotalDocuments
 };

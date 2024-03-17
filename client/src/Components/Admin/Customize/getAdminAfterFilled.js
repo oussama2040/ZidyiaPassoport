@@ -104,7 +104,7 @@ function GetAdminAfterFilled({ organizationId }) {
       <div className='flex'>
         <SideBarAdmin />
         <div className={styles.reqdisplayflexcolomn}>
-        <div className={styles.RequestPendingTitle}> <SlArrowLeft /> All Request Pending</div> 
+        <div className={styles.RequestPendingTitle}> <SlArrowLeft /> All Customize Pending</div> 
 
         <div className={styles.Mainformsdisplayflex}>
 

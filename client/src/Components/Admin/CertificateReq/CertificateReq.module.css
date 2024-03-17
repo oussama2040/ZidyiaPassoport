@@ -18,8 +18,9 @@ margin-top: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 18%;
+  width: 36%;
   color: white;
+  font-size: large;
 }
 
   .CertificateTitle {
