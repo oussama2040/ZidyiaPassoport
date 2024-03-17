@@ -1,7 +1,7 @@
 import styles from './loginSign.module.css';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import Zidyia_Logo from './../Assets/Zidyia_Logo.png';
+import Zidyia_Logo1 from './../Assets/Zidyia_Logo1.png';
 
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 import axios from 'axios';
@@ -118,7 +118,7 @@ function LoginComponent({ apiUrl, userRole }) {
       <div className={styles.rightImage}>
       <div className={styles.rightImageContainerLogin}>
         <div className={styles.logoImg}>
-        <img className={styles.logoImage} src={Zidyia_Logo}/>
+        <img className={styles.logoImage} src={Zidyia_Logo1}/>
         </div>
           <div className={styles.helloText} >Hello, {userRole}!</div>
           <div className={styles.welcomeText} >Welcome to Zidyia Passport</div>
