@@ -40,39 +40,39 @@ export default function App() {
 
   return (
     <div>
-   
+
       <Router>
         <Routes>
           <>
-          
+
             <Route index element={<Home />} />
-            <Route path="/Superadmin" element={<SupperAdmin />} />
+            <Route path="/superadmin" element={<SupperAdmin />} />
             <Route path="/student/register" element={<Signup />} />
             <Route path="/student/login" element={<Login />} />
             <Route path="/student/forgetpassword" element={<ForgetPass />} />
-            <Route path="/student/resetpass" element={<ResetPass />} /> 
+            <Route path="/student/resetpass" element={<ResetPass />} />
             <Route path="/tenent/login" element={<TenentLogin />} />
             <Route path="/tenent/forgetpassword" element={<TenentForgetPass />} />
-            <Route path="/tenent/resetpass" element={<TenentResetPass />} />   
+            <Route path="/tenent/resetpass" element={<TenentResetPass />} />
             <Route path="/subscriber/login" element={<SubscriberLogin />} />
             <Route path="/subscriber/forgetpassword" element={<SubscriberForgetPass />} />
-            <Route path="/subscriber/resetpass" element={<SubscriberResetPass />} />    
+            <Route path="/subscriber/resetpass" element={<SubscriberResetPass />} />
             <Route path="/superAdmin/login" element={<SuperAdminLogin />} />
             <Route path="/superAdmin/forgetpassword" element={<SuperAdminForgetPass />} />
 
 
 
-            <Route path="/superAdmin/resetpass" element={<SuperAdminResetPass />} />        
+            <Route path="/superAdmin/resetpass" element={<SuperAdminResetPass />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/analytics" element={<Analytics />} />
             <Route path="/admin/customize" element={<SendAdmincustomize organizationId={organizationId} />} />
-            <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled  organizationId={organizationId}/>} />
+            <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled organizationId={organizationId} />} />
             <Route path="/admin/customizecertificate" element={<CustomizeCertificate />} />
-            <Route path="/admin/reqcertificate" element={ <AdminCertificateReq  organizationId={organizationId} /> } />
-            <Route path="/admin/certificateuploaded" element={<AdminCertificateUploaded  organizationId={organizationId}/> } />
+            <Route path="/admin/reqcertificate" element={<AdminCertificateReq organizationId={organizationId} />} />
+            <Route path="/admin/certificateuploaded" element={<AdminCertificateUploaded organizationId={organizationId} />} />
 
-            <Route path="/student/customize" element={<GetSendStudentCustomFields  organizationId={organizationId}  studentId={studentId} />} />
-                
+            <Route path="/student/customize" element={<GetSendStudentCustomFields organizationId={organizationId} studentId={studentId} />} />
+
             {/* <Route path="/admin" element={<Admin />} />
                   <Route path="/login" element={<Login />} />                                        
                   <Route path="/login" element={<Login />} />                
@@ -81,12 +81,12 @@ export default function App() {
                   <Route path="/registerverify/:token" element={<VerificationComponent />} />
                   <Route path="/register" element={<Signup />} />               
                   <Route path="*" element={<NotFound />} /> */}
-                  <Route path="/student/viewCertificate" element={<StudentViewCertificate />} />
-                  <Route path="/student/addCertificate" element={<StudentAddCertificate/>} />
-                  <Route path="/student/profile" element={<StudentProfile/>} />
-                  <Route path="/student/requestCertificate" element={<StudentAllRequests/>} />
-                </>
-        
+            <Route path="/student/viewCertificate" element={<StudentViewCertificate />} />
+            <Route path="/student/addCertificate" element={<StudentAddCertificate />} />
+            <Route path="/student/profile" element={<StudentProfile />} />
+            <Route path="/student/requestCertificate" element={<StudentAllRequests />} />
+          </>
+
         </Routes>
       </Router>
     </div>
