@@ -35,8 +35,8 @@ function SideBarAdmin() {
         <Link to="/admin/customize">
           <Nav icon={< BiCustomize />} name="Field Customize" />
         </Link>
-
-        <Nav icon={< LiaCertificateSolid />} name="Issue Certificates" />
+{/* 
+        <Nav icon={< LiaCertificateSolid />} name="Issue Certificates" /> */}
 
       </div>
       <ZidyiaLogo />
