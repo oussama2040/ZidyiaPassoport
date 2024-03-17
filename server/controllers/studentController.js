@@ -310,8 +310,8 @@ export { addRequestCertificate };
  * @access   private
  * ---------------------------------------------**/
 const getstudentInfo = async (req, res) => {
-    // {studentID}=req.params;
-    const studentID = 1;
+    const {studentID}=req.params;
+    // const studentID = 1;
     try {
 
         const [rows] = await connection.promise().execute(

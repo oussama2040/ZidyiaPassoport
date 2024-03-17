@@ -38,7 +38,7 @@ const Certificate = () => {
   // Ref for the certificate container
   const certificateRef = useRef(null);
 
-  // Function to handle screenshot capture
+  
   const [organizationInfo, setOrganizationInfo] = useState(null);
   useEffect(() => {
    
@@ -57,11 +57,12 @@ const Certificate = () => {
 console.log(organizationInfo)
 // -----------------------------------------------------------------------------------
 const [studentInfo, setstudentInfo] = useState(null);
+const { studentID } = useParams();
   useEffect(() => {
    
     const fetchtudentInfo = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/student/studentinfo');
+            const response = await axios.get(`http://localhost:5000/student/studentinfo/${studentID}`);
             setstudentInfo(response.data);
             console.log(response.data)
         } catch (error) {
@@ -70,7 +71,7 @@ const [studentInfo, setstudentInfo] = useState(null);
     };
 
     fetchtudentInfo();
-}, []);
+}, [studentID]);
 console.log(studentInfo)
 // ------------------------------------------------------------------------------------
 const getCurrentDate = () => {
