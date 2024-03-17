@@ -3,6 +3,7 @@ import {
     createCertificate, updateCertificate,
     countTotalCertificates, countPendingCertificates, countApprovedCertificates, countRejectedCertificates
     , getAllCertificateRequests, updateCertificateRequestStatus,countCertificatesByStatusAndDateRange,updatefilledRequestStatus
+    ,getAllCertificateVerified
 } from '../controllers/certificateController.js';
 
 const router = express.Router();
@@ -16,6 +17,8 @@ router.get('/certificates/organization/:organization_id/count/rejected', countRe
 router.get('/certificates/organization/count/byDate', countCertificatesByStatusAndDateRange);
 
 router.get('/certificates/:organizationId', getAllCertificateRequests);
+router.get('/certificatesverified/:organizationId', getAllCertificateVerified);
+
 router.put('/certificatesRequest/:requestId', updateCertificateRequestStatus);
 router.put('/filledformRequest/:requestId', updatefilledRequestStatus);
 

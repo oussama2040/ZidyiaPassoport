@@ -3,6 +3,8 @@ import styles from './CertificateReq.module.css';
 import { IoMdClose } from 'react-icons/io';
 import axios from 'axios';
 import { LiaCertificateSolid } from "react-icons/lia";
+
+
 const CertificateCard = ({ certificate }) => {
   const [selectedCertificate, setSelectedCertificate] = useState(null);
   const [rejectionReason, setRejectionReason] = useState('');
@@ -37,10 +39,10 @@ const CertificateCard = ({ certificate }) => {
       }
 
       console.log('Request Data:', requestData);
-      console.log('certificate id:', selectedCertificate.certificate_id);
+      console.log('certificate id:', selectedCertificate.request_id);
 
       // Update certificate status and rejection reason accordingly
-      const response = await axios.put(`http://localhost:5000/admin/certificatesRequest/${selectedCertificate.certificate_id}`, requestData);
+      const response = await axios.put(`http://localhost:5000/admin/certificatesRequest/${selectedCertificate.request_id}`, requestData);
 
       console.log('Response Data:', response.data);
 
@@ -54,13 +56,13 @@ const CertificateCard = ({ certificate }) => {
   return (
     <div className={`flex flex-wrap ${styles.CertificateCardFlex}`}>
       {certificate.map((cert, index) => (
-        <div key={cert.certificate_id} className={`mb-4 w-full md:w-1/2 lg:w-1/4 ${index < 4 ? 'mr-4' : ''} ${styles.CertificateCard}`} onClick={() => handleCertificateClick(cert)}>
+        <div key={cert.request_id} className={`mb-4 w-full md:w-1/2 lg:w-1/4 ${index < 4 ? 'mr-4' : ''} ${styles.CertificateCard}`} onClick={() => handleCertificateClick(cert)}>
           <LiaCertificateSolid  className={styles.certificateIcon}/>
           <img className="w-full h-64 object-cover object-center" src={cert.CertificateFile} alt="Certificate" />
           <div className="p-4">
-            <h2 className={styles.customizeFieldNametext}>{cert.first_name} {cert.last_name}</h2>
-            <p className={styles.customizeFieldNametext}>Status: {cert.status}</p>
-            <p className="text-sm text-gray-400">Created At: {new Date(cert.created_at).toDateString()}</p>
+            <h2 className={styles.customizeFieldNameTOPIC}>{cert.first_name} {cert.last_name}</h2>
+            <p className="text-sm text-gray-400 flex">Status:<div className={styles.customizeFieldNametext}>{cert.status}</div> </p>
+            <p className="text-sm text-gray-400 flex">Created At:<div className={styles.createat}>{new Date(cert.created_at).toDateString()}</div></p>
           </div>
         </div>
       ))}
@@ -103,6 +105,7 @@ const CertificateCard = ({ certificate }) => {
         </div>
       )}
     </div>
+
   );
 };
 
