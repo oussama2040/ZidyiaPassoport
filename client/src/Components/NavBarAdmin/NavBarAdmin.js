@@ -4,7 +4,7 @@ import styles from './NavBarAdmin.module.css'
 function navbarAdmin() {
   return (
     <div className={styles.NavBarAdminMain}>
-      <span class={styles.NavBarAdminDashborad}>
+      <span className={styles.NavBarAdminDashborad}>
       Admin Panel
       </span>
 
