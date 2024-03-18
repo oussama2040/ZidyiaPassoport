@@ -33,7 +33,7 @@ const scanQRCODE = async (req, res) => {
             const [rows] = await connection.promise().execute('SELECT * FROM qrcodes WHERE hashed_data = ?', [hashedQRData]);
 
             if (rows.length > 0) {
-                return res.status(200).json({ message: 'QR Code data matched with database' });
+                return res.status(200).json({ message: 'QR Code data matched with database',decodedQRData  });
             } else {
                 return res.status(401).json({ error: 'QR Code data does not match with database' });
             }

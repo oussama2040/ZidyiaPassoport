@@ -44,7 +44,9 @@ const Certificate = () => {
    
     const fetchOrganizationInfo = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/tenent/organizationinfo');
+            const response = await axios.get('http://localhost:5000/tenent/organizationinfo',{
+              withCredentials: true
+            });
             setOrganizationInfo(response.data);
             console.log(response.data)
         } catch (error) {
@@ -62,7 +64,9 @@ const { studentID } = useParams();
    
     const fetchtudentInfo = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/student/studentinfo/${studentID}`);
+            const response = await axios.get(`http://localhost:5000/student/studentinfo/${studentID}`,{
+              withCredentials: true
+            });
             setstudentInfo(response.data);
             console.log(response.data)
         } catch (error) {
@@ -108,7 +112,9 @@ const handleCapture = async () => {
     formData.append('certificateImage', blob, 'certificate.png');
 
     // Send the captured image data to the server
-    const response = await axios.post('http://localhost:5000/tenent/savecertificate', formData);
+    const response = await axios.post(`http://localhost:5000/tenent/savecertificate/${studentID}`, formData,{
+      withCredentials: true
+    });
 
     console.log('Certificate saved successfully:', response.data);
   } catch (error) {

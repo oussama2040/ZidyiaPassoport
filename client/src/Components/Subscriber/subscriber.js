@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import   './subscriber.css';
+import { json } from 'react-router-dom';
 
 
 const Subscriber = () => {
@@ -21,6 +22,7 @@ const Subscriber = () => {
             // Send request to server
             const response = await axios.post('http://localhost:5000/subscriber/scanQRCode', formData);
             console.log('Server response:', response.data);
+            
             setResult(response.data);
           } else {
             console.error('No file selected');
@@ -39,17 +41,27 @@ const Subscriber = () => {
 
   return (
     <div className='subscribercontainer'>
-        <h1 className='subtitle'>Scan Certificate To Verify</h1>
-    
-      <form>
-        
-        <input type="file" name="certificate" className='subfile'/>
-        <button type="button" className='subbtn' onClick={handleScan}>Scan</button>
-
-      </form>
-      
-      
-    </div>
+            <h1 className='subtitle'>Scan Certificate To Verify</h1>
+            <form>
+                <input type="file" name="certificate" className='subfile'/>
+                <button type="button" className='subbtn' onClick={handleScan}>Scan</button>
+            </form>
+          
+            {result && result.message && (
+                <div className="result">
+                    <p>{result.message}</p>
+                    {result && result.decodedQRData && (
+                    <p>Student ID: {JSON.parse(result.decodedQRData).studentId}</p>
+                   
+                    )}
+                     {result && result.decodedQRData && (
+                     <p>StudentName:{JSON.parse(result.decodedQRData).studentName}</p>
+                     )}
+                     </div>
+                   
+                
+            )}
+        </div>
   )
 }
 

@@ -12,8 +12,8 @@ const SaveVerifiedCertificate = async (req, res) => {
 
         // Get the buffer containing image data
         const imageData = req.file.buffer;
-        const orgId = '1';
-        const stdId = '2';
+        const orgId = req.tenent.tenentid;
+        const stdId = req.params.studentID;
 
         // Upload the certificate image to Cloudinary
         const uploadedCertificate = await uploadImageInFolder(imageData, "Verified-Certificates");
@@ -49,8 +49,8 @@ export {SaveVerifiedCertificate};
  * @access   private
  * ---------------------------------------------**/
 const getOrganizationInfo = async (req, res) => {
-    // organizationID=req.tenent.tenentid;
-    const organizationID=9;
+    const organizationID=req.tenent.tenentid;
+    //const organizationID=9;
     try {
         
         const [rows] = await connection.promise().execute(

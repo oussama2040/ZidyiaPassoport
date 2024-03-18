@@ -59,6 +59,7 @@ export default function App() {
             <Route path="/subscriber/resetpass" element={<SubscriberResetPass />} />
             <Route path="/superAdmin/login" element={<SuperAdminLogin />} />
             <Route path="/superAdmin/forgetpassword" element={<SuperAdminForgetPass />} />
+            <Route path="/subscriber/scanQrCode" element={<Subscriber />} />
 
 
 
