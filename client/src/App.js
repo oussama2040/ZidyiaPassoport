@@ -68,7 +68,7 @@ export default function App() {
 
             <Route path="/superAdmin/resetpass" element={<SuperAdminResetPass />} />
             <Route path="/admin" element={<Admin />} />
-            <Route path="/admin/analytics" element={<Analytics />} />
+            <Route path="/admin" element={<Analytics />} />
             <Route path="/admin/customize" element={<SendAdmincustomize organizationId={organizationId} />} />
             <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled organizationId={organizationId} />} />
             <Route path="/admin/customizecertificate" element={<CustomizeCertificate />} />

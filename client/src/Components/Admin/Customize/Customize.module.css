@@ -13,16 +13,26 @@
     color: white;
     font-size: large;
   }
+  .RequestPendingTitleSendCustomize{
+    margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width:38%;
+      color: white;
+      font-size: large;
+    }
+
 .Mainformsdisplayflex{
 display: flex;
-
 }
 .Customizeform {
-    width:700px;
+    width:750px;
     margin: 25px auto;
     padding: 20px;
     border-radius: 20px;
     background-color: #364350;
+    min-height: 600px;
   }
   
   .CustomizformTitle {
@@ -238,9 +248,9 @@ display: flex;
   /* ----------Get form customize--------- */
 
   .CustomizeGetMain{
-    width:330px;
-     margin: 25px auto;
-     margin-right: 60px;
+    width:400px;
+    min-height: 600px;
+    margin: 84px auto;
     padding: 20px;
     border-radius: 20px;
     background-color: #364350;
@@ -310,6 +320,7 @@ input[type="radio"]:checked + label::before {
   border-color: #3498db;
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
 }
+  
 /* --------drop down -------- */
 .studentcustomizeDropdownOptions{
   background-color: inherit;
@@ -324,8 +335,9 @@ input[type="radio"]:checked + label::before {
 .studentcustomizeDropdownOptionsSelect{
   background-color:#1F2731;
   color: #ccc;
+
 }
-.studentcustomizeDropdownOptions:focus {
+.studentcustomizeDropdownOptions:focus{
   outline: none;
   border-color: #3498db;
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
@@ -378,10 +390,14 @@ input[type="radio"]:checked + label::before {
 
 .customizeFieldDetails{
 display: flex;
-border: 1px solid #ffffff71;
+border-bottom: 1px solid #5DD3B3;
 border-radius: 5px;
 margin-top: 5px;
 }
+.customizeFieldDetails:hover{
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 1); 
+}
+
 .customizeFieldName{
   font-family: 'Core Rhino 45 ', sans-serif;
   font-size: 14px;
