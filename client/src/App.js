@@ -33,6 +33,8 @@ import Subscriber from "./Pages/Subscriber.js";
 import AdminCertificateReq from "./Components/Admin/CertificateReq/AdminCertificateReq.js";
 import AdminCertificateUploaded from "./Components/Admin/CertificateUploaded/AdminCertificateUploaded.js";
 import Analytics from "./Components/Admin/Analytics/Analytics.js";
+import SubscriberUpdatePass from "./Pages/SubscriberUpdatePass.js";
+import TenentUpdatePass from "./Pages/TenentUpdatePass.js"
 
 export default function App() {
   const organizationId = 4;
@@ -52,9 +54,11 @@ export default function App() {
             <Route path="/student/forgetpassword" element={<ForgetPass />} />
             <Route path="/student/resetpass" element={<ResetPass />} />
             <Route path="/tenent/login" element={<TenentLogin />} />
+            <Route path="/tenent/updatepassword" element={<TenentUpdatePass />} />
             <Route path="/tenent/forgetpassword" element={<TenentForgetPass />} />
             <Route path="/tenent/resetpass" element={<TenentResetPass />} />
             <Route path="/subscriber/login" element={<SubscriberLogin />} />
+            <Route path="/subscriber/updatepassword" element={<SubscriberUpdatePass />} />
             <Route path="/subscriber/forgetpassword" element={<SubscriberForgetPass />} />
             <Route path="/subscriber/resetpass" element={<SubscriberResetPass />} />
             <Route path="/superAdmin/login" element={<SuperAdminLogin />} />
