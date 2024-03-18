@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import GetAdmincustomize from "./getAdmincustomize.js"
 import styles from './Customize.module.css'
-
+import { SlArrowLeft } from "react-icons/sl";
 import NavbarAdmin from '../../NavBarAdmin/NavBarAdmin'
 import SideBarAdmin from '../../SideBar/SideBarAdmin'
 
@@ -70,8 +70,9 @@ function SendAdmincustomize({organizationId}) {
     <NavbarAdmin />
     <div className={styles.Customizeflex}>
     <SideBarAdmin />
+    <div>
+    <div className={styles.RequestPendingTitleSendCustomize}> <SlArrowLeft /> Customize Form To Send </div>
     <form className={styles.Customizeform} onSubmit={handleSubmit}>
-    <h1 className={styles.CustomizformTitle}> Customize Form To Send </h1> 
       <div>
         {formData.fields.map((field, index) => (
           <div key={index}  className={styles.CustomizefieldContainer}>
@@ -204,7 +205,7 @@ function SendAdmincustomize({organizationId}) {
       </div>
       
     </form>
-
+</div>
 
       <GetAdmincustomize organizationId={organizationId} />
       </div>
