@@ -5,6 +5,15 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 dotenv.config();
 
+
+// grant access to superadmin dashboard
+
+const grantAccessToSuperadminPage = (req, res) => {
+    res.json({ grantedAccess: true });
+};
+
+export { grantAccessToSuperadminPage };
+
 // send tenant creation notification
 function sendTenantCreateNotification(email, password) {
     const transporter = nodemailer.createTransport({

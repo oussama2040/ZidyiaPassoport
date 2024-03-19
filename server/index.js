@@ -33,10 +33,9 @@ app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.use(
   cors({
     origin: ['http://localhost:3000'],
-    origin: ['http://localhost:3000'],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    allowedHeaders: ['Content-Type', 'Authorization'], 
-    credentials: true, 
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
   })
 );
 

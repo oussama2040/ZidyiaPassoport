@@ -8,9 +8,11 @@ const StudentsCount = ({ style }) => {
     useEffect(() => {
         const fetchStudentCount = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/superadmin/students-count');
+                const response = await axios.get('http://localhost:5000/superadmin/students-count', {
+                    withCredentials: true
+                });
                 setStudentCount(response.data.studentCount);
-                console.log(response.data.studentCount)
+                console.log(response.data.studentCount);
             } catch (error) {
                 console.error('Failed to fetch student count:', error);
             }

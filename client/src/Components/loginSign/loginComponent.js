@@ -2,6 +2,7 @@ import styles from './loginSign.module.css';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Zidyia_Logo1 from './../Assets/Zidyia_Logo1.png';
+import Cookies from 'js-cookie';
 
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 import axios from 'axios';
@@ -11,25 +12,6 @@ function LoginComponent({ apiUrl, userRole }) {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null)
-
-
-
-  const userIdentity = () => {
-    const path = window.location.pathname;
-    if (path === "/student/login") {
-      setUser("Student");
-    } else if (path === "/tenent/login") {
-      setUser("Tenant");
-    } else if (path === "/subscriber/login") {
-      setUser("Verifier");
-    }
-    else if (path === "/superadmin/login") {
-      setUser("Superadmin");
-    }
-  }
-  useEffect(() => {
-    userIdentity();
-  }, []);
 
 
 
@@ -61,8 +43,8 @@ function LoginComponent({ apiUrl, userRole }) {
 
       //document.cookie = `user_id=${studentId}; Secure; Max-Age=${3 * 60 * 60};`;
       //document.cookie = `first_name=${firstName}; Secure; Max-Age=${3 * 60 * 60};`;
-      document.cookie = `${userRole}accessToken=${accessToken}; Secure; Max-Age=${3 * 60 * 60};`;
-      document.cookie = `${userRole}refreshToken=${refreshToken}; Secure; Max-Age=${3 * 60 * 60};`;
+      // document.cookie = `${userRole}accessToken=${accessToken}; Secure; Max-Age=${3 * 60 * 60};`;
+      // document.cookie = `${userRole}refreshToken=${refreshToken}; Secure; Max-Age=${3 * 60 * 60};`;
 
 
 
@@ -72,7 +54,8 @@ function LoginComponent({ apiUrl, userRole }) {
         console.log('Login successful!');
         console.log(`${userRole}:`, userRole); // User data
         console.log(firstPassUpdate); // User data
-
+        Cookies.set(`${userRole}accessToken`, accessToken, { secure: true, expires: 3 * 60 * 60 });
+        Cookies.set(`${userRole}refreshToken`, refreshToken, { secure: true, expires: 3 * 60 * 60 });
         // if the user is a student redirect to student page when login successful, if the user is a super admin redirect to super admin page
         //if the user is a subscriber or a tenent redirect to update password page, and send the email of the user in the url
         // Redirect based on user role
@@ -116,24 +99,24 @@ function LoginComponent({ apiUrl, userRole }) {
   return (
     <div className={styles.backgroudFlex}>
       <div className={styles.rightImage}>
-      <div className={styles.rightImageContainerLogin}>
-        <div className={styles.logoImg}>
-        <img className={styles.logoImage} src={Zidyia_Logo1}/>
-        </div>
+        <div className={styles.rightImageContainerLogin}>
+          <div className={styles.logoImg}>
+            <img className={styles.logoImage} src={Zidyia_Logo1} />
+          </div>
           <div className={styles.helloText} >Hello, {userRole}!</div>
           <div className={styles.welcomeText} >Welcome to Zidyia Passport</div>
-       {userRole === 'student' && (
-          <React.Fragment>
-          <div className={styles.registerText} >Register with your personal details to use</div>
-          <div className={styles.registerText2} >the platform features.</div>
-          <button type="submit" className={styles.SignUpbutton}>
-            <Link to="/student/register" >
-            Sign Up
-            </Link>
-          </button>
-          </React.Fragment>
-        )}
-       </div>
+          {userRole === 'student' && (
+            <React.Fragment>
+              <div className={styles.registerText} >Register with your personal details to use</div>
+              <div className={styles.registerText2} >the platform features.</div>
+              <button type="submit" className={styles.SignUpbutton}>
+                <Link to="/student/register" >
+                  Sign Up
+                </Link>
+              </button>
+            </React.Fragment>
+          )}
+        </div>
       </div>
 
       <div className={`max-w-md mx-auto p-6 ${styles.box}`}>
