@@ -39,7 +39,7 @@ const loginStudent = asyncHandler(async (req, res) => {
                     id: student.student_id,
                 }
             }, process.env.STUDENT_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
-
+             console.log("student", student.first_name)
 
             res.status(200).json({
                 student: {
@@ -101,6 +101,19 @@ const loginTenent = asyncHandler(async (req, res) => {
                     tenentlocation: tenent.location,
                 }
             }, process.env.TENENT_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
+
+
+
+
+
+            // Assuming `accessToken` and `refreshToken` are the tokens you want to decode
+            const accessTokenData = jwt.decode(accessToken);
+            const refreshTokenData = jwt.decode(refreshToken);
+
+            // Log the decoded data
+            console.log('Decoded Access Token:', accessTokenData);
+            console.log('Decoded Refresh Token:', refreshTokenData);
+
 
             res.status(200).json({
                 tenent: {

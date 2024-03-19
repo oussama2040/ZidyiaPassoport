@@ -43,13 +43,17 @@ const Certificate = () => {
   useEffect(() => {
    
     const fetchOrganizationInfo = async () => {
-        try {
-            const response = await axios.get('http://localhost:5000/tenent/organizationinfo');
-            setOrganizationInfo(response.data);
-            console.log(response.data)
-        } catch (error) {
-            console.error('Error fetching organization info:', error);
-        }
+      try {
+        const response = await axios.get('http://localhost:5000/tenent/organizationinfo', {
+            withCredentials: true // Ensure axios sends credentials (including cookies)
+        });
+        setOrganizationInfo(response.data);
+        console.log(response.data);
+        
+    } catch (error) {
+        console.error('Error fetching organization info:', error);
+    }
+    
     };
 
     fetchOrganizationInfo();
