@@ -24,7 +24,6 @@ import StudentViewCertificate from "./Pages/StudentViewCertificate.js";
 import StudentAddCertificate from "./Pages/StudentaddCertificate.js";
 import StudentProfile from "./Pages/StudentProfile.js";
 import StudentAllRequests from "./Pages/StudentAllRequest.js";
-
 import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.js";
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
 import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
@@ -44,7 +43,7 @@ export default function App() {
       <Router>
         <Routes>
           <>
-
+            
             <Route index element={<Home />} />
             <Route path="/superadmin" element={<SupperAdmin />} />
             <Route path="/student/register" element={<Signup />} />
@@ -67,7 +66,7 @@ export default function App() {
             <Route path="/admin" element={<Analytics />} />
             <Route path="/admin/customize" element={<SendAdmincustomize organizationId={organizationId} />} />
             <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled organizationId={organizationId} />} />
-            <Route path="/admin/customizecertificate" element={<CustomizeCertificate />} />
+            <Route path="/admin/customizecertificate/:studentID" element={<CustomizeCertificate />} />
             <Route path="/admin/reqcertificate" element={<AdminCertificateReq organizationId={organizationId} />} />
             <Route path="/admin/certificateuploaded" element={<AdminCertificateUploaded organizationId={organizationId} />} />
 
