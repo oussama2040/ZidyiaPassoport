@@ -49,8 +49,11 @@ export {SaveVerifiedCertificate};
  * @access   private
  * ---------------------------------------------**/
 const getOrganizationInfo = async (req, res) => {
-    // const organizationID=req.tenent.tenentid;
-    const organizationID=9;
+     const organizationID=req.tenent.tenentid;
+     const org=req.tenent;
+     console.log(org)
+     console.log(organizationID)
+    // const organizationID=9;
     try {
         
         const [rows] = await connection.promise().execute(
@@ -71,6 +74,7 @@ const getOrganizationInfo = async (req, res) => {
     }
 };
 export {getOrganizationInfo};
+
 
 /**___________________________________________
  * @desc    get All organization name and id

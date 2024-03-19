@@ -45,7 +45,7 @@ const Certificate = () => {
     const fetchOrganizationInfo = async () => {
         try {
             const response = await axios.get('http://localhost:5000/tenent/organizationinfo',{
-              withCredentials: true
+              withCredentials: true,
             });
             setOrganizationInfo(response.data);
             console.log(response.data)

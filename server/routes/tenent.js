@@ -5,7 +5,7 @@ import { TenentUpdatePass } from '../controllers/updatePassword.js';
 import {SaveVerifiedCertificate, getOrganizationInfo,getAllOrganizations} from '../controllers/tenantController.js';
 const router = express.Router();
 import upload from '../controllers/imageuploadcontroller.js';
-// import {TenentvalidateToken} from "../controllers/Middleware/validateTokenHandler.js";
+import {TenentvalidateToken} from "./../Middleware/validateTokenHandler.js";
 
 
 
@@ -14,7 +14,7 @@ router.post('/resetpassverify',TenentrequestPasswordReset)
 router.post('/resetpass',TenentresetPassword)
 router.post('/updatepassword',TenentUpdatePass)
 router.post('/savecertificate',upload.single('certificateImage'),SaveVerifiedCertificate)
-router.get('/organizationinfo',getOrganizationInfo)
+router.get('/organizationinfo',TenentvalidateToken,getOrganizationInfo)
 router.get('/Allorganization',getAllOrganizations)
 
 export default router;
