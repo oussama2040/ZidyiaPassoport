@@ -5,6 +5,7 @@ import { TenentUpdatePass } from '../controllers/updatePassword.js';
 import {SaveVerifiedCertificate, getOrganizationInfo,getAllOrganizations} from '../controllers/tenantController.js';
 const router = express.Router();
 import upload from '../controllers/imageuploadcontroller.js';
+// import {TenentvalidateToken} from "../controllers/Middleware/validateTokenHandler.js";
 
 
 

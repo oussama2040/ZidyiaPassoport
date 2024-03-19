@@ -60,6 +60,8 @@ console.log(organizationInfo)
 // -----------------------------------------------------------------------------------
 const [studentInfo, setstudentInfo] = useState(null);
 const { studentID } = useParams();
+
+// console.log("studentid",studentID)
   useEffect(() => {
    
     const fetchtudentInfo = async () => {
