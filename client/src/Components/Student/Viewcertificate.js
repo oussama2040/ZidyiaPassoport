@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Certificates = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCertificate, setSelectedCertificate] = useState(null);
-    const [sortCriteria, setSortCriteria] = useState(''); 
+    const [sortCriteria, setSortCriteria] = useState('');
     const [certificates, setCertificates] = useState([]);
 
     const toggleModal = (certificate) => {
@@ -23,26 +23,29 @@ const Certificates = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
-    
+
     useEffect(() => {
         // Fetch verified certificates for a specific student
         const fetchCertificates = async () => {
             try {
                 const studentId = 3;
                 const response = await axios.get(`http://localhost:5000/students/certificates/verified/${studentId}`);
-                setCertificates(response.data.certificates.map(formatCertificateDate)); 
+                setCertificates(response.data.certificates.map(formatCertificateDate));
                 console.log(response.data.certificates);
             } catch (error) {
                 console.error('Error fetching certificates:', error);
-               
+
             }
         };
 
-        fetchCertificates(); 
-    }, []); 
+        fetchCertificates();
+    }, []);
 
     const formatCertificateDate = (certificate) => {
-        const issuedDate = new Date(certificate.issued_date);
+        if (!certificate.verification_date) {
+            return certificate;
+        }
+        const issuedDate = new Date(certificate.verification_date);
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
         const dateString = issuedDate.toLocaleDateString('en-US', options);
         const day = issuedDate.getDate();
@@ -65,9 +68,8 @@ const Certificates = () => {
 
     const sortCertificates = () => {
         switch (sortCriteria) {
-            
             case 'issued-date':
-                return [...certificates].sort((a, b) => new Date(a.issued_date) - new Date(b.issued_date));
+                return [...certificates].sort((a, b) => new Date(a.verification_date) - new Date(b.verification_date));
             case 'expiry-date':
                 return [...certificates].sort((a, b) => new Date(a.expiry_date) - new Date(b.expiry_date));
             default:
@@ -86,13 +88,13 @@ const Certificates = () => {
                     <span>CertPass</span>
                 </div>
                 <div class="containerBtn">
-                    <button class="btnRequestCertificates">Requests</button>
-                    <button class="btn-certificates">Certificates</button>
-
+                    {/* <button class="btnRequestCertificates">Requests</button> */}
+                    <Link to="/student/requestCertificate" class="btnRequestCertificates">Requests</Link>
+                    <Link class="btn-certificates">Certificates</Link>
                     <div class="sorting-dropdown">
                         <select value={sortCriteria} onChange={handleSortChange}>
                             <option value="" disabled selected>Sorting</option>
-                            
+
                             <option value="issued-by">Issued by (A-Z)</option>
                             <option value="issued-date">Issued date (ascending)</option>
                             <option value="expiry-date">Expiry date (ascending)</option>
@@ -105,7 +107,7 @@ const Certificates = () => {
 
                 <div class="wrapper">
                     <div className='Line'>
-                         {sortCertificates().map(certificate => (
+                        {sortCertificates().map(certificate => (
                             <div key={certificate.certificate_id} className="profile-card js-profile-card" onClick={() => toggleModal(certificate)}>
                                 <div class="profile-card__img">
                                     <img src="https://res.cloudinary.com/daa9irzfz/image/upload/v1710177429/badge3_ed8zsi.png" />
@@ -135,51 +137,14 @@ const Certificates = () => {
 const CertificateModal = ({ certificate, isModalOpen, closeModal }) => {
     const handleLinkedInShare = async () => {
         const certificateImageSrc = certificate.CertificateFile;
-        const certificateName = certificate.name; // Assuming you have a name property in your certificate object
+        const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(certificateImageSrc)}`;
 
-        const shareContent = {
-            content: {
-                "contentEntities": [
-                    {
-                        "entityLocation": certificateImageSrc,
-                        "thumbnails": [
-                            {
-                                "resolvedUrl": certificateImageSrc
-                            }
-                        ]
-                    }
-                ],
-                "title": "Check out my certificate: " + certificateName,
-                "shareMediaCategory": "IMAGE"
-            },
-            "visibility": {
-                "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"
-            }
-        };
 
         try {
-            const response = await fetch('https://api.linkedin.com/v2/shares', {
-                method: 'POST',
-                // headers: {
-                //     'Authorization': `Bearer ${accessToken}`,
-                //     'Content-Type': 'application/json',
-                //     'x-li-format': 'json'
-                // },
-                body: JSON.stringify(shareContent)
-            });
-
-            if (response.ok) {
-                console.log('Successfully shared on LinkedIn');
-                // Handle success, e.g., show a success message to the user
-            } else {
-                console.error('Failed to share on LinkedIn:', response.status);
-                toast.error('Failed to share on LinkedIn. Please try again later.', {
-                    position: toast.POSITION.TOP_CENTER,
-                    autoClose: 3000 // Adjust the auto-close time as needed
-                });
-            }
+            window.open(linkedinShareUrl, '_blank');
         } catch (error) {
             console.error('Error sharing on LinkedIn:', error);
+            toast.error('Error sharing on LinkedIn. Please try again later.');
         }
     };
 
@@ -208,6 +173,7 @@ const CertificateModal = ({ certificate, isModalOpen, closeModal }) => {
                         <div class="closeBtn"><button class="btnClose" onClick={closeModal}><IoMdClose /></button></div>
                         <div className="certShare">
                             <p>Certificate</p>
+                            <p>{certificate.expiry_date} </p>
                             <div className="share-download-options">
                                 <p className="shareLinkedin" onClick={handleLinkedInShare}><FaShareAlt /> &nbsp;Share On LinkedIn</p>
                                 <p className="download" onClick={handleDownload}><FaDownload /> &nbsp;Download</p>

@@ -112,14 +112,24 @@
     padding: 5px;
 }
 .buttonProfile-container button {
-    background-color: #5DD3B3;
-    color: white;
+    /* background-color: #5DD3B3; */
+    /* color: white;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
-}
+    cursor: pointer; */
 
+    background-color: #5DD3B3;
+    color: white;
+    padding: 10px 15px;
+    width: 150px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 26px;
+}
+.buttonProfile-container button :hover{
+background-color: #9be9d4;
+}
 .ProfileForm {
     display: flex;
     flex-direction: row;
@@ -138,7 +148,9 @@
     overflow: hidden;
     transition: .5s;
     margin-top: 40px;
-    letter-spacing: 4px
+    letter-spacing: 4px;
+
+    
   }
   
   .btnUpdate a:hover {

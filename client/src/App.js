@@ -34,7 +34,8 @@ import AdminCertificateReq from "./Components/Admin/CertificateReq/AdminCertific
 import AdminCertificateUploaded from "./Components/Admin/CertificateUploaded/AdminCertificateUploaded.js";
 import Analytics from "./Components/Admin/Analytics/Analytics.js";
 import SubscriberUpdatePass from "./Pages/SubscriberUpdatePass.js";
-import TenentUpdatePass from "./Pages/TenentUpdatePass.js"
+import TenentUpdatePass from "./Pages/TenentUpdatePass.js";
+
 
 export default function App() {
   const organizationId = 4;
@@ -75,7 +76,7 @@ export default function App() {
             <Route path="/admin/reqcertificate" element={<AdminCertificateReq organizationId={organizationId} />} />
             <Route path="/admin/certificateuploaded" element={<AdminCertificateUploaded organizationId={organizationId} />} />
 
-            <Route path="/student/customize" element={<GetSendStudentCustomFields organizationId={organizationId} studentId={studentId} />} />
+            <Route path="/student/customize/:organization_id" element={<GetSendStudentCustomFields organizationId={organizationId} studentId={studentId} />} />
 
             {/* <Route path="/admin" element={<Admin />} />
                   <Route path="/login" element={<Login />} />                                        
@@ -89,6 +90,7 @@ export default function App() {
             <Route path="/student/addCertificate" element={<StudentAddCertificate />} />
             <Route path="/student/profile" element={<StudentProfile />} />
             <Route path="/student/requestCertificate" element={<StudentAllRequests />} />
+          
           </>
 
         </Routes>
