@@ -49,8 +49,9 @@ export {SaveVerifiedCertificate};
  * @access   private
  * ---------------------------------------------**/
 const getOrganizationInfo = async (req, res) => {
-    // organizationID=req.tenent.tenentid;
-    const organizationID=9;
+    const organizationID = req.tenent.tenentid;
+    console.log(organizationID)
+    //const organizationID=1;
     try {
         
         const [rows] = await connection.promise().execute(
