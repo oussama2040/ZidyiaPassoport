@@ -20,7 +20,7 @@ const Certificates = () => {
             try {
                 const studentId = 3;
                 const response = await axios.get(`http://localhost:5000/students/certificates/${studentId}`);
-           
+
                 const formattedCertificates = response.data.certificates.map(formatCertificateDate);
                 const sortedCertificates = sortCertificates(formattedCertificates, sortingOption);
                 setCertificates(sortedCertificates);
@@ -70,6 +70,9 @@ const Certificates = () => {
         setSortingOption(event.target.value);
     };
 
+    const verifyFct = (certificate) => {
+        window.location.href = `/student/customize/${certificate.organization_id}`;
+    };
 
     const CertificateCard = ({ certificate }) => (
         <div className="CertificateCard">
@@ -82,8 +85,16 @@ const Certificates = () => {
             <div className="CertInfo">
                 <h4>{certificate.name} </h4>
                 <p>{certificate.formatted_issued_date}</p>
+                {/* <p>{certificate.organization_id}</p> */}
                 <p>Issued by: {certificate.organization_name}</p>
             </div>
+          
+            {certificate.status === 'verified' && ( 
+                // <Link to="/student/customize">
+                //     <button onClick={verifyFct} className='btnVerify'>Verify</button>
+                // </Link>
+                <button onClick={() => verifyFct(certificate)} className='btnVerify'>Verify</button>
+            )}
         </div>
     );
 
@@ -117,17 +128,16 @@ const Certificates = () => {
                         <CertificateCard key={certificate.id} certificate={certificate} />
                     ))}
                 </div>
-                 <div className="pagination p1">
+                <div className="pagination p1">
                     <ul>
                         <a href="#" onClick={handlePrevPage}><li><MdArrowBackIosNew /></li></a>
-                        {/*  */}
                         {Array.from(Array(pageCount).keys()).map(page => (
                             <a key={page} className={currentPage === page ? 'is-active' : ''} href="#" onClick={() => setCurrentPage(page)}><li>{page + 1}</li></a>
                         ))}
                         <a href="#" onClick={handleNextPage}><li><MdArrowForwardIos /></li></a>
                     </ul>
                 </div>
-              
+
             </div>
         );
     };
@@ -140,17 +150,18 @@ const Certificates = () => {
                 </div>
                 <div class="containerRequest">
                     <button class="btnRequest">Requests</button>
-                    <button class="btnCertificates">Certificates</button>
+                    <Link to="/student/viewCertificate" class="btnCertificates">Certificates</Link>
+                    {/* <button class="">Certificates</button> */}
 
                     <div class="sortingBystatus">
-                    <select onChange={handleSortingChange}>
+                        <select onChange={handleSortingChange}>
                             <option value="" disabled selected>Sorting by Status</option>
                             <option value="all">All</option>
                             <option value="pending">Pending</option>
                             <option value="verified">Verified</option>
                             <option value="rejected">Rejected</option>
                         </select>
-                       
+
                     </div>
                     <button className="btnADDcertificate">
                         <Link to="/student/addCertificate">Add Certificate</Link>
