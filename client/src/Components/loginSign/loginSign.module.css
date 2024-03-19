@@ -5,7 +5,7 @@
     border-top-right-radius: 25%;
     border-bottom-right-radius: 25%;
     display: flex;
-    height: 470px;
+    height: 500px;
     margin-bottom: 50px;
     box-shadow: 1px 0px 10px;
    }
@@ -105,13 +105,14 @@
   color: #28EFA9;
   font-size: 13px;
   margin-left: 14%;
-  margin-top: 20%;
+  /* margin-top: 20%; */
 
 }
 .registerText2{
   color: #28EFA9;
   font-size: 13px;
-  margin-left: 28%;
+  margin-left: 14%;
+
 
 }
 
