@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './SideBar.module.css';
 import Logo from './Logo';
 import Nav from './Nav';
-import { Link } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom'; 
 import { GrAnalytics } from "react-icons/gr";
 import { BiCustomize } from "react-icons/bi";
 import { IoGitPullRequestSharp } from "react-icons/io5";
@@ -10,31 +10,44 @@ import { TbFileCertificate } from "react-icons/tb";
 import { LiaCertificateSolid } from "react-icons/lia";
 import ZidyiaLogo from './ZidyiaLogo.js';
 
-
-
 function SideBarAdmin() {
+  const location = useLocation(); // Get current location
+
   return (
     <div>
       <div className={styles.SideBarMain}>
         <Logo />
 
-        <Link to="/admin/analytics">
+        <NavLink to="/admin" >
+          <div className={location.pathname === '/admin' ? styles.active : ''}>
           <Nav icon={<GrAnalytics />} name="Analytics" />
-        </Link>
-        <Link to="/admin/reqcertificate">
-        <Nav icon={< IoGitPullRequestSharp />} name="Certificate Request" />
-        </Link>
-        <Link to="/admin/customize">
+          </div>
+        </NavLink>
+        <NavLink to="/admin/reqcertificate" >
+          <div className={location.pathname === '/admin/reqcertificate' ? styles.active : ''}>
+          <Nav icon={< IoGitPullRequestSharp />} name="Certificate Request" />
+          </div>
+        </NavLink>
+        <NavLink to="/admin/reqcustomize" >
+          <div className={location.pathname === '/admin/reqcustomize' ? styles.active : ''}>
+          <Nav icon={< BiCustomize />} name="Customize Request" />
+          </div>
+        </NavLink>
+
+        <NavLink to="/admin/certificateuploaded" >
+          <div className={location.pathname === '/admin/certificateuploaded' ? styles.active : ''}>
+          <Nav icon={< TbFileCertificate />} name="Certificate Uploaded" />
+          </div>
+        </NavLink>
+
+        <NavLink to="/admin/customize">
+          <div  className={location.pathname === '/admin/customize' ? styles.active : ''}>
           <Nav icon={< BiCustomize />} name="Field Customize" />
-        </Link>
-        <Link to="/admin/reqcustomize">
-          <Nav icon={< BiCustomize />} name="Request Customize" />
-        </Link>
+          </div>
+        </NavLink>
 
-        
-        <Nav icon={< TbFileCertificate />} name="Certificate Uploaded" />
-        <Nav icon={< LiaCertificateSolid />} name="Issue Certificates" />
-
+        {/* 
+        <Nav icon={< LiaCertificateSolid />} name="Issue Certificates" /> */}
       </div>
       <ZidyiaLogo />
     </div>

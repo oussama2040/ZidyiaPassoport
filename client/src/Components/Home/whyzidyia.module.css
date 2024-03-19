@@ -75,19 +75,103 @@ width: 100%;
     
     
   }
-  .inputsub{
-    text-align: center;
-    margin-left: 30%;
-    margin-top: 30px;
-    height: 40px;
-    border-radius: 20px 0 0 20px;
-  }
+
   .subbtn{
+    position: absolute;
     background-color: #5DD3B3;
     color: #333;
     font-weight: 500;
-   
-    border-radius: 0px 20px 20px 0px;
+    width: 120px;
+    border-radius: 20px;
     height: 40px;
-
+    left: 50%;
+    margin-top: 25px;
+    transform: translateX(-50%);
   }
+
+
+
+  /* subscribe */
+  .RequestSubscriptionComponent {
+    position: fixed;
+    z-index: 100;
+    width: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 800px;
+    height: auto;
+    background-color: #384450;
+    border-radius: 20px;
+    padding: 50px 65px;
+    box-sizing: border-box;
+
+}
+
+ .RequestSubscriptionComponent .cancelSubsc {
+    position: absolute;
+    top: 0; 
+    right: 15px;
+    background-color: rgba(255, 0, 0, 0.358);
+    color: #fff;
+    width: 30px;
+    height:30px;
+    border-radius: 50%;
+    font-size: 18px;
+    border: none; 
+    cursor: pointer; 
+}
+
+
+.RequestSubscriptionComponent h2 {
+    margin: 30px auto;
+    text-align: center;
+    color: #ffffffd4;
+    font-size: 25px;
+}
+
+
+.RequestSubscriptionComponent form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 60px auto;
+}
+
+
+
+.RequestSubscriptionComponent label {
+    color: #ffffff9a;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+.RequestSubscriptionComponent input {
+    background-color: inherit;
+    border: 1px solid #ffffff71;
+    color: #fff;
+    border-radius: 5px;
+    height: 50px;
+    padding: 0 20px;
+}
+
+
+
+.RequestSubscriptionComponent button {
+    background-color: #5DD3B3;
+    width: 100px;
+    margin-top: 20px;
+    height: 35px;
+    border-radius: 30px;
+    align-self: flex-end; 
+}
+
+.validationError {
+  margin-top: -30px;
+  color: rgba(255, 0, 0, 0.643);
+}
+
+.successCreate {
+  margin-top: -30px;
+  color: rgba(0, 255, 30, 0.643);
+}

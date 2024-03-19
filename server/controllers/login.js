@@ -134,7 +134,7 @@ const loginSubscriber = asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error("All fields are mandatory!");
     }
-    const [subscriberrow] = await connection.promise().execute('SELECT * FROM subscriber WHERE admin_email = ? ', [email]);
+    const [subscriberrow] = await connection.promise().execute('SELECT * FROM subscriber WHERE admin_email = ?', [email]);
 
     // Check if the user exists
     if (subscriberrow.length > 0) {
@@ -203,7 +203,7 @@ const loginSubscriber = asyncHandler(async (req, res) => {
 export { loginSubscriber };
 
 //-----------------------------------------------------------------------------------------
-//Tenant login 
+//Superadmin login 
 const loginSuperAdmin = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -220,7 +220,7 @@ const loginSuperAdmin = asyncHandler(async (req, res) => {
         const passwordMatch = await bcrypt.compare(password, SuperAdmin.password); // comparing plaintext password with hashed password     
 
         if (passwordMatch) {
-            // Generate access token and refresh token for the student
+            // Generate access token and refresh token for the superadmin
             const accessToken = jwt.sign({
                 SuperAdmin: {
                     SuperAdminid: SuperAdmin.superadmin_id,

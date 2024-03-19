@@ -53,7 +53,7 @@ const AllDocumentsPieComponent = () => {
     const isDataLoaded = approved !== 0 && pending !== 0 && rejected !== 0;
 
     const percentages = {
-        labels: ['pending', 'approved', 'rejected'].map((label, index) => {
+        labels: ['Pending', 'Approved', 'Rejected'].map((label, index) => {
             if (index === 0) return `${label} (${approvedPercentage}%)`;
             else if (index === 1) return `${label} (${pendingPercentage}%)`;
             else return `${label} (${rejectedPercentage}%)`;
@@ -61,21 +61,32 @@ const AllDocumentsPieComponent = () => {
         datasets: [
             {
                 data: [pending, approved, rejected],
-                backgroundColor: ['#2F80ED', '#6FCF97', '#EB5107'],
+                backgroundColor: [
+                    'rgba(47, 128, 237, 0.5)', // Increase opacity to 50%
+                    'rgba(111, 207, 151, 0.5)', // Increase opacity to 50%
+                    'rgba(235, 81, 7, 0.5)', // Increase opacity to 50%
+                ],
+                borderWidth: 0,
             }
         ]
     };
-
+    const chartOptions = {
+        plugins: {
+            legend: {
+                display: false, // Remove the legend
+            },
+        },
+    };
     return (
         <>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <p style={{ color: '#fff' }}>Documents</p>
+                <p style={{ color: '#fff', marginBottom: '10px', marginTop: '-10px' }}>Documents</p>
 
             </div>
             <div className={styles.doughnutCont}>
 
                 {isDataLoaded ? (
-                    <Pie data={percentages} className={styles.doughnut} />
+                    <Pie data={percentages} options={chartOptions} className={styles.doughnut} />
                 ) : (
                     <p>Loading...</p>
                 )}

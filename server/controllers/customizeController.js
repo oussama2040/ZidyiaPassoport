@@ -124,7 +124,9 @@ export const DeleteCustomFieldd = async ( req, res)=>{
                 FROM FilledForms
                 JOIN tenent ON FilledForms.organization_id = tenent.organization_id
                 JOIN student ON FilledForms.student_id =student.student_id
-                WHERE FilledForms.organization_id = ?;
+                WHERE FilledForms.organization_id = ? AND FilledForms.status = 'pending'
+                ORDER BY
+                FilledForms.created_at DESC;
             `;
                 const [filledForms] = await connection.promise().execute(selectQuery, [organizationId]);
                 res.json(filledForms);
