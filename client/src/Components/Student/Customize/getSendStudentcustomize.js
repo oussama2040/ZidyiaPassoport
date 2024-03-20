@@ -4,9 +4,9 @@ import styles from './Customize.module.css'
 import SideBarStudent from '../../SideBar/SideBarStudent';
 import { useParams } from 'react-router-dom';
 
-const GetSendStudentCustomFields = ({ organizationId, studentId }) => {
-  const { organization_id } = useParams();
-  console.log("org: "+organization_id);
+const GetSendStudentCustomFields = () => {
+  const studentId  = 2;
+  const { organizationId } = useParams();
   const [customFields, setCustomFields] = useState([]);
   const [formData, setFormData] = useState({});
   const [FileOption, setFileOption] = useState(null);
@@ -14,7 +14,8 @@ const GetSendStudentCustomFields = ({ organizationId, studentId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/student/getcustomizefields/${organizationId}`);
+        const response = await axios.get(`http://localhost:5000/student/getcustomizefields/${organizationId}`,
+        { withCredentials: true });
         setCustomFields(response.data);
       } catch (error) {
         console.error('Error fetching custom fields:', error);

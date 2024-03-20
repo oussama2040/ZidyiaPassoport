@@ -4,7 +4,8 @@
     padding: 20px;
     border-radius: 20px;
     background-color: #364350;
-    width: 100%;
+    min-height: 602px;
+    min-width:1180px;
     display: flex;
     flex-direction: row;
   }
@@ -19,7 +20,7 @@ margin-top: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 22.5%;
+  width: 22%;
   color: white;
   font-size: large;
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import NavbarAdmin from '../../NavBarAdmin/NavBarAdmin'
 import SideBarAdmin from '../../SideBar/SideBarAdmin'
@@ -27,7 +28,8 @@ function GetAdminAfterFilled({ organizationId }) {
   useEffect(() => {
     const fetchFormFields = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/admin/filledform/${organizationId}`);
+        const response = await axios.get(`http://localhost:5000/admin/filledform/${organizationId}`,
+        { withCredentials: true });
         setFormFields(response.data);
       } catch (error) {
         console.error('Error fetching form fields:', error);
@@ -82,7 +84,8 @@ function GetAdminAfterFilled({ organizationId }) {
             };
         }
 
-        const response = await axios.put(`http://localhost:5000/admin/filledformRequest/${FilledformId}`, requestData);
+        const response = await axios.put(`http://localhost:5000/admin/filledformRequest/${FilledformId}`, requestData,
+        { withCredentials: true });
          console.log(filledstudentId);
          window.location.href = `/admin/customizecertificate/${filledstudentId}`;
 
@@ -98,6 +101,34 @@ function GetAdminAfterFilled({ organizationId }) {
     }
 };
 
+
+// ---------authentication Admin--------//    
+const [authenticated, setAuthenticated] = useState(true);
+const navigate = useNavigate();
+  
+    useEffect(() => {
+      const tenentaccessToken = getCookie('tenentrefreshToken');
+      if (!tenentaccessToken) {
+          setAuthenticated(false);
+      }
+  }, []);
+  
+  const getCookie = (name) => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(name + '=')) {
+            return cookie.substring(name.length + 1);
+        }
+    }
+    return null;
+  };
+  
+  if (!authenticated) {
+    navigate('/tenent/login');
+  }
+
+  //--------------------------------//    
   return (
     <div>
       <NavbarAdmin />
