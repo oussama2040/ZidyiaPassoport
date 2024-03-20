@@ -14,6 +14,7 @@ const Certificate = () => {
     const [body, setBody] = useState('');
 
     const [certificateImage, setCertificateImage] = useState(null);
+    const [transcriptImage, setTranscriptImage] = useState(null);
 
 
     useEffect(() => {
@@ -34,18 +35,18 @@ const Certificate = () => {
         }
     };
 
-    const handleImageUpload = (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
+    // const handleImageUpload = (e) => {
+    //     const file = e.target.files[0];
+    //     const reader = new FileReader();
         
-        reader.onloadend = () => {
-          setCertificateImage(reader.result);
-        };
+    //     reader.onloadend = () => {
+    //       setCertificateImage(reader.result);
+    //     };
         
-        if (file) {
-          reader.readAsDataURL(file);
-        }
-      };
+    //     if (file) {
+    //       reader.readAsDataURL(file);
+    //     }
+    //   };
 
     const handleCreateCertificate = async (event) => {
         event.preventDefault();
@@ -64,6 +65,7 @@ const Certificate = () => {
 
             console.log('CertificateFile:', certificateImage);
             formData.append('CertificateFile', certificateImage); 
+            formData.append('TranscriptFile', transcriptImage); 
 
             const response = await axios.post('http://localhost:5000/students/addRequest', formData, {
                 headers: {
@@ -86,14 +88,14 @@ const Certificate = () => {
                     <span>Add Certificate</span>
                 </div>
                 <form className='addCert'>
+                    <div className='Twofiles'>
                     <div className="containeradd">
                         <input
                             type="file"
                             id="imageInput"
                             accept="image/*"
-                             onChange={(e) => setCertificateImage(e.target.files[0])} 
+                            onChange={(e) => setCertificateImage(e.target.files[0])} 
                         />
-
                         <label htmlFor="imageInput" className="ChooseCertificate">
                             Add Your Certificate
                         </label>
@@ -105,7 +107,28 @@ const Certificate = () => {
                             </div>
                         )}
                     </div>
-
+                     {/* Transcript image upload */}
+                     <div className="containeradd">
+                        <input
+                            type="file"
+                            id="transcriptInput"
+                            accept="image/*"
+                            onChange={(e) => setTranscriptImage(e.target.files[0])}
+                        />
+                        {/* Transcript image label */}
+                        <label htmlFor="transcriptInput" className="ChooseCertificate">
+                            Add Your Transcript*
+                        </label>
+                        {/* Render transcript image */}
+                        {transcriptImage && (
+                            <div className="certT">
+                                <div className="imgT">
+                                    <img id="transcriptImage" src={URL.createObjectURL(transcriptImage)} alt="" />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                    </div>
                     <div className="form-container">
                         <div className="AddCertContainer">
                             <label id="name">Certificate Name</label>
@@ -134,18 +157,6 @@ const Certificate = () => {
 
                         </div>
                         <div className="AddCertContainer">
-                            <label htmlFor="name">Certificate Body*</label>
-                            <input
-                                id="body"
-                                type="text"
-                                value={body}
-                                onChange={(e) => setBody(e.target.value)}
-                            />
-                        </div>
-                        <div className="AddCertContainer">
-                            
-                        </div>
-                        <div className="AddCertContainer">
                             <label htmlFor="name">Issue Date*</label>
                             <input
                                 id="issueDate"
@@ -163,6 +174,20 @@ const Certificate = () => {
                                 onChange={(e) => setExpiryDate(e.target.value)}
                             />
                         </div>
+                        <div className="AddCertContainer">
+                            <label htmlFor="name">Certificate Body*</label>
+                            <input
+                                id="body"
+                                className='bodyCert'
+                                type="text"
+                                value={body}
+                                onChange={(e) => setBody(e.target.value)}
+                            />
+                        </div>
+                        <div className="AddCertContainer">
+                            
+                        </div>
+                        
                         <div className="button-container">
                             <button onClick={(e) => handleCreateCertificate(e)} className="createBtn">
                                 Create

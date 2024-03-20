@@ -22,7 +22,7 @@
 }
 
 .AddCertContainer input {
-  width: 300px;
+  width: 400px;
   height: 42px;
   background-color: transparent;
   padding-left: 1rem;
@@ -36,8 +36,24 @@
   color: #94949f;
 }
 
+.bodyCert {
+  width: 500px;
+  height: 42px;
+  background-color: transparent;
+  padding-left: 1rem;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  border-radius: 0.90rem;
+  font-size: 0.875rem;
+  border-width: 1px;
+  border-color: #94949f;
+  transition: border-color 0.2s;
+  color: #94949f;
+}
+
+
 .AddCertContainer select {
-  width: 300px;
+  width: 400px;
   height: 42px;
   background-color: #384450;
   padding-left: 1rem;
@@ -78,16 +94,25 @@
 
 
 .button-container button {
-  background-color: #5DD3B3;
+  /* background-color: #5DD3B3;
   color: white;
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
+  cursor: pointer; */
+
+  background-color: #5DD3B3;
+  color: white;
+  padding: 10px 15px;
+  width: 150px;
+  /* margin-top: 50px; */
   cursor: pointer;
+  border-radius: 26px;
 }
 
 .button-container button:hover {
-  background-color: #4CA89E;
+  /* background-color: #4CA89E; */
+  background-color: #9be9d4;
 }
 
 .containeradd {
@@ -114,6 +139,31 @@
   margin: 10px;
 }
 
+#transcriptImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 0.75rem;
+  margin: 10px;
+}
+
+
 #imageInput {
   display: none;
+}
+
+#transcriptInput {
+  display: none;
+}
+.ChooseCertificate{
+  margin: -10px;
+}
+
+.Twofiles{
+  display: flex;
+  flex-direction: row;
+  /* border: 2px solid #5DD3B3; */
+  width: 90%;
+  /* margin: auto; */
+  padding: 20px;
+  justify-content: space-between;
 }
