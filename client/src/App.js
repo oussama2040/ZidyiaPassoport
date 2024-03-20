@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import "./App.css";
-
+import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
 import Login from "./Pages/StudentLogin.js";
 import TenentLogin from "./Pages/TenentLogin.js";
 import SubscriberLogin from "./Pages/SubscriberLogin.js";
@@ -29,7 +30,7 @@ import StudentAllRequests from "./Pages/StudentAllRequest.js";
 import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.js";
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
 import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
-import CustomizeCertificate from "./Pages/CustomizeCertificate.js";
+import CustomizeCertificate from "./Pages/customizeCertificate.js";
 import Subscriber from "./Pages/Subscriber.js";
 import AdminCertificateReq from "./Components/Admin/CertificateReq/AdminCertificateReq.js";
 import AdminCertificateUploaded from "./Components/Admin/CertificateUploaded/AdminCertificateUploaded.js";
@@ -38,8 +39,19 @@ import Analytics from "./Components/Admin/Analytics/Analytics.js";
 
 
 export default function App() {
-  const organizationId = 4;
-  const studentId = 2;
+const [tenentId, setTenentId] = useState(null);
+useEffect(() => {
+const tenentAccessToken = Cookies.get('tenentaccessToken');
+  if (tenentAccessToken) {
+    const decodedToken = jwtDecode(tenentAccessToken); 
+    const tenentId = decodedToken?.tenent?.tenentid;
+    setTenentId(tenentId);
+  } else {
+    console.error('Access token not found in cookies');
+  }
+}, []); 
+const organizationId = tenentId;
+console.log("organizationId",organizationId)
 
   return (
     <div>
@@ -67,10 +79,8 @@ export default function App() {
             <Route path="/superAdmin/login" element={<SuperAdminLogin />} />
             <Route path="/superAdmin/forgetpassword" element={<SuperAdminForgetPass />} />
             <Route path="/subscriber/scanQrCode" element={<Subscriber />} />
-
-
-
             <Route path="/superAdmin/resetpass" element={<SuperAdminResetPass />} />
+            
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin" element={<Analytics />} />
             <Route path="/admin/customize" element={<SendAdmincustomize organizationId={organizationId} />} />
@@ -79,7 +89,7 @@ export default function App() {
             <Route path="/admin/reqcertificate" element={<AdminCertificateReq organizationId={organizationId} />} />
             <Route path="/admin/certificateuploaded" element={<AdminCertificateUploaded organizationId={organizationId} />} />
 
-            <Route path="/student/customize/:organization_id" element={<GetSendStudentCustomFields organizationId={organizationId} studentId={studentId} />} />
+            <Route path="/student/customize/:organizationId" element={<GetSendStudentCustomFields/>} />
 
             {/* <Route path="/admin" element={<Admin />} />
                   <Route path="/login" element={<Login />} />                                        

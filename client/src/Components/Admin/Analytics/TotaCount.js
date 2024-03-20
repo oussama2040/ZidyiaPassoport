@@ -26,14 +26,14 @@ function TotalCount({ organizationId }) {
                     approvedDocumentsResponse,
                     rejectedDocumentsResponse
                 ] = await Promise.all([
-                    axios.get(`http://localhost:5000/admin/certificates/organization/${organizationId}/count`),
-                    axios.get(`http://localhost:5000/admin/certificates/organization/${organizationId}/count/pending`),
-                    axios.get(`http://localhost:5000/admin/certificates/organization/${organizationId}/count/approved`),
-                    axios.get(`http://localhost:5000/admin/certificates/organization/${organizationId}/count/rejected`),
-                    axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count`),
-                    axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/pending`),
-                    axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/approved`),
-                    axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/rejected`)
+                    axios.get(`http://localhost:5000/admin/certificates/organization/${organizationId}/count`, { withCredentials: true }),
+                    axios.get(`http://localhost:5000/admin/certificates/organization/${organizationId}/count/pending`, { withCredentials: true }),
+                    axios.get(`http://localhost:5000/admin/certificates/organization/${organizationId}/count/approved`,{ withCredentials: true }),
+                    axios.get(`http://localhost:5000/admin/certificates/organization/${organizationId}/count/rejected`,{ withCredentials: true }),
+                    axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count`,{ withCredentials: true }),
+                    axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/pending`,{ withCredentials: true }),
+                    axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/approved`,{ withCredentials: true }),
+                    axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/rejected`,{ withCredentials: true })
                 ]);
 
                 setCertificateCount(totalCertificatesResponse.data.totalCertificates);

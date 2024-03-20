@@ -20,9 +20,9 @@ function CombinedDocumentsChart({ organizationId }) {
     const fetchChartData = async () => {
         try {
 
-            const pendingResponse = await axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/pending`);
-            const rejectedResponse = await axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/rejected`);
-            const approvedResponse = await axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/approved`);
+            const pendingResponse = await axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/pending`,{ withCredentials: true });
+            const rejectedResponse = await axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/rejected`,{ withCredentials: true });
+            const approvedResponse = await axios.get(`http://localhost:5000/admin/documents/organization/${organizationId}/count/approved`,{ withCredentials: true });
 
             const pendingCount = pendingResponse.data.pendingDocuments || 0;
             const rejectedCount = rejectedResponse.data.rejectedDocuments || 0;

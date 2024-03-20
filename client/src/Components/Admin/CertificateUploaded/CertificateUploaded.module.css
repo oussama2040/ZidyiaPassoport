@@ -4,6 +4,7 @@
     padding: 20px;
     border-radius: 20px;
     background-color: #364350;
+    min-height: 602px;
     min-width:1180px;
     display: flex;
     flex-direction: row;

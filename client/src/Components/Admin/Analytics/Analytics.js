@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavbarAdmin from '../../NavBarAdmin/NavBarAdmin';
 import SideBarAdmin from '../../SideBar/SideBarAdmin';
 import styles from './Analytics.module.css';
@@ -8,8 +9,38 @@ import { SlArrowLeft } from "react-icons/sl";
 import CombinedDocumentsChart from './CombinedDocumentsChart';
 
 
+
 function Analytics() {
   const organizationId = 4;
+
+
+// ------auhtentication Admin -----------//
+const [authenticated, setAuthenticated] = useState(true);
+const navigate = useNavigate();
+useEffect(() => {
+  const tenentaccessToken = getCookie('tenentrefreshToken');
+  if (!tenentaccessToken) {
+      setAuthenticated(false);
+  }
+}, []);
+
+const getCookie = (name) => {
+const cookies = document.cookie.split(';');
+for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+    }
+}
+return null;
+};
+
+// If user is not authenticated, redirect to login page
+if (!authenticated) {
+navigate('/tenent/login');
+}
+
+// ------------------------//
   return (
     <div>
       <NavbarAdmin />

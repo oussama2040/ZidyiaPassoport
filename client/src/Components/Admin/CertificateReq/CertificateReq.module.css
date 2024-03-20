@@ -5,6 +5,7 @@
     border-radius: 20px;
     background-color: #364350;
     min-width:1180px;
+    min-height: 602px;
     display: flex;
     flex-direction: row;
   }

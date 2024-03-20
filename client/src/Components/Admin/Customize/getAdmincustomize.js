@@ -9,7 +9,8 @@ function GetAdmincustomize({ organizationId }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/student/getcustomizefields/${organizationId}`);
+        const response = await axios.get(`http://localhost:5000/student/getcustomizefields/${organizationId}`,
+        { withCredentials: true });
         setCustomFields(response.data);
       } catch (error) {
         console.error('Error fetching custom fields:', error);
@@ -24,9 +25,12 @@ function GetAdmincustomize({ organizationId }) {
   const deleteCustomField = async () => {
     try {
       console.log("clicked", organizationId);
-      const response = await axios.delete(`http://localhost:5000/admin/deletecustomizefields/${organizationId}`);
+      const response = await axios.delete(`http://localhost:5000/admin/deletecustomizefields/${organizationId}`,
+      { withCredentials: true });
       console.log('Delete response:', response.data);
-      const updatedResponse = await axios.get(`http://localhost:5000/student/getcustomizefields/${organizationId}`);
+      const updatedResponse = await axios.get(`http://localhost:5000/student/getcustomizefields/${organizationId}`,
+      { withCredentials: true }
+      );
       setCustomFields(updatedResponse.data);
     } catch (error) {
       console.error('Error deleting custom field:', error);
