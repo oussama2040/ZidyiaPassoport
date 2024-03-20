@@ -22,15 +22,39 @@ const generateqrcode = async (req, res) => {
     try {
         const studentId = req.params.studentId;
         const studentName = req.params.studentName;
+        const organizationName=req.params.organization_Name;
+
+
+        const [academicIDRows] = await connection.promise().execute(
+            'SELECT academic_id FROM student WHERE student_id = ?',
+            [studentId]
+        );
+
+        // Check if academic year data is retrieved
+        if (academicIDRows.length === 0) {
+            return res.status(404).json({ error: 'Academic year not found for the student ID' });
+        }
+
+        // Extract academic year from the first row
+        const academicId = academicIDRows[0].academic_id;
+
+   
+      
+
 
         // Construct data to be encoded in the QR code
         const qrData = {
             studentId: studentId,
-            studentName: studentName
+            studentName: studentName,
+            organizationName:organizationName,
+            academicID: academicId
+
         };
 
         // Convert data to JSON string
         const qrDataString = JSON.stringify(qrData);
+        console.log(qrData)
+        console.log("aaaa",qrDataString)
 
         // Hash the data using SHA-256
         const hashedData = crypto.createHash('sha256').update(qrDataString).digest('hex');

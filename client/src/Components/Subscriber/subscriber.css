@@ -47,3 +47,25 @@
     font-size: 15px;
     color: white;
 }
+
+.result{
+    border: 5px solid transparent; 
+    border-radius: 10px; 
+    animation: animateBorder 2s linear infinite;
+    position: relative;
+    overflow: hidden; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    padding: 20px;
+    margin: 100px 20px;
+}
+.resultmessage{
+    color: #EEEEEE;
+    opacity: 0.5;
+    font-size: 25px;
+}
+.resultinfo p{
+    color: #EEEEEE;
+    opacity: 0.5;
+    font-size: 13px;
+    margin: auto;
+}

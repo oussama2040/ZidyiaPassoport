@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import asyncHandler from 'express-async-handler';
 import connection from '../config/connection.js';
 import jwt from 'jsonwebtoken';
-
+import { parse } from 'cookie';
 // login student
 const loginStudent = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -80,7 +80,7 @@ const loginTenent = asyncHandler(async (req, res) => {
         const tenent = tenantrow[0]; // Assuming there's only one user per email  
         // Verify password
         const passwordMatch = await bcrypt.compare(password, tenent.password); // comparing plaintext password with hashed password     
-
+console.log("idddddd ",tenent.organization_id)
         if (passwordMatch) {
             // Generate access token and refresh token for the student
             const accessToken = jwt.sign({
