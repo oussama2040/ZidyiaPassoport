@@ -4,7 +4,7 @@
     padding: 20px;
     border-radius: 20px;
     background-color: #364350;
-    width: 100%;
+    min-width:1180px;
     display: flex;
     flex-direction: row;
   }
@@ -14,11 +14,11 @@
   flex-direction: column;
 }
 .RequestPendingTitle{
-margin-top: 30px;
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 36%;
+  width: 18.3%;
   color: white;
   font-size: large;
 }

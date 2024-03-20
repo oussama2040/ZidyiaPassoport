@@ -57,7 +57,11 @@ function SendAdmincustomize({organizationId}) {
       };
 
       console.log(dataToSend);
-      const response = await axios.post('http://localhost:5000/admin/customizefields', dataToSend);
+      const response = await axios.post(
+        'http://localhost:5000/admin/customizefields',
+        dataToSend,
+        { withCredentials: true }
+      );
       console.log('Response:', response.data);
       console.log('Form submitted successfully!');
       window.location.reload();
