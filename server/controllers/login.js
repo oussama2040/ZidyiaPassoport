@@ -28,6 +28,7 @@ const loginStudent = asyncHandler(async (req, res) => {
                     last_name: student.last_name,
                     email: student.email,
                     id: student.student_id,
+                    role: "student",
                 }
             }, process.env.STUDENT_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
 
@@ -37,6 +38,7 @@ const loginStudent = asyncHandler(async (req, res) => {
                     last_name: student.last_name,
                     email: student.email,
                     id: student.student_id,
+                    role: "student",
                 }
             }, process.env.STUDENT_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
              console.log("student", student.first_name)
@@ -80,7 +82,7 @@ const loginTenent = asyncHandler(async (req, res) => {
         const tenent = tenantrow[0]; // Assuming there's only one user per email  
         // Verify password
         const passwordMatch = await bcrypt.compare(password, tenent.password); // comparing plaintext password with hashed password     
-console.log("idddddd ",tenent.organization_id)
+        console.log("idddddd ",tenent.organization_id)
         if (passwordMatch) {
             // Generate access token and refresh token for the student
             const accessToken = jwt.sign({
@@ -89,6 +91,7 @@ console.log("idddddd ",tenent.organization_id)
                     adminemail: tenent.admin_email,
                     tenentname: tenent.name,
                     tenentlocation: tenent.location,
+                    role:"tenent",
                 }
             }, process.env.TENENT_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
 
@@ -99,6 +102,7 @@ console.log("idddddd ",tenent.organization_id)
                     adminemail: tenent.admin_email,
                     tenentname: tenent.name,
                     tenentlocation: tenent.location,
+                    role:"tenent",
                 }
             }, process.env.TENENT_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
 
@@ -172,7 +176,8 @@ const loginSubscriber = asyncHandler(async (req, res) => {
                         adminemail: subscriber.admin_email,
                         subscribername: subscriber.name,
                         subscriberlocation: subscriber.location,
-                        expiry_date: subscriber.expiry_date
+                        expiry_date: subscriber.expiry_date,
+                        role:"subscriber",
                     }
                 }, process.env.SUBSCRIBER_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
 
@@ -182,7 +187,8 @@ const loginSubscriber = asyncHandler(async (req, res) => {
                         adminemail: subscriber.admin_email,
                         subscribername: subscriber.name,
                         subscriberlocation: subscriber.location,
-                        expiry_date: subscriber.expiry_date
+                        expiry_date: subscriber.expiry_date,
+                        role:"subscriber",
                     }
                 }, process.env.SUBSCRIBER_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
 
@@ -238,12 +244,14 @@ const loginSuperAdmin = asyncHandler(async (req, res) => {
                 SuperAdmin: {
                     SuperAdminid: SuperAdmin.superadmin_id,
                     adminemail: SuperAdmin.email,
+                    role: "superadmin",
                 }
             }, process.env.SUPERADMIN_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
             const refreshToken = jwt.sign({
                 SuperAdmin: {
                     SuperAdminid: SuperAdmin.superadmin_id,
                     adminemail: SuperAdmin.email,
+                    role: "superadmin",
                 }
             }, process.env.SUPERADMIN_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
 
