@@ -19,9 +19,9 @@ function CombinedCertificatesChart({ organizationId }) {
 
   const fetchChartData = async () => {
     try {
-      const pendingResponse = await axios.get(`http://localhost:5000/admin/certificates/organization/${organizationId}/count/pending`);
-      const rejectedResponse = await axios.get(`http://localhost:5000/admin/certificates/organization/${organizationId}/count/rejected`);
-      const approvedResponse = await axios.get(`http://localhost:5000/admin/certificates/organization/${organizationId}/count/approved`);
+      const pendingResponse = await axios.get(`http://localhost:5000/admin/certificates/organization/${organizationId}/count/pending`,{ withCredentials: true });
+      const rejectedResponse = await axios.get(`http://localhost:5000/admin/certificates/organization/${organizationId}/count/rejected`,{ withCredentials: true });
+      const approvedResponse = await axios.get(`http://localhost:5000/admin/certificates/organization/${organizationId}/count/approved`,{ withCredentials: true });
 
       const pendingCount = pendingResponse.data.pendingCertificates || 0;
       const rejectedCount = rejectedResponse.data.rejectedCertificates || 0;

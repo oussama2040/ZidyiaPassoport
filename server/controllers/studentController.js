@@ -55,10 +55,11 @@ const getVerifiedCertificatesForStudent = async (req, res) => {
             student.first_name,
             student.last_name,
             verification.verification_date,
+            verification.expiry_date,
             tenent.organization_id,
             tenent.name AS organization_name,
             tenent.location AS organization_location,
-            verification.certificate_url
+            verification.certificate_url AS CertificateFile
         FROM
             student
             LEFT JOIN verifiedcertificate verification ON verification.student_id = student.student_id
@@ -116,7 +117,33 @@ export {
     getVerifiedCertificatesForStudent,
     shareCertificate,
 };
+/**___________________________________________
+ * @desc    Get Profile Image of a Student
+ * @route   /students/profileImage/:studentId
+ * @method  GET
+ * @access  private
+ * ---------------------------------------------**/
+const getProfileImage = async (req, res) => {
+    const studentId = req.params.studentId;
 
+    try {
+        const [rows] = await connection.promise().execute(
+            'SELECT profile_img FROM student WHERE student_id = ?',
+            [studentId]
+        );
+        if (rows.length > 0 && rows[0].profile_img) {
+            const profileImage = rows[0].profile_img;
+            res.status(200).json({ profileImage });
+        } else {
+            res.status(404).json({ error: 'Profile image not found' });
+        }
+    } catch (error) {
+        console.error('Error retrieving profile image:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+export { getProfileImage };
 
 /**___________________________________________
  * @desc    Update Student Profile
@@ -310,8 +337,8 @@ export { addRequestCertificate };
  * @access   private
  * ---------------------------------------------**/
 const getstudentInfo = async (req, res) => {
-    // {studentID}=req.params;
-    const studentID = 1;
+    const {studentID}=req.params;
+    // const studentID = 1;
     try {
 
         const [rows] = await connection.promise().execute(

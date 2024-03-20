@@ -42,7 +42,8 @@ const CertificateCard = ({ certificate }) => {
       console.log('certificate id:', selectedCertificate.request_id);
 
       // Update certificate status and rejection reason accordingly
-      const response = await axios.put(`http://localhost:5000/admin/certificatesRequest/${selectedCertificate.request_id}`, requestData);
+      const response = await axios.put(`http://localhost:5000/admin/certificatesRequest/${selectedCertificate.request_id}`, requestData,
+      { withCredentials: true });
 
       console.log('Response Data:', response.data);
 

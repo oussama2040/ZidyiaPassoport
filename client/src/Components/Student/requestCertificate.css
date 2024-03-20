@@ -10,20 +10,25 @@
     justify-content: space-between;
     align-items: center;
 }
-.btnRequest{
+
+.btnRequest {
     padding: 10px;
     margin: 5px;
     height: 42px;
+    width: 100px;
     text-align: center;
     background-color: #5DD3B3;
     color: #fff;
     border: none;
     border-radius: 15px;
+    font-size: 13px;
     cursor: pointer;
 }
 
 .btnCertificates {
     padding: 10px;
+    font-size: 13px;
+    width: 100px;
     margin: 5px;
     height: 42px;
     text-align: center;
@@ -70,13 +75,15 @@
 
 .cardsContainer {
     width: 100%;
-    padding-top: 50px;
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
 }
-.CertHeader{
+
+.CertHeader {
     height: 200px;
 }
+
 .CertImage {
     /* width: 230px; */
     padding: 1px;
@@ -88,7 +95,7 @@
     display: flex;
     flex-direction: column;
     width: 250px;
-    height: 330px;
+    /* height: 330px; */
     /* margin: 5px; */
     overflow: hidden;
     box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
@@ -97,13 +104,15 @@
     background: linear-gradient(to right, #576371, #384450);
 }
 
-.LineCerti{
+.LineCerti {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .CertInfo {
-    padding: 18px;
+    /* padding: 16px; */
+    margin: 10px;
+    height: 110px;
     display: flex;
     color: #fff;
     flex-direction: column;
@@ -113,6 +122,7 @@
     font-size: 17px;
     text-transform: capitalize;
 }
+
 
 .tag {
     align-self: flex-start;
@@ -144,34 +154,92 @@
 
 
 
-.pagination{
+.pagination {
     padding: 30px 0;
-  }
-  
-  .pagination ul{
+}
+
+.pagination ul {
     margin: 0;
     padding: 0;
     list-style-type: none;
-  }
-  
-  .pagination a{
+}
+
+.pagination a {
     display: inline-block;
     padding: 10px 18px;
     color: #fff;
-  }
-  
-  /* ONE */
-  
-  .p1 a{
+}
+
+/* ONE */
+
+.p1 a {
     width: 40px;
     /* height: 40px; */
     line-height: 40px;
     padding: 0;
     text-align: center;
-  }
-  
-  .p1 a.is-active{
-    background-color: #2ecc71;
+}
+
+.p1 a.is-active {
+    background-color: #5DD3B3;
     border-radius: 100%;
     color: #fff;
-  }
+}
+
+
+.btnVerify {
+    --color: #5DD3B3;
+    --color2: rgb(10, 25, 30);
+    padding: 0.8em 1.75em;
+    width: 100%;
+    background-color: transparent;
+    border-radius: 25px;
+    border: .3px solid var(--color);
+    transition: .5s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 1;
+    font-weight: 300;
+    font-size: 17px;
+    text-transform: uppercase;
+    color: var(--color);
+}
+
+.btnVerify::after,
+.btnVerify::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    transform: skew(90deg) translate(-50%, -50%);
+    position: absolute;
+    inset: 50%;
+    left: 25%;
+    z-index: -1;
+    transition: .5s ease-out;
+    background-color: var(--color);
+}
+
+.btnVerify::before {
+    top: -50%;
+    left: -25%;
+    transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.btnVerify:hover::before {
+    transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.btnVerify:hover::after {
+    transform: skew(45deg) translate(-50%, -50%);
+}
+
+.btnVerify:hover {
+    color: var(--color2);
+}
+
+.btnVerify:active {
+    filter: brightness(.7);
+    transform: scale(.98);
+}
