@@ -120,6 +120,7 @@ const TenentvalidateToken = asyncHandler(async (req, res, next) => {
                 // Attach the user information to the request object
                 console.log("decoded",decoded)
                 req.tenent = decoded.tenent;
+                
                 next(); // Continue to the next middleware or route
             }
         });

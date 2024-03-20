@@ -16,7 +16,7 @@ router.post('/login', loginStudent)
 // router.get('/current', validateToken, currentuser)
 router.post('/resetpassverify',requestPasswordReset)
 router.post('/resetpass',resetPassword)
-router.get('/studentinfo',getstudentInfo)
+router.get('/studentinfo/:studentID',getstudentInfo)
  
 
 export default router;

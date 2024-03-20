@@ -38,22 +38,20 @@ const Certificate = () => {
   // Ref for the certificate container
   const certificateRef = useRef(null);
 
-  // Function to handle screenshot capture
+  
   const [organizationInfo, setOrganizationInfo] = useState(null);
   useEffect(() => {
    
     const fetchOrganizationInfo = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/tenent/organizationinfo', {
-            withCredentials: true // Ensure axios sends credentials (including cookies)
-        });
-        setOrganizationInfo(response.data);
-        console.log(response.data);
-        
-    } catch (error) {
-        console.error('Error fetching organization info:', error);
-    }
-    
+        try {
+            const response = await axios.get('http://localhost:5000/tenent/organizationinfo',{
+              withCredentials: true,
+            });
+            setOrganizationInfo(response.data);
+            console.log(response.data)
+        } catch (error) {
+            console.error('Error fetching organization info:', error);
+        }
     };
 
     fetchOrganizationInfo();
@@ -61,11 +59,16 @@ const Certificate = () => {
 console.log(organizationInfo)
 // -----------------------------------------------------------------------------------
 const [studentInfo, setstudentInfo] = useState(null);
+const { studentID } = useParams();
+
+// console.log("studentid",studentID)
   useEffect(() => {
    
     const fetchtudentInfo = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/student/studentinfo');
+            const response = await axios.get(`http://localhost:5000/student/studentinfo/${studentID}`,{
+              withCredentials: true
+            });
             setstudentInfo(response.data);
             console.log(response.data)
         } catch (error) {
@@ -74,7 +77,7 @@ const [studentInfo, setstudentInfo] = useState(null);
     };
 
     fetchtudentInfo();
-}, []);
+}, [studentID]);
 console.log(studentInfo)
 // ------------------------------------------------------------------------------------
 const getCurrentDate = () => {
@@ -111,7 +114,9 @@ const handleCapture = async () => {
     formData.append('certificateImage', blob, 'certificate.png');
 
     // Send the captured image data to the server
-    const response = await axios.post('http://localhost:5000/tenent/savecertificate', formData);
+    const response = await axios.post(`http://localhost:5000/tenent/savecertificate/${studentID}`, formData,{
+      withCredentials: true
+    });
 
     console.log('Certificate saved successfully:', response.data);
   } catch (error) {
@@ -157,17 +162,22 @@ const [endDate, setEndDate] = useState('');
 // -----------------------------------------------------------------------------------------
 const generateQRCode = async () => {
   try {
-    const studentId = 8;
-    const studentName = 'Rawan';
+    const studentId = studentID;
+    const studentName = studentInfo.first_name;
+    const organization_Name=organizationInfo.name;
 
     // Step 1: Generate QR code and save filename to the database
-    const qrCodeResponse = await axios.get(`http://localhost:5000/admin/generateQR/${studentId}/${studentName}`);
+    const qrCodeResponse = await axios.get(`http://localhost:5000/admin/generateQR/${studentId}/${studentName}/${organization_Name}`,{
+        withCredentials: true
+      });
     const qrCodeFilename = qrCodeResponse.data.qrCodeFilename;
     setQrCode(qrCodeFilename)
     console.log(qrCode)
 
     // Step 2: Retrieve Cloudinary URL using the filename from the database
-    const cloudinaryResponse = await axios.get(`http://localhost:5000/admin/getgeneratedQR/${studentId}`);
+    const cloudinaryResponse = await axios.get(`http://localhost:5000/admin/getgeneratedQR/${studentId}`,{
+      withCredentials: true
+    });
     const qrCodeUrl = cloudinaryResponse.data.qrCodeUrl;
 
     // Set the Cloudinary URL for the QR code

@@ -47,7 +47,7 @@ function UpdatePasswordComponent({apiUrl, userRole}){
                 navigate('/subscriber');
             } else if (userRole === 'tenent') {
                 // Navigate to tenant page
-                navigate('/admin/customize');
+                navigate('/admin');
             } else {
                 // If user role is not subscriber or tenant, navigate to login page
                 navigate(`/${userRole}/login`);

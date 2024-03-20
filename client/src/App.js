@@ -14,6 +14,8 @@ import SubscriberForgetPass from "./Pages/SubscriberForgetPass.js";
 import SubscriberResetPass from "./Pages/SubscriberResetPass.js";
 import TenentForgetPass from "./Pages/TenentForgetPass.js";
 import TenentResetPass from "./Pages/TenentResetPass.js";
+import TenentUpdatePass from "./Pages/TenentUpdatePass.js";
+import SubscriberUpdatePass from "./Pages/SubscriberUpdatePass.js"
 import SuperAdminForgetPass from "./Pages/SuperAdminForgetPass.js";
 import SuperAdminResetPass from "./Pages/SuperAdminResetPass.js";
 // import NotFound from "./Pages/NotFound.js";
@@ -27,13 +29,12 @@ import StudentAllRequests from "./Pages/StudentAllRequest.js";
 import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.js";
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
 import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
-import CustomizeCertificate from "./Pages/customizeCertificate.js";
+import CustomizeCertificate from "./Pages/CustomizeCertificate.js";
 import Subscriber from "./Pages/Subscriber.js";
 import AdminCertificateReq from "./Components/Admin/CertificateReq/AdminCertificateReq.js";
 import AdminCertificateUploaded from "./Components/Admin/CertificateUploaded/AdminCertificateUploaded.js";
 import Analytics from "./Components/Admin/Analytics/Analytics.js";
-import SubscriberUpdatePass from "./Pages/SubscriberUpdatePass.js";
-import TenentUpdatePass from "./Pages/TenentUpdatePass.js";
+
 
 
 export default function App() {
@@ -56,13 +57,16 @@ export default function App() {
             <Route path="/tenent/login" element={<TenentLogin />} />
             <Route path="/tenent/updatepassword" element={<TenentUpdatePass />} />
             <Route path="/tenent/forgetpassword" element={<TenentForgetPass />} />
+            <Route path="/tenent/updatepassword" element={<TenentUpdatePass />} />
             <Route path="/tenent/resetpass" element={<TenentResetPass />} />
             <Route path="/subscriber/login" element={<SubscriberLogin />} />
             <Route path="/subscriber/updatepassword" element={<SubscriberUpdatePass />} />
             <Route path="/subscriber/forgetpassword" element={<SubscriberForgetPass />} />
+            <Route path="/subscriber/updatepassword" element={<SubscriberUpdatePass />} />
             <Route path="/subscriber/resetpass" element={<SubscriberResetPass />} />
             <Route path="/superAdmin/login" element={<SuperAdminLogin />} />
             <Route path="/superAdmin/forgetpassword" element={<SuperAdminForgetPass />} />
+            <Route path="/subscriber/scanQrCode" element={<Subscriber />} />
 
 
 
