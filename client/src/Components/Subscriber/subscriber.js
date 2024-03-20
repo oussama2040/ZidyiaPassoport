@@ -17,9 +17,11 @@ const Subscriber = () => {
                 formData.append('certificate', file);
 
                 // Send request to server
-                const response = await axios.post('http://localhost:5000/subscriber/scanQRCode', formData);
+                const response = await axios.post('http://localhost:5000/subscriber/scanQRCode', formData, {
+                    withCredentials: true
+                });
+
                 console.log('Server response:', response.data);
-                console.log(result.decodedQRData.organization_Name)
 
                 setResult(response.data);
             } else {
@@ -62,4 +64,3 @@ const Subscriber = () => {
 };
 
 export default Subscriber;
-

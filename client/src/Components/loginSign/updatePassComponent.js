@@ -44,7 +44,7 @@ function UpdatePasswordComponent({apiUrl, userRole}){
             // Navigate based on user role
             if (userRole === 'subscriber') {
                 // Navigate to subscriber page
-                navigate('/subscriber');
+                navigate('/subscriber/scanqrcode');
             } else if (userRole === 'tenent') {
                 // Navigate to tenant page
                 navigate('/admin');

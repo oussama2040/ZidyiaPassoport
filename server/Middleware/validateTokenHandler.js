@@ -10,6 +10,11 @@ const StudentvalidateToken = asyncHandler(async (req, res, next) => {
         return res.status(401).redirect("http://localhost:3000/student/login");
     }
     const accessToken = parse(cookies).studentaccessToken;
+
+    if (!accessToken || accessToken === "undefined") {
+        return res.status(402).send("Access token is missing or undefined");
+      }    
+
     if (accessToken) {
         // Extract the token from the Authorization header
         const token = accessToken;
@@ -76,6 +81,11 @@ const TenentvalidateToken = asyncHandler(async (req, res, next) => {
     }
 
     const accessToken = parse(cookies).tenentaccessToken;
+
+    if (!accessToken || accessToken === "undefined") {
+        return res.status(402).send("Access token is missing or undefined");
+      }    
+
     if (accessToken) {
         // Extract the token from the Authorization header
         const token = accessToken;
@@ -140,9 +150,13 @@ const SubscribervalidateToken = asyncHandler(async (req, res, next) => {
 
     if (!cookies || cookies === "undefined") {
         return res.status(401).redirect("http://localhost:3000/subscriber/login");
-    }
+      }      
 
     const accessToken = parse(cookies).subscriberaccessToken;
+    if (!accessToken || accessToken === "undefined") {
+        return res.status(402).send("Access token is missing or undefined");
+      }    
+
     if (accessToken) {
         // Extract the token from the Authorization header
         const token = accessToken;
@@ -209,6 +223,10 @@ const SuperadminValidateToken = asyncHandler(async (req, res, next) => {
         return res.status(401).redirect("http://localhost:3000/superadmin/login");
     }
     const accessToken = parse(cookies).SuperAdminaccessToken;
+
+    if (!accessToken || accessToken === "undefined") {
+        return res.status(402).send("Access token is missing or undefined");
+      }    
     
     if (accessToken) {
         // Extract the token from the Authorization header
