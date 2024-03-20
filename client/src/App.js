@@ -43,7 +43,7 @@ const [tenentId, setTenentId] = useState(null);
 useEffect(() => {
 const tenentAccessToken = Cookies.get('tenentaccessToken');
   if (tenentAccessToken) {
-    const decodedToken = jwtDecode(tenentAccessToken); 
+    const decodedToken = jwtDecode(tenentAccessToken); // decode the acces token
     const tenentId = decodedToken?.tenent?.tenentid;
     setTenentId(tenentId);
   } else {
@@ -51,7 +51,7 @@ const tenentAccessToken = Cookies.get('tenentaccessToken');
   }
 }, []); 
 const organizationId = tenentId;
-console.log("organizationId",organizationId)
+console.log("organizationId",organizationId) 
 
   return (
     <div>
