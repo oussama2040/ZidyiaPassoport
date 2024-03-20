@@ -72,7 +72,7 @@ function LoginComponent({ apiUrl, userRole }) {
               navigate(`/admin`);
             } else {
               // If firstPassUpdate is 1, navigate to ${userRole} page
-              navigate(`/${userRole}`);
+              navigate(`/${userRole}/scanqrcode`);
             }
           } else {
             // If firstPassUpdate is 0, navigate to update password page with email in the URL
