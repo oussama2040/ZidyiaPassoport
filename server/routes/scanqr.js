@@ -2,6 +2,7 @@ import express from 'express';
 import upload from '../controllers/imageuploadcontroller.js';
 import { scanQRCODE } from '../controllers/scanQRCODE.js';
 
+
 const router = express.Router();
 
 

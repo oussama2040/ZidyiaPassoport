@@ -111,10 +111,12 @@
     padding: 10px;
     margin: 5px;
     height: 42px;
+    width: 100px;
     text-align: center;
     background-color: #5DD3B3;
     color: #fff;
     border: none;
+    font-size: 13px;
     border-radius: 15px;
     cursor: pointer;
   }
@@ -122,6 +124,8 @@
     padding: 10px;
     margin: 5px;
     height: 42px;
+    width: 100px;
+    font-size: 13px;
     text-align: center;
     background-color: transparent;
     color: #fff;

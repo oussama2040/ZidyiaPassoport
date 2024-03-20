@@ -39,7 +39,7 @@ const loginStudent = asyncHandler(async (req, res) => {
                     id: student.student_id,
                 }
             }, process.env.STUDENT_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
-
+             console.log("student", student.first_name)
 
             res.status(200).json({
                 student: {
@@ -102,9 +102,18 @@ console.log("idddddd ",tenent.organization_id)
                 }
             }, process.env.TENENT_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
 
-            // Set access token and refresh token in cookies
-            res.cookie('tenentaccessToken', accessToken, { httpOnly: true, secure: true });
-            res.cookie('tenentrefreshToken', refreshToken, { httpOnly: true, secure: true });
+
+
+
+
+            // Assuming `accessToken` and `refreshToken` are the tokens you want to decode
+            const accessTokenData = jwt.decode(accessToken);
+            const refreshTokenData = jwt.decode(refreshToken);
+
+            // Log the decoded data
+            console.log('Decoded Access Token:', accessTokenData);
+            console.log('Decoded Refresh Token:', refreshTokenData);
+
 
             res.status(200).json({
                 tenent: {

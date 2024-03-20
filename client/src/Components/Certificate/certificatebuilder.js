@@ -162,17 +162,22 @@ const [endDate, setEndDate] = useState('');
 // -----------------------------------------------------------------------------------------
 const generateQRCode = async () => {
   try {
-    const studentId = 8;
-    const studentName = 'Rawan';
+    const studentId = studentID;
+    const studentName = studentInfo.first_name;
+    const organization_Name=organizationInfo.name;
 
     // Step 1: Generate QR code and save filename to the database
-    const qrCodeResponse = await axios.get(`http://localhost:5000/admin/generateQR/${studentId}/${studentName}`);
+    const qrCodeResponse = await axios.get(`http://localhost:5000/admin/generateQR/${studentId}/${studentName}/${organization_Name}`,{
+        withCredentials: true
+      });
     const qrCodeFilename = qrCodeResponse.data.qrCodeFilename;
     setQrCode(qrCodeFilename)
     console.log(qrCode)
 
     // Step 2: Retrieve Cloudinary URL using the filename from the database
-    const cloudinaryResponse = await axios.get(`http://localhost:5000/admin/getgeneratedQR/${studentId}`);
+    const cloudinaryResponse = await axios.get(`http://localhost:5000/admin/getgeneratedQR/${studentId}`,{
+      withCredentials: true
+    });
     const qrCodeUrl = cloudinaryResponse.data.qrCodeUrl;
 
     // Set the Cloudinary URL for the QR code

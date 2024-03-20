@@ -6,7 +6,10 @@ import { parse } from "cookie";
 const StudentvalidateToken = asyncHandler(async (req, res, next) => {
 
     const cookies = req.headers.cookie;
-    const accessToken = parse(cookies).accessToken;
+    if (!cookies || cookies === "undefined") {
+        return res.status(401).redirect("http://localhost:3000/student/login");
+    }
+    const accessToken = parse(cookies).studentaccessToken;
     if (accessToken) {
         // Extract the token from the Authorization header
         const token = accessToken;
@@ -14,12 +17,12 @@ const StudentvalidateToken = asyncHandler(async (req, res, next) => {
         jwt.verify(token, process.env.STUDENT_ACCESS_TOKEN_SECRET, (err, decoded) => {
             if (err) {
                 // If the access token is expired, attempt to refresh it using the refresh token
-                const refreshToken = req.cookies.refreshToken;
+                const refreshToken = req.cookies.studentrefreshToken;
 
                 jwt.verify(refreshToken, process.env.STUDENT_REFRESH_TOKEN_SECRET, (refreshErr, refreshDecoded) => {
                     if (refreshErr) {
                         res.status(401).json({ message: "Invalid refresh token" });
-                        res.clearCookie('refreshToken'); // Clear the refresh token cookie
+                        res.clearCookie('studentrefreshToken'); // Clear the refresh token cookie
                         res.redirect("localhost:3000/login"); // Redirect to login page
                     } else {
                         // Generate a new access token
@@ -28,7 +31,7 @@ const StudentvalidateToken = asyncHandler(async (req, res, next) => {
                                 first_name: refreshDecoded.student.first_name,
                                 last_name: refreshDecoded.student.last_name,
                                 email: refreshDecoded.student.email,
-                                id: refreshDecoded.student.student_id,
+                                id: refreshDecoded.student.id,
                             }
                         }, process.env.STUDENT_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
 
@@ -37,17 +40,18 @@ const StudentvalidateToken = asyncHandler(async (req, res, next) => {
                             first_name: refreshDecoded.student.first_name,
                             last_name: refreshDecoded.student.last_name,
                             email: refreshDecoded.student.email,
-                            id: refreshDecoded.student.student_id,
+                            id: refreshDecoded.student.id,
                         };
 
                         // Set the new access token in the response headers
-                        res.cookie('accessToken', newAccessToken, { httpOnly: true, secure: true });
+                        res.cookie('studentaccessToken', newAccessToken, { httpOnly: true, secure: true });
 
                         next(); // Continue to the next middleware or route
                     }
                 });
             } else {
                 // Attach the user information to the request object
+                console.log("decoded",decoded)
                 req.student = decoded.student;
                 next(); // Continue to the next middleware or route
             }
@@ -66,6 +70,10 @@ export { StudentvalidateToken };
 const TenentvalidateToken = asyncHandler(async (req, res, next) => {
 
     const cookies = req.headers.cookie;
+
+    if (!cookies || cookies === "undefined") {
+        return res.status(401).redirect("http://localhost:3000/tenent/login");
+    }
 
     const accessToken = parse(cookies).tenentaccessToken;
     if (accessToken) {
@@ -86,32 +94,31 @@ const TenentvalidateToken = asyncHandler(async (req, res, next) => {
                         // Generate a new access token
                         const newAccessToken = jwt.sign({
                             tenent: {
-                                tenentid: refreshDecoded.tenent.organization_id,
-                                adminemail: refreshDecoded.tenent.admin_email,
-                                tenentname: refreshDecoded.tenent.name,
-                                tenentlocation: refreshDecoded.tenent.location,
+                                tenentid: refreshDecoded.tenent.tenentid,
+                                adminemail: refreshDecoded.tenent.adminemail,
+                                tenentname: refreshDecoded.tenent.tenentname,
+                                tenentlocation: refreshDecoded.tenent.tenentlocation,
                             }
                         }, process.env.TENENT_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
 
+
                         // Attach the user information to the request object
                         req.tenent = {
-                            tenentid: refreshDecoded.tenent.organization_id,
-                            adminemail: refreshDecoded.tenent.admin_email,
-                            tenentname: refreshDecoded.tenent.name,
-                            tenentlocation: refreshDecoded.tenent.location,
+                            tenentid: refreshDecoded.tenent.tenentid,
+                            adminemail: refreshDecoded.tenent.adminemail,
+                            tenentname: refreshDecoded.tenent.tenentname,
+                            tenentlocation: refreshDecoded.tenent.tenentlocation,
                         };
 
                         // Set the new access token in the response headers
                         res.cookie('tenentaccessToken', newAccessToken, { httpOnly: true, secure: true });
-                        
+
                         next(); // Continue to the next middleware or route
                     }
                 });
             } else {
                 // Attach the user information to the request object
-                console.log(accessToken)
-                console.log(token)
-                console.log(decoded)
+                console.log("decoded",decoded)
                 req.tenent = decoded.tenent;
                 
                 next(); // Continue to the next middleware or route
@@ -131,7 +138,11 @@ const SubscribervalidateToken = asyncHandler(async (req, res, next) => {
 
     const cookies = req.headers.cookie;
 
-    const accessToken = parse(cookies).SubscriberaccessToken;
+    if (!cookies || cookies === "undefined") {
+        return res.status(401).redirect("http://localhost:3000/subscriber/login");
+    }
+
+    const accessToken = parse(cookies).subscriberaccessToken;
     if (accessToken) {
         // Extract the token from the Authorization header
         const token = accessToken;
@@ -139,43 +150,43 @@ const SubscribervalidateToken = asyncHandler(async (req, res, next) => {
         jwt.verify(token, process.env.SUBSCRIBER_ACCESS_TOKEN_SECRET, (err, decoded) => {
             if (err) {
                 // If the access token is expired, attempt to refresh it using the refresh token
-                const refreshToken = req.cookies.SubscriberrefreshToken;
+                const refreshToken = req.cookies.subscriberrefreshToken;
 
                 jwt.verify(refreshToken, process.env.SUBSCRIBER_REFRESH_TOKEN_SECRET, (refreshErr, refreshDecoded) => {
                     if (refreshErr) {
                         res.status(401).json({ message: "Invalid refresh token" });
-                        res.clearCookie('SubscriberrefreshToken'); // Clear the refresh token cookie
+                        res.clearCookie('subscriberrefreshToken'); // Clear the refresh token cookie
                         res.redirect("localhost:3000/login"); // Redirect to login page
                     } else {
-                        // Generate a new access token
                         const newAccessToken = jwt.sign({
-
                             subscriber: {
-                                subscriberid: refreshDecoded.subscriber.subscriber_id,
-                                email: refreshDecoded.subscriber.admin_email,
-                                subscribername: refreshDecoded.subscriber.name,
-                                subscriberlocation: refreshDecoded.subscriber.location,
+                                subscriberid: refreshDecoded.subscriber.subscriberid,
+                                email: refreshDecoded.subscriber.adminemail,
+                                subscribername: refreshDecoded.subscriber.subscribername,
+                                subscriberlocation: refreshDecoded.subscriber.subscriberlocation,
                                 expiry_date: refreshDecoded.subscriber.expiry_date
                             }
                         }, process.env.SUBSCRIBER_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
+                        
 
                         // Attach the user information to the request object
                         req.subscriber = {
-                            subscriberid: refreshDecoded.subscriber.subscriber_id,
-                            email: refreshDecoded.subscriber.admin_email,
-                            subscribername: refreshDecoded.subscriber.name,
-                            subscriberlocation: refreshDecoded.subscriber.location,
+                            subscriberid: refreshDecoded.subscriber.subscriberid,
+                            email: refreshDecoded.subscriber.adminemail,
+                            subscribername: refreshDecoded.subscriber.subscribername,
+                            subscriberlocation: refreshDecoded.subscriber.subscriberlocation,
                             expiry_date: refreshDecoded.subscriber.expiry_date
                         };
 
                         // Set the new access token in the response headers
-                        res.cookie('SubscriberaccessToken', newAccessToken, { httpOnly: true, secure: true });
+                        res.cookie('subscriberaccessToken', newAccessToken, { httpOnly: true, secure: true });
 
                         next(); // Continue to the next middleware or route
                     }
                 });
             } else {
                 // Attach the user information to the request object
+                console.log("decoded",decoded)
                 req.subscriber = decoded.subscriber;
                 next(); // Continue to the next middleware or route
             }
@@ -218,14 +229,14 @@ const SuperadminValidateToken = asyncHandler(async (req, res, next) => {
                         const newAccessToken = jwt.sign({
 
                             SuperAdmin: {
-                                SuperAdminid: refreshDecoded.SuperAdmin.superadmin_id,
+                                SuperAdminid: refreshDecoded.SuperAdmin.SuperAdminid,
                                 email: refreshDecoded.SuperAdmin.adminemail,
                             }
                         }, process.env.SUPERADMIN_ACCESS_TOKEN_SECRET, { expiresIn: "3m" });
 
                         // Attach the user information to the request object
                         req.SuperAdmin = {
-                            SuperAdminid: refreshDecoded.SuperAdmin.superadmin_id,
+                            SuperAdminid: refreshDecoded.SuperAdmin.SuperAdminid,
                             email: refreshDecoded.SuperAdmin.adminemail,
                         };
 
