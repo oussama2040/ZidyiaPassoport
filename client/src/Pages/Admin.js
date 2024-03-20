@@ -18,7 +18,7 @@ useEffect(() => {
     } else {
         // Decode the access token to extract role information
         const decodedToken = decodeAccessToken(tenentaccessToken);
-        if (decodedToken && decodedToken.role !== 'tenent') {
+        if (decodedToken && decodedToken.tenent.role !== 'tenent') {
           setAuthenticated(false);
           navigate('/tenent/login');
         }

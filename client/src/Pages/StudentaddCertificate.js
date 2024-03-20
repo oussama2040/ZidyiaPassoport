@@ -18,7 +18,7 @@ useEffect(() => {
     } else {
         // Decode the access token to extract role information
         const decodedToken = decodeAccessToken(studentaccessToken);
-        if (decodedToken && decodedToken.student.role !== 'student') {
+        if (decodedToken && decodedToken.student.student.role !== 'student') {
           setAuthenticated(false);
           navigate('/student/login');
         }
