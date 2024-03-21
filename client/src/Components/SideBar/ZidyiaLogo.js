@@ -1,5 +1,5 @@
 import React from 'react'
-import ZidyiaPassportLogo from './../Assets/logo1.png'
+import ZidyiaPassportLogo from './../Assets/Zidyia_Logo.png'
 import styles from './SideBar.module.css';
 
 function ZidyiaLogo() {

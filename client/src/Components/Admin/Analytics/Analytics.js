@@ -47,7 +47,7 @@ navigate('/tenent/login');
       <div className='flex'>
         <SideBarAdmin />
         <div className={styles.reqdisplayflexcolomn}>
-          <div className={styles.RequestPendingTitle}> <SlArrowLeft /> Analytics </div>
+          <div className={styles.RequestPendingTitle}> <SlArrowLeft />  <div className='ml-3 text-white'>Analytics </div> </div>
           <div className={styles.Analyticsform}>
             {/* Display the CertificateCard component if certificateData is available */}
             <TotalCount organizationId={organizationId} />

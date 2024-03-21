@@ -37,7 +37,7 @@ const scanQRCODE = async (req, res) => {
             if (rows.length > 0) {
                 return res.status(200).json({ message: 'QR Code data matched with database',decodedQRData  });
             } else {
-                return res.status(401).json({ error: 'QR Code data does not match with database' });
+                return res.json({ message: 'QR Code data does not match with database' });
             }
         } else {
             return res.status(404).json({ error: 'No QR code found in the image' });

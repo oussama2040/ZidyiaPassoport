@@ -104,7 +104,10 @@ function LoginComponent({ apiUrl, userRole }) {
             <img className={styles.logoImage} src={Zidyia_Logo} />
           </div>
           <div className={styles.helloText} >Hello, {userRole}!</div>
-          <div className={styles.welcomeText} >Welcome to Zidyia Passport</div>
+          <div className='flex'>
+          <div className={styles.welcomeText} >Welcome to </div>
+          <div className={styles.welcomeTextZidyia} >Zidyia Passport</div>
+          </div>
           {userRole === 'student' && (
             <React.Fragment>
               <div className={styles.registerText} >Register with your personal details to use</div>
@@ -155,7 +158,7 @@ function LoginComponent({ apiUrl, userRole }) {
             Log in
           </button>
         </form>
-        {userRole === 'student' && (
+        {/* {userRole === 'student' && (
           <div className={styles.haveAccountName}>
             <h3>You Don't have an account ? </h3>
             <h3>
@@ -164,7 +167,7 @@ function LoginComponent({ apiUrl, userRole }) {
               </Link>
             </h3>
           </div>
-        )}
+        )} */}
 
         <div className={styles.ForgetPass}>
           <h3>

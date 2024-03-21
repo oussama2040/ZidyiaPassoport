@@ -135,7 +135,7 @@ const navigate = useNavigate();
       <div className='flex'>
         <SideBarAdmin />
         <div className={styles.reqdisplayflexcolomn}>
-        <div className={styles.RequestPendingTitle}> <SlArrowLeft /> All Customize Pending</div> 
+        <div className={styles.RequestPendingTitle}> <SlArrowLeft /> <div className='ml-3 text-white'>All Customize Pending</div></div> 
 
         <div className={styles.Mainformsdisplayflex}>
 
