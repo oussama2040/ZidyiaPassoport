@@ -300,9 +300,8 @@ body {
   flex-direction: column;
   width: 375px;
   height: 90vh;
-  margin-left: 0px;
   margin-top: 20px;
-  background-color: #576371;
+  background-color: #384450;
   border-radius:20px;
   color :white;
   padding-left: 30px;
@@ -312,6 +311,8 @@ body {
   font-weight: 500;
   overflow-y: scroll;
   box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+  float: right;
+  margin-left: 20px;
 }
 .certificate-editor h2{
   font-size: 30px;

@@ -18,7 +18,7 @@ const Certificates = () => {
         // Fetch All certificates for a specific student
         const fetchAllCertificates = async () => {
             try {
-                const studentId = 3;
+                const studentId = 1;
                 const response = await axios.get(`http://localhost:5000/students/certificates/${studentId}`);
 
                 const formattedCertificates = response.data.certificates.map(formatCertificateDate);

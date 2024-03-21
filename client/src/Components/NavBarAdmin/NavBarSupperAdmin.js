@@ -18,8 +18,9 @@ function NavBarSupperAdmin() {
   };
   return (
     <div className={styles.NavBarAdminMain}>
+      
       <span className={styles.NavBarAdminDashborad}>
-        Super admin {loggingOut && <span style={{ fontSize: '0.5em' }}>Logging Out ...</span>}
+       <div  className={styles.NavBarAdminPanelText}> Super Admin Panel</div>{loggingOut && <span style={{ fontSize: '0.5em' }}>Logging Out ...</span>}
       </span>
 
       <button className={styles.NavBarAdminLogout} onClick={handleLogout}>

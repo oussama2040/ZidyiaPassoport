@@ -59,7 +59,7 @@ const navigate = useNavigate();
         <SideBarAdmin />
 
           <div className={styles.reqdisplayflexcolomn}>
-           <div className={styles.RequestPendingTitle}> <SlArrowLeft /> All Request Pending</div> 
+           <div className={styles.RequestPendingTitle}> <SlArrowLeft /> <div className='ml-3 text-white' >All Request Pending</div></div> 
         <div className={styles.Certificateform}>
           {/* Display the CertificateCard component if certificateData is available */}
           {certificateData && <CertificateCard certificate={certificateData} />}
