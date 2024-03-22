@@ -1,69 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import SideBarStudent from '../Components/SideBar/SideBarStudent';
 import Certificate from '../Components/Certificate/certificatebuilder';
 
 function CustomizeCertificate() {
 
-  // ---------authentication Admin--------//    
-const [authenticated, setAuthenticated] = useState(true);
+ // ---------authorization Admin--------//    
+const [validToken, setValidToken] = useState(false);
+const [loading, setLoading] = useState(true);
 const navigate = useNavigate();
-  
+
 useEffect(() => {
-    const tenentaccessToken = getCookie('tenentaccessToken');
-    if (!tenentaccessToken) {
-        setAuthenticated(false);
-        navigate('/tenent/login');
-    } else {
-        // Decode the access token to extract role information
-        const decodedToken = decodeAccessToken(tenentaccessToken);
-        if (decodedToken && decodedToken.tenent.role !== 'tenent') {
-          setAuthenticated(false);
-          navigate('/tenent/login');
-        }
-        else{
-          setAuthenticated(true);
-        }
+  const checkTokenValidity = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/tenent/authorization', { withCredentials: true });
+      const status = response.data.grantedAccess;
+      setValidToken(status === true);
+      setLoading(false); // Set loading to false once token validity check is complete
+    } catch (error) {
+      console.error('Error checking token validity:', error);
+      setValidToken(false);
+      setLoading(false); // Set loading to false if there's an error
     }
+  };
+
+  checkTokenValidity();
 }, []);
 
-const getCookie = (name) => {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.startsWith(name + '=')) {
-            return cookie.substring(name.length + 1);
-        }
-    }
-    return null;
-};
 
-const decodeAccessToken = (accessToken) => {
-  try {
-      // Decode the JWT token
-      const tokenPayload = accessToken.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-      const decodedToken = JSON.parse(atob(tokenPayload));
-      return decodedToken;
-  } catch (error) {
-      console.error('Error decoding access token:', error);
-      return null;
-  }
-};
-
-
-if(!authenticated){
-  navigate('/tenent/login');
+if (loading) {
+  return <div>Loading...</div>;
 }
+
+if (!validToken) {
+  navigate('/tenent/login');
+  return null; 
+}
+
 
   //==========================================================================================================================//    
   return (
-    authenticated ? (
+
       <div style={{ display: 'flex', flexDirection: 'row'}}>
         <SideBarStudent />  
         <Certificate/>
       </div>
-    ) : null
   );
 };
 export default CustomizeCertificate;

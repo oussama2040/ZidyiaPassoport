@@ -104,7 +104,7 @@ const navigate = useNavigate();
     <div className={styles.Customizeflex}>
     <SideBarAdmin />
     <div>
-    <div className={styles.RequestPendingTitleSendCustomize}> <SlArrowLeft /> Customize Form To Send </div>
+    <div className={styles.RequestPendingTitleSendCustomize}> <SlArrowLeft /> <div className='ml-3 text-white'>Customize Form To Send </div></div>
     <form className={styles.Customizeform} onSubmit={handleSubmit}>
       <div>
         {formData.fields.map((field, index) => (

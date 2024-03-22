@@ -4,6 +4,8 @@ import { loginStudent } from '../controllers/login.js';
 import { requestPasswordReset, resetPassword } from '../controllers/forgetpass.js';
 import upload from '../controllers/imageuploadcontroller.js';
 import {getstudentInfo} from '../controllers/studentController.js';
+import { StudentvalidateToken } from '../Middleware/validateTokenHandler.js';
+import {grantAccessToSuperadminPage} from '../controllers/superadminController.js';
 
 const router = express.Router();
 
@@ -17,6 +19,7 @@ router.post('/login', loginStudent)
 router.post('/resetpassverify',requestPasswordReset)
 router.post('/resetpass',resetPassword)
 router.get('/studentinfo/:studentID',getstudentInfo)
+router.get('/authorization',StudentvalidateToken,grantAccessToSuperadminPage)
  
 
 export default router;
