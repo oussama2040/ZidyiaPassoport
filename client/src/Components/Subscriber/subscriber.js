@@ -21,7 +21,7 @@ const Subscriber = () => {
                     withCredentials: true
                 });
 
-                console.log('Server response:', response.data);
+                // console.log('Server response:', response.data);
 
                 setResult(response.data);
             } else {

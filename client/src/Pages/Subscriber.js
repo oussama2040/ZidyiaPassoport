@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Subscriber from '../Components/Subscriber/subscriber';
+import NavbarSub from '../Components/Subscriber/navbarSubscriber.js'
 
 
 const Subscribers = () => {
@@ -59,7 +60,8 @@ if(!authenticated){
 
   return (
     authenticated ? (
-    <div>
+    <div >
+        <NavbarSub/>
         <Subscriber/>
     </div>
     ) : null
