@@ -4,6 +4,7 @@ import { TenentrequestPasswordReset, TenentresetPassword } from '../controllers/
 import { TenentUpdatePass } from '../controllers/updatePassword.js';
 import {SaveVerifiedCertificate, getOrganizationInfo,getAllOrganizations} from '../controllers/tenantController.js';
 import { TenentvalidateToken } from '../Middleware/validateTokenHandler.js';
+import {grantAccessToSuperadminPage} from '../controllers/superadminController.js';
 const router = express.Router();
 import upload from '../controllers/imageuploadcontroller.js';
 // import {TenentvalidateToken} from "./../Middleware/validateTokenHandler.js";
@@ -14,8 +15,9 @@ router.post('/login', loginTenent);
 router.post('/resetpassverify',TenentrequestPasswordReset)
 router.post('/resetpass',TenentresetPassword)
 router.post('/updatepassword',TenentUpdatePass)
-router.post('/savecertificate/:studentID',upload.single('certificateImage'),TenentvalidateToken,SaveVerifiedCertificate)
+router.post('/savecertificate/:studentID',TenentvalidateToken,upload.single('certificateImage'),SaveVerifiedCertificate)
 router.get('/organizationinfo',TenentvalidateToken,getOrganizationInfo)
-router.get('/Allorganization',getAllOrganizations)
+router.get('/Allorganization',TenentvalidateToken,getAllOrganizations)
+router.get('/authorization',TenentvalidateToken,grantAccessToSuperadminPage)
 
 export default router;
