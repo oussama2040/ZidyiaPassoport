@@ -24,33 +24,38 @@ function AdminCertificateReq({ organizationId }) {
   }, [organizationId]);
 
 
-  // ---------authentication Admin--------//    
-const [authenticated, setAuthenticated] = useState(true);
+  // ------auhthorization Admin -----------//
+const [validToken, setValidToken] = useState(false);
+const [loading, setLoading] = useState(true);
 const navigate = useNavigate();
-  
-    useEffect(() => {
-      const tenentaccessToken = getCookie('tenentrefreshToken');
-      if (!tenentaccessToken) {
-          setAuthenticated(false);
-      }
-  }, []);
-  
-  const getCookie = (name) => {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.startsWith(name + '=')) {
-            return cookie.substring(name.length + 1);
-        }
-    }
-    return null;
-  };
-  
-  if (!authenticated) {
-    navigate('/tenent/login');
-  }
 
-  //--------------------------------//  
+useEffect(() => {
+  const checkTokenValidity = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/tenent/authorization', { withCredentials: true });
+      const status = response.data.grantedAccess;
+      setValidToken(status === true);
+      setLoading(false); // Set loading to false once token validity check is complete
+    } catch (error) {
+      console.error('Error checking token validity:', error);
+      setValidToken(false);
+      setLoading(false); // Set loading to false if there's an error
+    }
+  };
+
+  checkTokenValidity();
+}, []);
+
+
+if (loading) {
+  return <div>Loading...</div>;
+}
+
+if (!validToken) {
+  navigate('/tenent/login');
+  return null; 
+}
+// ------------------------//
   
   return (
     <div>
