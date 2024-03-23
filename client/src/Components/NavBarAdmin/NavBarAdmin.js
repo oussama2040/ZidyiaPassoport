@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import styles from './NavBarAdmin.module.css';
 import { useNavigate } from 'react-router-dom';
-
+import { SlArrowRight } from "react-icons/sl";
 
 
 
@@ -49,7 +49,7 @@ function NavbarAdmin() {
   return (
     <div className={styles.NavBarAdminMain}>
       <span className={styles.NavBarAdminDashborad}>
-        {tenantName ? `Hello, ${tenantName}` : 'Admin Panel'}
+      <div className={styles.NavBarAdminPanelText}>Admin Panel  <SlArrowRight className='ml-4' /></div>  <div className='ml-4'>{tenantName ? `${tenantName}` : ' '}</div> 
       </span>
 
       <button className={styles.NavBarAdminLogout} onClick={handleLogout}>
