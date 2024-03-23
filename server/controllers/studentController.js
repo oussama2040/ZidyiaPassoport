@@ -47,8 +47,8 @@ const getAllCertificatesForStudent = async (req, res) => {
  * @access   private
  * ---------------------------------------------**/
 const getVerifiedCertificatesForStudent = async (req, res) => {
-    const studentId = req.params.studentId;
-    console.log(studentId);
+    const studentId = req.student.id;
+    console.log("studentId"+studentId);
     try {
         const query = `
         SELECT
