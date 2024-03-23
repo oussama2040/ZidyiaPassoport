@@ -14,6 +14,7 @@ const Certificates = () => {
     const [selectedCertificate, setSelectedCertificate] = useState(null);
     const [sortCriteria, setSortCriteria] = useState('');
     const [certificates, setCertificates] = useState([]);
+    const [studentId, setTenentId] = useState(null);
 
     const toggleModal = (certificate) => {
         setSelectedCertificate(certificate);
@@ -27,8 +28,9 @@ const Certificates = () => {
     useEffect(() => {
         // Fetch verified certificates for a specific student
         const fetchCertificates = async () => {
+            
             try {
-                const response = await axios.get(`http://localhost:5000/students/certificates/verified`, {
+                const response = await axios.get(`http://localhost:5000/students/certificates/verified/s`, {
                 withCredentials: true
                 });
                 setCertificates(response.data.certificates.map(formatCertificateDate));
