@@ -10,23 +10,23 @@ function Home() {
 const [authenticated, setAuthenticated] = useState(true);
 const navigate = useNavigate();
   
-useEffect(() => {
-    const studentaccessToken = getCookie('studentaccessToken');
-    if (!studentaccessToken) {
-        setAuthenticated(false);
-        navigate('/student/login');
-    } else {
-        // Decode the access token to extract role information
-        const decodedToken = decodeAccessToken(studentaccessToken);
-        if (decodedToken && decodedToken.student.student.role !== 'student') {
-          setAuthenticated(false);
-          navigate('/student/login');
-        }
-        else{
-          setAuthenticated(true);
-        }
-    }
-}, []);
+// useEffect(() => {
+//     const studentaccessToken = getCookie('studentaccessToken');
+//     if (!studentaccessToken) {
+//         setAuthenticated(false);
+//         navigate('/student/login');
+//     } else {
+//         // Decode the access token to extract role information
+//         const decodedToken = decodeAccessToken(studentaccessToken);
+//         if (decodedToken && decodedToken.student.student.role !== 'student') {
+//           setAuthenticated(false);
+//           navigate('/student/login');
+//         }
+//         else{
+//           setAuthenticated(true);
+//         }
+//     }
+// }, []);
 
 const getCookie = (name) => {
     const cookies = document.cookie.split(';');
