@@ -30,7 +30,7 @@ const Certificates = () => {
         const fetchCertificates = async () => {
             
             try {
-                const response = await axios.get(`http://localhost:5000/students/certificates/verified/s`, {
+                const response = await axios.get(`http://localhost:5000/student/verifiedCertificate`, {
                 withCredentials: true
                 });
                 setCertificates(response.data.certificates.map(formatCertificateDate));
