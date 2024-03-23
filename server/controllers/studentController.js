@@ -47,8 +47,8 @@ const getAllCertificatesForStudent = async (req, res) => {
  * @access   private
  * ---------------------------------------------**/
 const getVerifiedCertificatesForStudent = async (req, res) => {
-    const studentId = req.student.student_id;
-    console.log(studentId);
+    const Id = req.student.id;
+    console.log(Id);
     try {
         const query = `
         SELECT
@@ -70,7 +70,7 @@ const getVerifiedCertificatesForStudent = async (req, res) => {
             verification.verification_date DESC;
     `;
 
-        const [rows, fields] = await connection.promise().query(query, [studentId]);
+        const [rows, fields] = await connection.promise().query(query, [Id]);
 
         if (rows && rows.length > 0) {
             res.status(200).json({
