@@ -13,7 +13,7 @@ router.post('/addRequest',StudentvalidateToken, upload.fields([
 ]), addRequestCertificate);
 
 router.get('/certificates/:studentId',StudentvalidateToken, getAllCertificatesForStudent);
-router.get('/certificates/verified',StudentvalidateToken, getVerifiedCertificatesForStudent);
+router.get('/certificates/verified/s',StudentvalidateToken, getVerifiedCertificatesForStudent);
 router.post('/certificates/share/:certificateId', StudentvalidateToken,shareCertificate);
 router.get('/profileImage/:studentId',StudentvalidateToken, getProfileImage);
 
