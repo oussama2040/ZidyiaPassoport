@@ -1,19 +1,20 @@
 import express from 'express';
 import { updateProfile,addRequestCertificate,getAllCertificatesForStudent,
     getVerifiedCertificatesForStudent,shareCertificate, getProfileImage} from '../controllers/studentController.js';
+import { StudentvalidateToken } from '../Middleware/validateTokenHandler.js';
 import upload from '../controllers/imageuploadcontroller.js';
 const router = express.Router();
 
 
-router.put('/updateProfile/:studentId',upload.single("profile_img"), updateProfile);
-router.post('/addRequest', upload.fields([
+router.put('/updateProfile/:studentId',StudentvalidateToken,upload.single("profile_img"), updateProfile);
+router.post('/addRequest',StudentvalidateToken, upload.fields([
     { name: 'CertificateFile'},
     { name: 'TranscriptFile'}
 ]), addRequestCertificate);
 
-router.get('/certificates/:studentId', getAllCertificatesForStudent);
-router.get('/certificates/verified/:studentId', getVerifiedCertificatesForStudent);
-router.post('/certificates/share/:certificateId', shareCertificate);
-router.get('/profileImage/:studentId', getProfileImage);
+router.get('/certificates/:studentId',StudentvalidateToken, getAllCertificatesForStudent);
+router.get('/certificates/verified',StudentvalidateToken, getVerifiedCertificatesForStudent);
+router.post('/certificates/share/:certificateId', StudentvalidateToken,shareCertificate);
+router.get('/profileImage/:studentId',StudentvalidateToken, getProfileImage);
 
 export default router;

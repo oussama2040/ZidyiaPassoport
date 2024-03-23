@@ -39,13 +39,13 @@ function LoginComponent({ apiUrl, userRole }) {
         console.log(`${userRole}:`, userRole); // User data
         console.log(firstPassUpdate); // User data
         Cookies.set(`${userRole}accessToken`, accessToken, { secure: true, expires: new Date(Date.now() + 3 * 60 * 1000) });
-        Cookies.set(`${userRole}refreshToken`, refreshToken, { secure: true, expires: new Date(Date.now() + 4 * 60 * 1000) });
+        Cookies.set(`${userRole}refreshToken`, refreshToken, { secure: true, expires: 7 });
         // if the user is a student redirect to student page when login successful, if the user is a super admin redirect to super admin page
         //if the user is a subscriber or a tenent redirect to update password page, and send the email of the user in the url
         // Redirect based on user role
         if (userRole === 'student') {
           // Redirect to student page
-          navigate('/student/customize');
+          navigate('/student/profile');
         } else if (userRole === 'SuperAdmin') {
           // Redirect to super admin page
           navigate('/superadmin');
