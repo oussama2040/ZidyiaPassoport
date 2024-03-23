@@ -3,8 +3,6 @@ import { IoIosArrowBack } from "react-icons/io";
 import styles from './addCert.css';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 const Certificate = () => {
     const [organizations, setOrganizations] = useState([]);
     const [certificateName, setCertificateName] = useState('');
@@ -35,46 +33,32 @@ const Certificate = () => {
         }
     };
 
-    // const handleImageUpload = (e) => {
-    //     const file = e.target.files[0];
-    //     const reader = new FileReader();
-        
-    //     reader.onloadend = () => {
-    //       setCertificateImage(reader.result);
-    //     };
-        
-    //     if (file) {
-    //       reader.readAsDataURL(file);
-    //     }
-    //   };
-
     const handleCreateCertificate = async (event) => {
         event.preventDefault();
         try {
-            const student_id = 3;
             const formData = new FormData();
-            formData.append('student_id', student_id); 
             formData.append('name', certificateName);
             formData.append('organization_id', institution);
-            
+
             console.log('institution:', institution);
-            
+
             formData.append('issued_date', issueDate);
             formData.append('expiry_date', expiryDate);
             formData.append('body', body);
 
             console.log('CertificateFile:', certificateImage);
-            formData.append('CertificateFile', certificateImage); 
-            formData.append('TranscriptFile', transcriptImage); 
-
-            const response = await axios.post('http://localhost:5000/students/addRequest', formData, {
+            formData.append('CertificateFile', certificateImage);
+            if(transcriptImage)
+            formData.append('TranscriptFile', transcriptImage);
+           
+            const response = await axios.post('http://localhost:5000/student/addRequest', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
-                }
+                },
+                withCredentials: true
             });
-
-            console.log('Certificate created:', response.data);
-            toast.success('Certificate created.');
+            toast.success("Certificate added successfully");
+            alert("Certificate added successfully");
         } catch (error) {
             console.error('Error creating certificate:', error);
             toast.error('Error creating certificate. Please try again later.');
@@ -89,45 +73,55 @@ const Certificate = () => {
                 </div>
                 <form className='addCert'>
                     <div className='Twofiles'>
-                    <div className="containeradd">
-                        <input
-                            type="file"
-                            id="imageInput"
-                            accept="image/*"
-                            onChange={(e) => setCertificateImage(e.target.files[0])} 
-                        />
-                        <label htmlFor="imageInput" className="ChooseCertificate">
-                            Add Your Certificate
-                        </label>
-                        {certificateImage && (
-                            <div className="cert">
-                                <div className="img">
-                                    <img id="selectedImage" src={URL.createObjectURL(certificateImage)} alt="" />
+                        <div className="containeradd">
+                            <input
+                                type="file"
+                                id="imageInput"
+                                accept="image/*"
+                                onChange={(e) => setCertificateImage(e.target.files[0])}
+                            />
+                            <label htmlFor="imageInput" className="ChooseCertificate">
+                                Add Your Certificate
+                            </label>
+                            {certificateImage && (
+                                <div className="cert">
+                                    <div className="img">
+                                        <img id="selectedImage" src={URL.createObjectURL(certificateImage)} alt="" />
+                                    </div>
                                 </div>
-                            </div>
-                        )}
-                    </div>
-                     {/* Transcript image upload */}
-                     <div className="containeradd">
-                        <input
-                            type="file"
-                            id="transcriptInput"
-                            accept="image/*"
-                            onChange={(e) => setTranscriptImage(e.target.files[0])}
-                        />
-                        {/* Transcript image label */}
-                        <label htmlFor="transcriptInput" className="ChooseCertificate">
-                            Add Your Transcript*
-                        </label>
-                        {/* Render transcript image */}
-                        {transcriptImage && (
-                            <div className="certT">
-                                <div className="imgT">
-                                    <img id="transcriptImage" src={URL.createObjectURL(transcriptImage)} alt="" />
+                            )}
+                        </div>
+                        {/* Transcript image upload */}
+                        <div className="containeradd">
+                            {/* <input
+                                type="file"
+                                id="transcriptInput"
+                                accept="image/*"
+                                onChange={(e) => setTranscriptImage(e.target.files[0])}
+                            />
+                            <label htmlFor="transcriptInput" className="ChooseCertificate">
+                                Add Your Transcript*
+                            </label> */}
+
+                            <input
+                                type="file"
+                                id="transcriptInput"
+                                accept="image/*"
+                                onChange={(e) => setTranscriptImage(e.target.files[0])}
+                            />
+                            <label htmlFor="transcriptInput" className="ChooseCertificate">
+                                Add Your Transcript*
+                            </label>
+
+
+                            {transcriptImage && (
+                                <div className="certT">
+                                    <div className="imgT">
+                                        <img id="transcriptImage" src={URL.createObjectURL(transcriptImage)} alt="" />
+                                    </div>
                                 </div>
-                            </div>
-                        )}
-                    </div>
+                            )}
+                        </div>
                     </div>
                     <div className="form-container">
                         <div className="AddCertContainer">
@@ -151,7 +145,7 @@ const Certificate = () => {
                             >
                                 <option value="" disabled>Select Certificate</option>
                                 {organizations.map(org => (
-                                    <option key={org.id} value={org.id}>{org.name}</option> 
+                                    <option key={org.id} value={org.id}>{org.name}</option>
                                 ))}
                             </select>
 
@@ -167,7 +161,7 @@ const Certificate = () => {
                         </div>
                         <div className="AddCertContainer">
                             <label htmlFor="name">Expiry Date*</label>
-                             <input
+                            <input
                                 id="expiryDate"
                                 type="date"
                                 value={expiryDate}
@@ -185,9 +179,9 @@ const Certificate = () => {
                             />
                         </div>
                         <div className="AddCertContainer">
-                            
+
                         </div>
-                        
+
                         <div className="button-container">
                             <button onClick={(e) => handleCreateCertificate(e)} className="createBtn">
                                 Create

@@ -17,7 +17,7 @@ router.post('/resetpass',TenentresetPassword)
 router.post('/updatepassword',TenentUpdatePass)
 router.post('/savecertificate/:studentID',TenentvalidateToken,upload.single('certificateImage'),SaveVerifiedCertificate)
 router.get('/organizationinfo',TenentvalidateToken,getOrganizationInfo)
-router.get('/Allorganization',TenentvalidateToken,getAllOrganizations)
+router.get('/Allorganization',getAllOrganizations)
 router.get('/authorization',TenentvalidateToken,grantAccessToSuperadminPage)
 
 export default router;

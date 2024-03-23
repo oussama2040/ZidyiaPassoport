@@ -8,8 +8,11 @@ function NavBarStudent() {
     useEffect(() => {
         const fetchProfileImage = async () => {
             try {
-                const studentId = 3; 
-                const response = await axios.get(`http://localhost:5000/students/profileImage/${studentId}`);
+                // const response = await axios.get(`http://localhost:5000/student/profileImage`);
+
+                const response = await axios.get(`http://localhost:5000/student/profileImage`, {
+                    withCredentials: true
+                    });
                 setProfileImage(response.data.profileImage);
             } catch (error) {
                 console.error('Error fetching profile image:', error);

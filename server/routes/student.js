@@ -6,7 +6,9 @@ import upload from '../controllers/imageuploadcontroller.js';
 import {getstudentInfo} from '../controllers/studentController.js';
 import { StudentvalidateToken } from '../Middleware/validateTokenHandler.js';
 import {grantAccessToSuperadminPage} from '../controllers/superadminController.js';
-
+import { getVerifiedCertificatesForStudent } from '../controllers/studentController.js';
+import { updateProfile,addRequestCertificate,getAllCertificatesForStudent, getProfileImage} from '../controllers/studentController.js';
+import { GetStudentData } from '../controllers/studentController.js';
 const router = express.Router();
 
 
@@ -21,5 +23,17 @@ router.post('/resetpass',resetPassword)
 router.get('/studentinfo/:studentID',getstudentInfo)
 router.get('/authorization',StudentvalidateToken,grantAccessToSuperadminPage)
  
+
+
+router.get('/verifiedCertificate',StudentvalidateToken, getVerifiedCertificatesForStudent);
+router.put('/updateProfile',StudentvalidateToken,upload.single("profile_img"), updateProfile);
+router.post('/addRequest',StudentvalidateToken, upload.fields([
+    { name: 'CertificateFile'},
+    { name: 'TranscriptFile'}
+]), addRequestCertificate);
+
+router.get('/RequestCertificate',StudentvalidateToken, getAllCertificatesForStudent);
+router.get('/profileImage',StudentvalidateToken, getProfileImage);
+router.get('/GetStudentData',StudentvalidateToken, GetStudentData);
 
 export default router;
