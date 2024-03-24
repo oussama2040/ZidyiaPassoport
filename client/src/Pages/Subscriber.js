@@ -43,16 +43,10 @@ const Subscribers = () => {
 //============================================================================//
 
   return (
-<<<<<<< HEAD
-    authenticated ? (
-    <div >
-        <NavbarSub/>
-=======
     <div>
->>>>>>> 5326f576df879c87298fce0af98aa029382bd58a
         <Subscriber/>
     </div>
   );
 }
 
-export default Subscribers
+export default Subscribers;
