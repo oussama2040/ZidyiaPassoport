@@ -96,7 +96,7 @@ function SignupComponent() {
       <div className={`max-w-l mx-auto p-6 ${styles.rightImage}`}>
         <h2 className={`text-xl font-bold mb-4 ${styles.topicName}`}>Create an account</h2>
         {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
-        {successMessage && <div style={{ color: '#579AD3', textAlign: 'center' }}>{successMessage}</div>}
+        {successMessage && <div style={{ color: '#28EFA9', textAlign: 'center' }}>{successMessage}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-2">
             <label htmlFor="first_name" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Firstname</label>

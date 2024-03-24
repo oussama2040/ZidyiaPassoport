@@ -355,7 +355,7 @@ margin-bottom: 10%;
   letter-spacing: 1px;
   margin-left: 20px;
   color: #fff;
-  font-size:8px ;
+  font-size:12px ;
 }
 
 .inputText:focus,
@@ -364,6 +364,7 @@ margin-bottom: 10%;
   border-color: #3498db;
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
   color: #fff;
+  font-size: large;
 }
 
 .inputText:focus::placeholder,

@@ -10,7 +10,6 @@ import SideBarAdmin from '../../SideBar/SideBarAdmin'
 
 function SendAdmincustomize({organizationId}) {
   const [formData, setFormData] = useState({
-    organizationId, // organization id 
     fields: [],
   });
 
@@ -47,7 +46,7 @@ function SendAdmincustomize({organizationId}) {
     e.preventDefault();
     try {
       const dataToSend = {
-        organizationId: formData.organizationId,
+        organizationId:organizationId,
         fields: formData.fields.map(field => {
           const { options, ...fieldData } = field;
           if (options) {

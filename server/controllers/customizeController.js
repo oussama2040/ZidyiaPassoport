@@ -51,12 +51,13 @@ export const sendcustomizeFields = async (req, res) => {
 
 export const studentgetCustomFields = async (req, res) => {
     try {
+     
       const organizationId = req.params.organizationId;
       const fields = await connection.promise().execute(
         'SELECT * FROM CustomFields WHERE organization_id = ?',
         [organizationId]
       );
-      res.json(fields[0]);
+      res.json(fields[0],);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -83,10 +84,11 @@ export const DeleteCustomFieldd = async ( req, res)=>{
   import { uploadImage } from './imageuploadcontroller.js';
 
     export const fillAndSendFormToOrganization = async (req, res) => {
-      try {
+      try { 
+        const student_id = req.student.id;
         const { organizationId } = req.params;
-        const { filledForm, student_id } = req.body;
-    
+        const { filledForm} = req.body;
+        console.log("student_id",student_id)
         let FileOption = '';
     
         if (req.file) {
