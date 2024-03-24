@@ -45,7 +45,7 @@ function LoginComponent({ apiUrl, userRole }) {
         // Redirect based on user role
         if (userRole === 'student') {
           // Redirect to student page
-          navigate('/student/customize');
+          navigate('/student/profile');
         } else if (userRole === 'SuperAdmin') {
           // Redirect to super admin page
           navigate('/superadmin');

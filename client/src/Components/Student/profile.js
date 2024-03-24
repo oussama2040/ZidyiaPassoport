@@ -4,6 +4,7 @@ import styles from './profile.css';
 import axios from 'axios';
 
 const Profile = () => {
+
     const [countries, setCountries] = useState([]);
     const [profile_Img, setProfileImg] = useState(null);
 
@@ -14,45 +15,82 @@ const Profile = () => {
         bio: '',
         location: '',
         mobile: '',
-      });
-    
-      const handleChange = (e) => {
+    });
+
+    const handleChange = (e) => {
         const { id, value } = e.target;
         setFormData({ ...formData, [id]: value });
-      };
-    
-
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-          const formDataToSend = new FormData();
-          formDataToSend.append('first_name', formData.first_name);
-          formDataToSend.append('last_name', formData.last_name);
-          formDataToSend.append('password', formData.password);
-          formDataToSend.append('bio', formData.bio);
-          formDataToSend.append('location', formData.location);
-          formDataToSend.append('mobile', formData.mobile);
-          formDataToSend.append('profile_img', profile_Img);
-    
-          console.log(formDataToSend);
-          const studentId = 1; 
-          const { data } = await axios.put(`http://localhost:5000/students/updateProfile/${studentId}`, formDataToSend, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          });
-          console.log(data); 
-        } catch (error) {
-          console.error('Error updating profile:', error);
-        }
-      };
-
+    };
     useEffect(() => {
+        fetchStudentData();
         fetch('https://restcountries.com/v2/all')
             .then(response => response.json())
             .then(data => setCountries(data))
             .catch(error => console.error('Error fetching countries:', error));
     }, []);
+    const fetchStudentData = async () => {
+        try {
+            const response = await axios.get(`http://localhost:5000/student/GetStudentData`, {
+                withCredentials: true
+            });
+            const studentData = response.data.data;
+            console.log(studentData);
+            setFormData(prevState => ({
+                ...prevState,
+                first_name: studentData.first_name || '',
+                last_name: studentData.last_name || '',
+                bio: studentData.bio || '',
+                location: studentData.location || '',
+                mobile: studentData.mobile || '',
+            }));
+            console.log(studentData.profile_img);
+            if (studentData.profile_img) {
+                // setProfileImg(studentData.profile_img);
+            }
+        } catch (error) {
+            console.error('Error fetching student data:', error);
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const requiredFields = ['first_name', 'last_name', 'password', 'mobile'];
+        const emptyFields = requiredFields.filter(field => {
+            const value = formData[field];
+            return typeof value !== 'string' || !value.trim(); // Check if value is not a string or is empty after trimming
+        });
+
+        if (emptyFields.length > 0) {
+            alert(`Please fill all empty fields`);
+            return;
+        }
+        try {
+            const formDataToSend = new FormData();
+            formDataToSend.append('first_name', formData.first_name);
+            formDataToSend.append('last_name', formData.last_name);
+            formDataToSend.append('password', formData.password);
+            formDataToSend.append('bio', formData.bio);
+            formDataToSend.append('location', formData.location);
+            formDataToSend.append('mobile', formData.mobile);
+            formDataToSend.append('profile_img', profile_Img);
+
+            console.log(formDataToSend);
+
+            const { data } = await axios.put(`http://localhost:5000/student/updateProfile`, formDataToSend, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                withCredentials: true
+            });
+
+            console.log(data);
+            alert("Profile updated successfully");
+        } catch (error) {
+            console.error('Error updating profile:', error);
+        }
+    };
+
+
     return (
         <>
             <div className='profileFull'>
@@ -112,9 +150,9 @@ const Profile = () => {
                         </div>
                         <div className='ContainerProfileImage'>
                             <label className="titleProfilePhoto">Profile Photo</label>
-                            <input id="profile_img" type="file" accept="image/*" onChange={(e) => setProfileImg(e.target.files[0])} 
-                             style={{ display: 'none' }} />
-                            
+                            <input id="profile_img" type="file" accept="image/*" onChange={(e) => setProfileImg(e.target.files[0])}
+                                style={{ display: 'none' }} />
+
                             {profile_Img && (
                                 <img src={URL.createObjectURL(profile_Img)} alt="Profile" />
                             )}

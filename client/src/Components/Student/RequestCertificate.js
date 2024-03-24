@@ -18,9 +18,10 @@ const Certificates = () => {
         // Fetch All certificates for a specific student
         const fetchAllCertificates = async () => {
             try {
-                const studentId = 1;
-                const response = await axios.get(`http://localhost:5000/students/certificates/${studentId}`);
 
+                const response = await axios.get(`http://localhost:5000/student/RequestCertificate`, {
+                    withCredentials: true
+                });
                 const formattedCertificates = response.data.certificates.map(formatCertificateDate);
                 const sortedCertificates = sortCertificates(formattedCertificates, sortingOption);
                 setCertificates(sortedCertificates);
@@ -88,8 +89,8 @@ const Certificates = () => {
                 {/* <p>{certificate.organization_id}</p> */}
                 <p>Issued by: {certificate.organization_name}</p>
             </div>
-          
-            {certificate.status === 'verified' && ( 
+
+            {certificate.status === 'verified' && (
                 // <Link to="/student/customize">
                 //     <button onClick={verifyFct} className='btnVerify'>Verify</button>
                 // </Link>
