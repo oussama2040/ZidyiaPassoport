@@ -86,7 +86,7 @@ const Certificates = () => {
     return (
         <>
             <div>
-                <div class="certificate-title">
+                <div class="certificate-title1">
                     <IoIosArrowBack style={{ color: '#5DD3B3' }} />
                     <span>CertPass</span>
                 </div>

@@ -48,6 +48,7 @@ const CertificateCard = ({ certificate }) => {
       console.log('Response Data:', response.data);
 
       setSelectedCertificate(null);
+      window.location.href="/admin/reqcertificate"
     } catch (error) {
       console.error('Error responding to certificate:', error);
       // Handle error
