@@ -30,13 +30,7 @@ function NavbarAdmin() {
       Cookies.remove('tenentrefreshToken'); 
       console.log('Cookies removed successfully.');
   
-      console.log('Checking if cookies are still present...');
-      if (Cookies.get('tenentaccessToken') || Cookies.get('tenentrefreshToken')) {
-        console.error('Cookies were not removed successfully.');
-      } else {
-        console.log('Cookies were removed successfully.');
-      }
-  
+    
       setTimeout(() => {
         navigate("/");
       }, 1000); 

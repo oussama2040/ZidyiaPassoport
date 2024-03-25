@@ -5,7 +5,7 @@
     border-top-right-radius: 25%;
     border-bottom-right-radius: 25%;
     display: flex;
-    height: 470px;
+    height: 500px;
     margin-bottom: 50px;
     box-shadow: 1px 0px 10px;
   
@@ -123,27 +123,21 @@ margin-bottom: 10%;
 .registerText{
   color: #28EFA9;
   font-size: 13px;
-  margin-left: 13%;
-  margin-top: 20%;
+  margin-left: 14%;
+  /* margin-top: 20%; */
+
 }
 .registerText2{
   color: #28EFA9;
   font-size: 13px;
   margin-left: 28%;
-}
 
+}
 .registerText3{
   color: #28EFA9;
   font-size: 13px;
-  margin-left: 16%;
-  margin-top: 15%;
+  margin-left: 20%;
 
-}
-.registerText4{
-  color: #28EFA9;
-  font-size: 13px;
-  margin-left: 26%;
-  margin-bottom: 50px;
 }
 
 
@@ -355,7 +349,7 @@ margin-bottom: 10%;
   letter-spacing: 1px;
   margin-left: 20px;
   color: #fff;
-  font-size:8px ;
+  font-size:12px ;
 }
 
 .inputText:focus,
@@ -364,6 +358,7 @@ margin-bottom: 10%;
   border-color: #3498db;
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
   color: #fff;
+  font-size: large;
 }
 
 .inputText:focus::placeholder,

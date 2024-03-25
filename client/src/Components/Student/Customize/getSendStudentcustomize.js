@@ -5,7 +5,8 @@ import SideBarStudent from '../../SideBar/SideBarStudent';
 import { useParams } from 'react-router-dom';
 
 const GetSendStudentCustomFields = () => {
-  const studentId  = 2;
+  
+  // const studentId  = 2;
   const { organizationId } = useParams();
   const [customFields, setCustomFields] = useState([]);
   const [formData, setFormData] = useState({});
@@ -94,7 +95,7 @@ const GetSendStudentCustomFields = () => {
 
     const formDataToSend = new FormData();
 
-    formDataToSend.append('student_id', studentId); // Replace with the actual student ID
+    // formDataToSend.append('student_id', studentId); // Replace with the actual student ID
     formDataToSend.append('filledForm', JSON.stringify(formData));
 
     for (const key in FileOption) {
@@ -105,9 +106,11 @@ const GetSendStudentCustomFields = () => {
 
 
     try {
-      const response = await axios.post(`http://localhost:5000/student/filledform/${organizationId}`, formDataToSend);
+      const response = await axios.post(`http://localhost:5000/student/filledform/${organizationId}`, formDataToSend,
+      { withCredentials: true });
       console.log('Response:', response.data);
       console.log('Form submitted successfully!');
+      window.location.href="/student/requestCertificate"
     } catch (error) {
       console.error('Error submitting form:', error);
     }

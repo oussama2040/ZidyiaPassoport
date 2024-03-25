@@ -19,7 +19,7 @@ function SideBarStudent() {
     <div>
       <div className={styles.SideBarMain}>
         <Logo />
-        <Nav icon={<IoHomeOutline />} name="Home" to="/Home" />
+        {/* <Nav icon={<IoHomeOutline />} name="Home" to="/Home" /> */}
         <NavLink to="/student/requestCertificate" >
           <div className={location.pathname === '/student/requestCertificate' ? styles.active : ''}>
           <Nav icon={< MdOutlineBook />} name="Request Cert" />
@@ -36,7 +36,7 @@ function SideBarStudent() {
           <Nav icon={< CgTranscript />} name="Add Cert" />
           </div>
         </NavLink>
-        <Nav icon={<MdOutlineContactSupport />} name="Get Support" to="/getSupport" />
+        {/* <Nav icon={<MdOutlineContactSupport />} name="Get Support" to="/getSupport" /> */}
 
         <ZidyiaLogo />
 
