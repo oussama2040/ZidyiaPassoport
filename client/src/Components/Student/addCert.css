@@ -25,6 +25,11 @@
   background-color: #384450;
 }
 
+.AddCertContainer{
+
+}
+
+
 .AddCertContainer input {
   width: 500px;
   height: 42px;
@@ -92,7 +97,7 @@
     "name name"
     "button button";
 
-  padding: 20px;
+  padding: 15px;
   color: #707070;
 
 }
@@ -107,7 +112,7 @@
   cursor: pointer; */
 
 
-width: 100%;
+/* width: 90%; */
 margin-left: 100%;
 
 }

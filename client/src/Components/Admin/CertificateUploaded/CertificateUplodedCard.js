@@ -16,12 +16,12 @@ function CertificateUplodedCard({ certificate }) {
             {certificate.map((cert, index) => (
                 <div key={cert.verification_id} className={`mb-4 w-full md:w-1/2 lg:w-1/4 ${index < 4 ? 'mr-4' : ''} ${styles.CertificateCard}`} onClick={() => handleCertificateClick(cert)}>
                     <LiaCertificateSolid className={styles.certificateIcon} />
-                    <img className="w-full h-64 object-cover object-center" src={cert.certificate_url} alt="Certificate" />
+                    <img className={`w-full h-64 object-cover object-center ${styles.certificateUplodedimages}`} src={cert.certificate_url} alt="Certificate" />
                     <div className="p-4">
                         <h2 className={styles.customizeFieldNameTOPIC}>{cert.first_name} {cert.last_name}</h2>
-                        <p className="text-sm text-gray-400 flex" >mobile: <div className={styles.customizeFieldNametext}>{cert.mobile}</div></p>
-                        <p className="text-sm text-gray-400 flex">location: <div className={styles.customizeFieldNametext}>{cert.location}</div></p>
-                        <p className="text-sm text-gray-400 flex">email: <div className={styles.customizeemail}>{cert.email}</div></p>
+                        <p className={`text-sm text-gray-400 flex ${styles.responsiveText}`} >mobile: <div className={styles.customizeFieldNametext}>{cert.mobile}</div></p>
+                        <p className={`text-sm text-gray-400 flex ${styles.responsiveText}`}>location: <div className={styles.customizeFieldNametext}>{cert.location}</div></p>
+                        <p className={`text-sm text-gray-400 flex ${styles.responsiveText}`}>email: <div className={styles.customizeemail}>{cert.email}</div></p>
                     </div>
                 </div>
             ))}

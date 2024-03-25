@@ -36,6 +36,12 @@ const Certificate = () => {
     const handleCreateCertificate = async (event) => {
         event.preventDefault();
         try {
+
+            // Check if certificateImage is null
+            if (!certificateImage) {
+                alert("Please upload your certificate");
+                return; // Stop further execution
+            }
             const formData = new FormData();
             formData.append('name', certificateName);
             formData.append('organization_id', institution);
@@ -48,9 +54,9 @@ const Certificate = () => {
 
             console.log('CertificateFile:', certificateImage);
             formData.append('CertificateFile', certificateImage);
-            if(transcriptImage)
-            formData.append('TranscriptFile', transcriptImage);
-           
+            if (transcriptImage)
+                formData.append('TranscriptFile', transcriptImage);
+
             const response = await axios.post('http://localhost:5000/student/addRequest', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -84,13 +90,13 @@ const Certificate = () => {
                                 Add Your Certificate
                             </label>
                             <div className='imgborder'>
-                            {certificateImage && (
-                                <div className="cert">
-                                    <div className="img">
-                                        <img id="selectedImage"  src={URL.createObjectURL(certificateImage)} alt="" />
+                                {certificateImage && (
+                                    <div className="cert">
+                                        <div className="img">
+                                            <img id="selectedImage" src={URL.createObjectURL(certificateImage)} alt="" />
+                                        </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
                             </div>
                         </div>
                         {/* Transcript image upload */}
@@ -116,13 +122,13 @@ const Certificate = () => {
                             </label>
 
                             <div className='imgborder'>
-                            {transcriptImage && (
-                                <div className="certT">
-                                    <div className="imgT">
-                                        <img id="transcriptImage" src={URL.createObjectURL(transcriptImage)} alt="" />
+                                {transcriptImage && (
+                                    <div className="certT">
+                                        <div className="imgT">
+                                            <img id="transcriptImage" src={URL.createObjectURL(transcriptImage)} alt="" />
+                                        </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
                             </div>
                         </div>
                     </div>
@@ -182,16 +188,13 @@ const Certificate = () => {
                             />
                         </div>
                         <div className="AddCertContainer">
-
-                        </div>
-
-                        <div className="button-container">
-                            <button onClick={(e) => handleCreateCertificate(e)} className="createBtn">
-                                Create
-                            </button>
                         </div>
                     </div>
-
+                    <div className="button-container">
+                        <button onClick={(e) => handleCreateCertificate(e)} className="createBtn">
+                            Create
+                        </button>
+                    </div>
                 </form>
             </div>
         </>

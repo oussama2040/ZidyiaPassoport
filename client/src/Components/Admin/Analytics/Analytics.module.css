@@ -102,3 +102,41 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
     justify-content: center;
     border: 1px solid #5DD3B3;
   }
+
+  @media only screen and (max-width: 768px) {
+    .reqdisplayflexcolomn{
+      width: 65%;
+    }
+    .RequestPendingTitle{
+      font-size: 9px;
+    }
+    .Analyticsform{
+   display: flex;
+   flex-direction: column;
+    }
+    .analyticsContainer {
+      width: 100%;
+    }
+  .analyticsTable{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 9px;
+  }
+  .tableHeader{
+    width: 100%;
+    font-size: 6px;
+  }
+  .analyticsTable th{
+    width: 100%;
+  }
+  .analyticsTable td {
+    font-size: 6px;
+  }
+  .chartsContainer{
+    width: 100%; 
+  }
+  .AnalyticsCharts{
+    width: 100%; 
+  }
+  }
