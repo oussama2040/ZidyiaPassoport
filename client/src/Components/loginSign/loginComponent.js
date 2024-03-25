@@ -24,7 +24,7 @@ function LoginComponent({ apiUrl, userRole }) {
     try {
       const response = await axios.post(apiUrl, formData);
       const { [userRole]: userData, success, message } = response.data;
-      const { accessToken, refreshToken, adminemail, firstPassUpdate } = userData;
+      const { accessToken, refreshToken, adminemail, firstPassUpdate,expiryDate } = userData;
 
 
       console.log(accessToken);
@@ -55,8 +55,17 @@ function LoginComponent({ apiUrl, userRole }) {
             if (userRole === 'tenent') {
               navigate(`/admin`);
             } else {
+              const currentDate=new Date()
+              const expirydate=new Date(expiryDate)
+              if(expirydate > currentDate){
+                navigate(`/${userRole}/scanqrcode`);
+
+              }
+              else{
+                navigate(`/subscriber/subscriptionEnd`)
+              }
               // If firstPassUpdate is 1, navigate to ${userRole} page
-              navigate(`/${userRole}/scanqrcode`);
+             
             }
           } else {
             // If firstPassUpdate is 0, navigate to update password page with email in the URL

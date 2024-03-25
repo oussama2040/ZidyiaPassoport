@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function NavbarSub() {
   const [subscriberName, setSubscriberName] = useState(null);
+  const [expirydate, setexpirydate] = useState(null);
   const navigate = useNavigate(); // Importing useNavigate hook
 
   useEffect(() => {
@@ -14,6 +15,18 @@ function NavbarSub() {
         const response = await axios.get('http://localhost:5000/subscriber/getsubscriberinfo',{withCredentials:true});
         setSubscriberName(response.data.subscriberName);
         console.log(subscriberName)
+        const fetchedExpiryDate = response.data.expiryDate;
+        const expiryDate = new Date(fetchedExpiryDate);            
+        const year = expiryDate.getFullYear();
+        const month = expiryDate.getMonth() + 1; // Months are zero-based
+        const day = expiryDate.getDate();
+        // Format date as 'YYYY-MM-DD'
+        const formattedExpiryDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+        setexpirydate(formattedExpiryDate);
+      
+    
+      console.log(formattedExpiryDate);
+        
       } catch (error) {
         console.error('Error fetching subscriber info:', error);
       }
@@ -43,7 +56,7 @@ function NavbarSub() {
       <span className={styles.NavBarAdminDashborad}>
         {subscriberName ? `Hello, ${subscriberName}` : 'Subscriber Panel'}
       </span>
-
+      <p className={styles.expirydt}>{expirydate ? `expires on ${expirydate}` : " "}</p>
       <button className={styles.NavBarAdminLogout} onClick={handleLogout}>
         Logout
       </button>

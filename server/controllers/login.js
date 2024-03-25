@@ -160,15 +160,9 @@ const loginSubscriber = asyncHandler(async (req, res) => {
         // Verify password
         const passwordMatch = await bcrypt.compare(password, subscriber.password); // comparing plaintext password with hashed password     
         if (passwordMatch) {
-            const expiryDate = new Date(subscriber.expiry_date);
-            const currentDate = new Date();
+         
 
-            // Check if expiry date is less than current date
-            if (expiryDate < currentDate) {
-                // Expiry date has passed
-                res.status(401);
-                throw new Error("Subscription expired!");
-            } else {
+          
 
                 const accessToken = jwt.sign({
                     subscriber: {
@@ -201,13 +195,13 @@ const loginSubscriber = asyncHandler(async (req, res) => {
                         adminemail: subscriber.admin_email,
                         subscribername: subscriber.name,
                         subscriberlocation: subscriber.location,
-                        expiry_date: subscriber.expiry_date,
+                        expiryDate: subscriber.expiry_date,
                         firstPassUpdate: subscriber.firstPassUpdate
                     },
                     success: true,
                     message: "Login successful!"
                 });
-            }
+            
         } else {
             // Password doesn't match
             res.status(401);

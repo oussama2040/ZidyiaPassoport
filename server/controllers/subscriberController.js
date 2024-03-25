@@ -1,4 +1,5 @@
-import db from '../config/connection.js'
+import connection from '../config/connection.js';
+
 
 
 //request subscribtion by anonymous
@@ -48,14 +49,27 @@ export const RequestSubscription = async (req, res) => {
 export const GetSubscriberinfo = async (req, res) => {
     try {
         const subscriberName = req.subscriber.subscribername;
+        const subscriberID = req.subscriber.subscriberid;
+
+        const [rows] = await connection.promise().execute(
+            'SELECT expiry_date  FROM subscriber WHERE subscriber_id = ?',
+            [subscriberID] 
+        );
+
+        if (rows.length > 0) {
+            const  expirydate  = rows[0].expiry_date;
             res.status(200).json({
-            message: "Subscription request added successfully",
-            subscriberName: subscriberName, // Sending subscriber name in the response
-            
-        });
+                message: "Subscription request added successfully",
+                subscriberName: subscriberName,
+                expiryDate: expirydate
+            });
+        } else {
+            res.status(404).json({ error: 'Subscriber info not found' });
+        }
     } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Server error' });
+        console.error('Error retrieving subscriber info:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
+
 

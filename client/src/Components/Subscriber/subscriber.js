@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './subscriber.css';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const Subscriber = () => {
     const [result, setResult] = useState('');
@@ -31,6 +33,38 @@ const Subscriber = () => {
             console.error('Error scanning QR code:', error);
         }
     };
+    // -------------------------------------------------------------------------------------
+    const [expirydate, setexpirydate] = useState(null);
+const navigate = useNavigate(); // Importing useNavigate hook
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/subscriber/getsubscriberinfo', { withCredentials: true });
+      const fetchedExpiryDate = response.data.expiryDate;
+      setexpirydate(fetchedExpiryDate);
+      
+      // Log the fetched expiry date
+      console.log("Fetched expiry date:", fetchedExpiryDate);
+
+      const expiryDate = new Date(fetchedExpiryDate);
+      const currentDate = new Date();
+      if (expiryDate < currentDate) {
+        // Cookies.remove('subscriberaccessToken');
+        // Cookies.remove('subscriberrefreshToken');
+        navigate(`/subscriber/subscriptionEnd`);
+      
+      }
+    } catch (error) {
+      console.error('Error fetching subscriber info:', error);
+    }
+  };
+
+  fetchData();
+}, []);
+
+  
+    // ------------------------------------------------------------------------------------------
 
     return (
         <div className='subscribercontainer'>

@@ -17,6 +17,15 @@
     color: #5DD3B3;
     display: flex;
   }
+  .expirydt{
+    font-family: 'Core Rhino 45', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    margin-left: -170px;
+   
+    color: #5DD3B3;
+    display: flex;
+  }
 
   .NavBarAdminPanelText{
     color: #fff;
