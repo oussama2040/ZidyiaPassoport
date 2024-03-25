@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Subscriber from '../Components/Subscriber/subscriber';
+import NavbarSub from '../Components/Subscriber/navbarSubscriber.js'
 
 
 const Subscribers = () => {
@@ -43,9 +44,10 @@ const Subscribers = () => {
 
   return (
     <div>
+    <NavbarSub/>
         <Subscriber/>
     </div>
   );
 }
 
-export default Subscribers
+export default Subscribers;
