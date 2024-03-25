@@ -66,8 +66,8 @@ const Certificate = () => {
     };
     return (
         <>
-            <div className='s'>
-                <div class="certificate-title">
+            <div className='MainStudentContainer' >
+                <div class="certificate-title1">
                     <IoIosArrowBack style={{ color: '#5DD3B3' }} />
                     <span>Add Certificate</span>
                 </div>
@@ -83,13 +83,15 @@ const Certificate = () => {
                             <label htmlFor="imageInput" className="ChooseCertificate">
                                 Add Your Certificate
                             </label>
+                            <div className='imgborder'>
                             {certificateImage && (
                                 <div className="cert">
                                     <div className="img">
-                                        <img id="selectedImage" src={URL.createObjectURL(certificateImage)} alt="" />
+                                        <img id="selectedImage"  src={URL.createObjectURL(certificateImage)} alt="" />
                                     </div>
                                 </div>
                             )}
+                            </div>
                         </div>
                         {/* Transcript image upload */}
                         <div className="containeradd">
@@ -113,7 +115,7 @@ const Certificate = () => {
                                 Add Your Transcript*
                             </label>
 
-
+                            <div className='imgborder'>
                             {transcriptImage && (
                                 <div className="certT">
                                     <div className="imgT">
@@ -121,6 +123,7 @@ const Certificate = () => {
                                     </div>
                                 </div>
                             )}
+                            </div>
                         </div>
                     </div>
                     <div className="form-container">

@@ -94,7 +94,7 @@ const Certificates = () => {
                 // <Link to="/student/customize">
                 //     <button onClick={verifyFct} className='btnVerify'>Verify</button>
                 // </Link>
-                <button onClick={() => verifyFct(certificate)} className='btnVerify'>Verify</button>
+                <button onClick={() => verifyFct(certificate)} className='btnVerify'>Verified</button>
             )}
         </div>
     );

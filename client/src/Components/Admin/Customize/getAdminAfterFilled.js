@@ -77,17 +77,19 @@ function GetAdminAfterFilled({ organizationId }) {
                 status: 'rejected',
                 rejectionReason: rejectionReason
             };
+            window.location.href="/admin/reqcustomize"
         } else {
             requestData = {
                 status: 'verified',
                 rejectionReason: ''
             };
+            window.location.href = `/admin/customizecertificate/${filledstudentId}`;
         }
 
         const response = await axios.put(`http://localhost:5000/admin/filledformRequest/${FilledformId}`, requestData,
         { withCredentials: true });
          console.log(filledstudentId);
-         window.location.href = `/admin/customizecertificate/${filledstudentId}`;
+        
 
 
         if (response.status === 200) {

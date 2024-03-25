@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useState , useEffect } from "react";
+import axios from 'axios';
 import "./App.css";
-import Cookies from 'js-cookie';
-import { jwtDecode } from 'jwt-decode';
 import Login from "./Pages/StudentLogin.js";
 import TenentLogin from "./Pages/TenentLogin.js";
 import SubscriberLogin from "./Pages/SubscriberLogin.js";
@@ -30,7 +29,7 @@ import StudentAllRequests from "./Pages/StudentAllRequest.js";
 import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.js";
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
 import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
-import CustomizeCertificate from "./Pages/CustomizeCertificate.js";
+import CustomizeCertificate from "./Pages/customizeCertificate.js";
 import Subscriber from "./Pages/Subscriber.js";
 import AdminCertificateReq from "./Components/Admin/CertificateReq/AdminCertificateReq.js";
 import AdminCertificateUploaded from "./Components/Admin/CertificateUploaded/AdminCertificateUploaded.js";
@@ -39,19 +38,17 @@ import Analytics from "./Components/Admin/Analytics/Analytics.js";
 
 
 export default function App() {
-const [tenentId, setTenentId] = useState(null);
-useEffect(() => {
-const tenentAccessToken = Cookies.get('tenentaccessToken');
-  if (tenentAccessToken) {
-    const decodedToken = jwtDecode(tenentAccessToken); // decode the acces token
-    const tenentId = decodedToken?.tenent?.tenentid;
-    setTenentId(tenentId);
-  } else {
-    console.error('Access token not found in cookies');
-  }
-}, []); 
-const organizationId = tenentId;
-console.log("organizationId",organizationId) 
+const [OrganiztionId, setOrganiztionId] = useState(null);
+  useEffect(() => {
+    axios.get(`http://localhost:5000/tenent/OrganiztionId`,
+    { withCredentials: true })
+      .then(response => {
+        setOrganiztionId(response.data.organizationId);
+      })
+      .catch(error => {
+        console.error('Error fetching certificate data:', error);
+      });
+  }, [OrganiztionId]);
 
   return (
     <div>
@@ -83,12 +80,11 @@ console.log("organizationId",organizationId)
             
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin" element={<Analytics />} />
-            <Route path="/admin/customize" element={<SendAdmincustomize organizationId={organizationId} />} />
-            <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled organizationId={organizationId} />} />
+            <Route path="/admin/customize" element={<SendAdmincustomize organizationId={OrganiztionId} />} />
+            <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled organizationId={OrganiztionId} />} />
             <Route path="/admin/customizecertificate/:studentID" element={<CustomizeCertificate />} />
-            <Route path="/admin/reqcertificate" element={<AdminCertificateReq organizationId={organizationId} />} />
-            <Route path="/admin/certificateuploaded" element={<AdminCertificateUploaded organizationId={organizationId} />} />
-
+            <Route path="/admin/reqcertificate" element={<AdminCertificateReq organizationId={OrganiztionId} />} />
+            <Route path="/admin/certificateuploaded" element={<AdminCertificateUploaded organizationId={OrganiztionId} />} />
             <Route path="/student/customize/:organizationId" element={<GetSendStudentCustomFields/>} />
 
             {/* <Route path="/admin" element={<Admin />} />

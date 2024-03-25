@@ -150,12 +150,14 @@ const Profile = () => {
                         </div>
                         <div className='ContainerProfileImage'>
                             <label className="titleProfilePhoto">Profile Photo</label>
+                            <div className='ContainerProfileselectImage'>
                             <input id="profile_img" type="file" accept="image/*" onChange={(e) => setProfileImg(e.target.files[0])}
                                 style={{ display: 'none' }} />
 
                             {profile_Img && (
                                 <img src={URL.createObjectURL(profile_Img)} alt="Profile" />
                             )}
+                            </div>
                             <div className='btnUpdate' onClick={() => document.getElementById("profile_img").click()}>
                                 <a href="#">
                                     <span></span>

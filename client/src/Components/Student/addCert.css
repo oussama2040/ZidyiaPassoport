@@ -1,13 +1,17 @@
+.MainStudentContainer{
+  width: 100%;
+}
 .certificate-title {
   display: flex;
   align-items: center;
   margin: 15px;
+
 }
 
 
 .addCert {
   height: 600px;
-  width: 900px;
+  width: 90%;
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 6px;
@@ -27,7 +31,7 @@
 
 
 .AddCertContainer input {
-  width: 400px;
+  width: 500px;
   height: 42px;
   background-color: transparent;
   padding-left: 1rem;
@@ -58,7 +62,7 @@
 
 
 .AddCertContainer select {
-  width: 400px;
+  width: 500px;
   height: 42px;
   background-color: #384450;
   padding-left: 1rem;
@@ -92,13 +96,14 @@
     "name name"
     "name name"
     "button button";
-  max-width: 400px;
+
   padding: 20px;
   color: #707070;
+
 }
 
 
-.button-container button {
+.button-container{
   /* background-color: #5DD3B3;
   color: white;
   padding: 10px 15px;
@@ -106,15 +111,22 @@
   border-radius: 5px;
   cursor: pointer; */
 
+
+width: 100%;
+margin-left: 100%;
+
+}
+.createBtn{
+
   background-color: #5DD3B3;
   color: white;
-  padding: 10px 15px;
+  height: 40px;
   width: 150px;
   /* margin-top: 50px; */
   cursor: pointer;
   border-radius: 26px;
+  float: right;
 }
-
 .button-container button:hover {
   /* background-color: #4CA89E; */
   background-color: #9be9d4;
@@ -122,6 +134,7 @@
 
 .containeradd {
   position: relative;
+
 }
 
 .ChooseCertificate {
@@ -130,13 +143,22 @@
   color: #fff;
   cursor: pointer;
   border-radius: 5px;
+
 }
 
 .ChooseCertificate:hover {
   color: #5DD3B3;
 }
 
-
+.imgborder{
+  border: 2px solid #94949f;
+  height: 180px;
+  border-radius: 0.75rem;
+  margin-top: 5px;
+  display: flex;
+  justify-content:center ;
+  align-items: center;
+}
 #selectedImage {
   width: 150px;
   height: 150px;
@@ -167,7 +189,7 @@
   display: flex;
   flex-direction: row;
   /* border: 2px solid #5DD3B3; */
-  width: 90%;
+  width: 95%;
   /* margin: auto; */
   padding: 20px;
   justify-content: space-between;
