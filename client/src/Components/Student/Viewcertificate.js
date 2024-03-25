@@ -28,13 +28,14 @@ const Certificates = () => {
     useEffect(() => {
         // Fetch verified certificates for a specific student
         const fetchCertificates = async () => {
-            
+
             try {
                 const response = await axios.get(`http://localhost:5000/student/verifiedCertificate`, {
-                withCredentials: true
+                    withCredentials: true
                 });
                 setCertificates(response.data.certificates.map(formatCertificateDate));
                 console.log(response.data.certificates);
+                console.log()
             } catch (error) {
                 console.error('Error fetching certificates:', error);
 
@@ -54,6 +55,13 @@ const Certificates = () => {
         const day = issuedDate.getDate();
         const suffix = getDaySuffix(day);
         certificate.formatted_issued_date = `Issued On: ${dateString.replace(/\d+(st|nd|rd|th)/, `$&${suffix}`)}`;
+
+
+        // Format expiry date if it exists
+        if (certificate.expiry) {
+            const expiryDate = new Date(certificate.expiry);
+            certificate.formatted_expiry_date = `Expiry Date: ${expiryDate.toLocaleDateString('en-US', options)}`;
+        }
         return certificate;
     };
 
@@ -74,11 +82,12 @@ const Certificates = () => {
             case 'issued-date':
                 return [...certificates].sort((a, b) => new Date(a.verification_date) - new Date(b.verification_date));
             case 'expiry-date':
-                return [...certificates].sort((a, b) => new Date(a.expiry_date) - new Date(b.expiry_date));
+                return [...certificates].sort((a, b) => new Date(a.expiry) - new Date(b.expiry));
             default:
                 return certificates;
         }
     };
+
 
     const handleSortChange = (event) => {
         setSortCriteria(event.target.value);
@@ -120,17 +129,15 @@ const Certificates = () => {
                                         <img src={certificate.CertificateFile} />
                                     </div>
                                     <div class="card_content">
-
                                         <p className='issueBy'>Issued by: <span className='esa'>{certificate.organization_name}</span> </p>
-                                        <p className='issueDate'>{certificate.formatted_issued_date}</p> {/* Use formatted date */}
+                                        <p className='issueDate'>{certificate.formatted_issued_date}</p>    
+                                        {certificate.formatted_expiry_date && <p className='expiry'>{certificate.formatted_expiry_date}</p>}
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
-
                 </div>
-
             </div>
             <CertificateModal certificate={selectedCertificate} isModalOpen={isModalOpen} closeModal={closeModal} />
         </>
@@ -141,8 +148,6 @@ const CertificateModal = ({ certificate, isModalOpen, closeModal }) => {
     const handleLinkedInShare = async () => {
         const certificateImageSrc = certificate.CertificateFile;
         const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(certificateImageSrc)}`;
-
-
         try {
             window.open(linkedinShareUrl, '_blank');
         } catch (error) {
@@ -176,7 +181,7 @@ const CertificateModal = ({ certificate, isModalOpen, closeModal }) => {
                         <div class="closeBtn"><button class="btnClose" onClick={closeModal}><IoMdClose /></button></div>
                         <div className="certShare">
                             <p>Certificate</p>
-                            <p>{certificate.expiry_date} </p>
+                            {/* <p>{certificate.expiry_date} </p> */}
                             <div className="share-download-options">
                                 <p className="shareLinkedin" onClick={handleLinkedInShare}><FaShareAlt /> &nbsp;Share On LinkedIn</p>
                                 <p className="download" onClick={handleDownload}><FaDownload /> &nbsp;Download</p>

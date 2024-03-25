@@ -56,7 +56,7 @@ const getVerifiedCertificatesForStudent = async (req, res) => {
             student.first_name,
             student.last_name,
             verification.verification_date,
-            verification.expiry_date,
+            verification.expiry_date AS expiry,
             tenent.organization_id,
             tenent.name AS organization_name,
             tenent.location AS organization_location,
