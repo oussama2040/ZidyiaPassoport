@@ -66,7 +66,7 @@ const Certificate = () => {
     };
     return (
         <>
-            <div >
+            <div className='s'>
                 <div class="certificate-title">
                     <IoIosArrowBack style={{ color: '#5DD3B3' }} />
                     <span>Add Certificate</span>
@@ -182,13 +182,13 @@ const Certificate = () => {
 
                         </div>
 
-                        <div className="button-container">
+                     
+                    </div>
+                    <div className="button-container">
                             <button onClick={(e) => handleCreateCertificate(e)} className="createBtn">
                                 Create
                             </button>
                         </div>
-                    </div>
-
                 </form>
             </div>
         </>

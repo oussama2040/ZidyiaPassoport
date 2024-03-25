@@ -84,8 +84,10 @@ export const DeleteCustomFieldd = async ( req, res)=>{
 
     export const fillAndSendFormToOrganization = async (req, res) => {
       try {
+        const student_id = req.student.id;
+        console.log(student_id);
         const { organizationId } = req.params;
-        const { filledForm, student_id } = req.body;
+        const { filledForm } = req.body;
     
         let FileOption = '';
     
