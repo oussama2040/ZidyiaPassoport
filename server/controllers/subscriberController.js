@@ -43,3 +43,19 @@ export const RequestSubscription = async (req, res) => {
 //access verification platform
 //scan qrcode and receive verified certificate
 //update profile(pass)
+
+
+export const GetSubscriberinfo = async (req, res) => {
+    try {
+        const subscriberName = req.subscriber.subscribername;
+            res.status(200).json({
+            message: "Subscription request added successfully",
+            subscriberName: subscriberName, // Sending subscriber name in the response
+            
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+

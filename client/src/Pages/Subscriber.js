@@ -44,6 +44,7 @@ const Subscribers = () => {
 
   return (
     <div>
+    <NavbarSub/>
         <Subscriber/>
     </div>
   );
