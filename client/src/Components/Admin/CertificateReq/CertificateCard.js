@@ -60,11 +60,11 @@ const CertificateCard = ({ certificate }) => {
       {certificate.map((cert, index) => (
         <div key={cert.request_id} className={`mb-4 w-full md:w-1/2 lg:w-1/4 ${index < 4 ? 'mr-4' : ''} ${styles.CertificateCard}`} onClick={() => handleCertificateClick(cert)}>
           <LiaCertificateSolid  className={styles.certificateIcon}/>
-          <img className="w-full h-64 object-cover object-center" src={cert.CertificateFile} alt="Certificate" />
+          <img className={`w-full h-64 object-cover object-center ${styles.CertificateCardImages} `}src={cert.CertificateFile} alt="Certificate" />
           <div className="p-4">
             <h2 className={styles.customizeFieldNameTOPIC}>{cert.first_name} {cert.last_name}</h2>
-            <p className="text-sm text-gray-400 flex">Status:<div className={styles.customizeFieldNametext}>{cert.status}</div> </p>
-            <p className="text-sm text-gray-400 flex">Created At:<div className={styles.createat}>{new Date(cert.created_at).toDateString()}</div></p>
+            <p className={`text-sm text-gray-400 flex ${styles.responsiveText}`}>Status:<div className={styles.customizeFieldNametext}>{cert.status}</div> </p>
+            <p className={`text-sm text-gray-400 flex ${styles.responsiveText}`}>Created At:<div className={styles.createat}>{new Date(cert.created_at).toDateString()}</div></p>
           </div>
         </div>
       ))}
@@ -77,12 +77,12 @@ const CertificateCard = ({ certificate }) => {
               <h2 className={styles.customizeFieldTopicName}>{selectedCertificate.first_name} {selectedCertificate.last_name}</h2>
               <h2 className={styles.customizeFieldTopicName}>{selectedCertificate.name}</h2>
               <div className={styles.certificateflexDetails}>
-                <p className={`${styles.customizeFieldNametextOverlay} flex`}>Issued on:<div className="text-sm text-gray-400 ml-2">{new Date(selectedCertificate.issued_date).toDateString()}</div></p>
-                <p className={`${styles.customizeFieldNametextOverlay} flex`}>Expires on: <div className="text-sm text-gray-400 ml-2">{new Date(selectedCertificate.expiry_date).toDateString()}</div></p>
+                <p className={`${styles.customizeFieldNametextOverlay} flex`}>Issued on:<div className={`text-sm text-gray-400 ml-2 ${styles.overlayvalues}`}>{new Date(selectedCertificate.issued_date).toDateString()}</div></p>
+                <p className={`${styles.customizeFieldNametextOverlay} flex`}>Expires on: <div  className={`text-sm text-gray-400 ml-2 ${styles.overlayvalues}`}>{new Date(selectedCertificate.expiry_date).toDateString()}</div></p>
               </div>
               <div className={styles.certificateflexDetails}>
-                <p className={`${styles.customizeFieldNametextOverlay} flex`}>Body:<div className="text-sm text-gray-400 ml-2"> {selectedCertificate.body} </div></p>
-                <p className={`${styles.customizeFieldNametextOverlay} flex`}>Created At:<div className="text-sm text-gray-400 ml-2"> {new Date(selectedCertificate.created_at).toDateString()}</div></p>
+                <p className={`${styles.customizeFieldNametextOverlay} flex`}>Body:<div  className={`text-sm text-gray-400 ml-2 ${styles.overlayvalues}`}> {selectedCertificate.body} </div></p>
+                <p className={`${styles.customizeFieldNametextOverlay} flex`}>Created At:<div  className={`text-sm text-gray-400 ml-2 ${styles.overlayvalues}`}> {new Date(selectedCertificate.created_at).toDateString()}</div></p>
               </div>
               <div className={styles.rejectReason}>
                 <label>

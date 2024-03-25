@@ -199,3 +199,85 @@
     color:#5DD3B3;
     margin-left: 5px;
   }
+
+  @media only screen and (max-width: 768px) {
+    .Certificateform{
+      min-width:110%;
+      min-height: 602px;
+    }
+    .reqdisplayflexcolomn{
+      width: 100%;
+
+    }
+    .RequestPendingTitle{
+      font-size: 9px;
+    }
+ 
+    .CertificateCard{
+      width: 100%;
+      margin: 0PX;
+      margin-bottom: 10px;
+      height: 250px;
+    }
+    .CertificateCardImages{
+      height: 100px;
+    }
+
+    .customizeFieldNametext{
+      font-size: 9px;
+    }
+    .createat{
+      font-size: 9px;
+    }
+    .CertificateoverlayContent{
+      width: 70%;
+      min-height: 60%;
+    }
+    .closebtn{
+      font-size: 9px;
+    }
+    .customizeFieldTopicName{
+
+      font-size: 10px;
+    }
+    .certificateflexDetails{
+    
+      display: flex;
+      flex-direction: column;
+ 
+    }
+    .customizeFieldNametextOverlay{
+    
+      font-size: 9px;
+      width: 90%;
+      margin-left: 0px;
+    }
+    .rejectReason{
+      margin-left: 0px;
+      font-size: 14px;
+    }
+    .ReasonBtn{
+      width: 80px;
+      height: 20px;
+      font-size: 9px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .overlayvalues{
+      font-size: 9px;
+    }
+    .CustomizeReject,
+    .CustomizeVerifyt{
+      font-size: 9px;
+      margin-left: 5px;
+    }
+    .rejectReason input{
+      width: 100%;
+      margin-left: 5px;
+    }
+    .responsiveText{
+      font-size: 9px;
+    }
+
+  }
