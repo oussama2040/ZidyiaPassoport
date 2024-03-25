@@ -8,18 +8,21 @@
     height: 500px;
     margin-bottom: 50px;
     box-shadow: 1px 0px 10px;
+  
+   
    }
    .backgroudFlexRegister{
     background-color:#384450;
     width: 50%;
-    margin-top: 2%;
+    margin-top: 1%;
     margin-left: 25%;
     display: flex;
-    height: 650px;
+    height: 670px;
     border-top-right-radius: 25%;
     border-bottom-right-radius: 25%;
     margin-bottom: 50px;
     box-shadow: 1px 0px 10px;
+
    }
 
    .box{
@@ -29,7 +32,8 @@
     border-top-right-radius: 25%;
     border-bottom-right-radius: 25%;
     box-shadow: -10px 0px 15px 0px rgba(0, 0, 0, 0.5);
-    
+   
+
 }
 
 .boxRegister{
@@ -43,7 +47,7 @@
 }
 
 .rightImage{
-    width: 100%;
+    width: 95%;
     background: linear-gradient(250deg, transparent 35%, #2d3741, #2d3741) border-box ;
     border-bottom: 4px solid transparent;
     border-top: 4px solid transparent;
@@ -51,54 +55,69 @@
     background-size: 200% 100%;
     animation: gradient 5s ease infinite;
    
+  
 }
 .rightImageContainerRegister{
   margin-top: 35%;
+
 }
 
 .rightImageContainerLogin{
   margin-top: 0%;
   display: flex;
   flex-direction: column;
+ 
+  
 }
 
 .logoImg{
   width:70%;
   height:50%;
-  margin-left: 13%;
+  margin-left: 5%;
   /*border: 1px solid red;*/
+  
 }
 .logoImage{
   width:100%;
   height:100%;
  /* border: 1px solid blue;*/
+margin-bottom: 10%;
+ 
 }
 .helloText{
   color: #28EFA9;
   font-size: 30px;
-  margin-left: 17%;
-  margin-top: 15%;
-  width: 270px;
+  width: 250px;
+  margin: auto;
+  font-family: 'Core Rhino 45', sans-serif;
 }
 .helloTextRegister{
   color: #28EFA9;
   font-size: 32px;
-  margin-left: 15%;
+  margin-left: 20%;
   margin-top: 60%;
   width: 270px;
+  font-family: 'Core Rhino 45', sans-serif;
 }
 .welcomeText{
   color: #28EFA9;
   font-size: 20px;
-  margin-left: 13%;
-  margin-top: 5%;
-
+  margin-left: 14%;
+  font-family: 'Core Rhino 45', sans-serif;
+  margin-top: 5px;
+}
+.welcomeTextZidyia{
+  color: #28EFA9;
+  font-size: 30px;
+  margin-left: 2%;
+  font-family: "Corinthia", sans-serif;
 }
 .welcomeText2{
   color: #28EFA9;
   font-size: 15px;
   margin-left: 22%;
   margin-top: 5%;
+  
 
 }
 .registerText{
@@ -111,8 +130,13 @@
 .registerText2{
   color: #28EFA9;
   font-size: 13px;
-  margin-left: 14%;
+  margin-left: 28%;
 
+}
+.registerText3{
+  color: #28EFA9;
+  font-size: 13px;
+  margin-left: 20%;
 
 }
 
@@ -212,8 +236,8 @@
    -webkit-transition: all 0.2s ease-in;
    -moz-transition: all 0.2s ease-in;
    transition: all 0.2s ease-in;
-   margin-left:  35%;
-   margin-top: 4%;
+   margin-left:  32%;
+   margin-top: 10%;
  }
  
  .SignUpbutton:hover {
@@ -297,7 +321,7 @@
  /* --------------Input----------------- */
 
  .inputText {
-  height: 30px;
+  height: 40px;
   width: 90%;
   box-sizing: border-box;
   border: 1px solid #ccc;
@@ -311,18 +335,38 @@
   margin-left: 20px;
   color: #fff;
 }
+.inputTextregester {
+  height: 30px;
+  width: 90%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  background-color: transparent;
+  padding: 10px;
+  transition: .5s linear;
+  font-family: monospace;
+  letter-spacing: 1px;
+  margin-left: 20px;
+  color: #fff;
+  font-size:12px ;
+}
 
-.inputText:focus {
+.inputText:focus,
+ .inputTextregester:focus{
   outline: none;
   border-color: #3498db;
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
   color: #fff;
+  font-size: large;
 }
 
-.inputText:focus::placeholder {
+.inputText:focus::placeholder,
+.inputTextregester:focus::placeholder {
   color: #2d3741;
 }
-.inputText::placeholder{
+.inputText::placeholder,
+.inputTextregester::placeholder{
   font-size: medium;
 }
 

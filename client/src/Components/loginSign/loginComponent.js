@@ -26,25 +26,9 @@ function LoginComponent({ apiUrl, userRole }) {
       const { [userRole]: userData, success, message } = response.data;
       const { accessToken, refreshToken, adminemail, firstPassUpdate } = userData;
 
-      //const accessToken = SuperAdmin.accessToken
-      //const refreshToken = SuperAdmin.refreshToken
-      //const studentId = student.id
-      //const firstName = student.first_name;
-      //const lastName = student.last_name;
-      //const email = student.email;
 
       console.log(accessToken);
       console.log(refreshToken);
-      // console.log(studentId);
-      // console.log(firstName);
-      // console.log(lastName);
-      // console.log(email);
-      // console.log(response.data);
-
-      //document.cookie = `user_id=${studentId}; Secure; Max-Age=${3 * 60 * 60};`;
-      //document.cookie = `first_name=${firstName}; Secure; Max-Age=${3 * 60 * 60};`;
-      // document.cookie = `${userRole}accessToken=${accessToken}; Secure; Max-Age=${3 * 60 * 60};`;
-      // document.cookie = `${userRole}refreshToken=${refreshToken}; Secure; Max-Age=${3 * 60 * 60};`;
 
 
 
@@ -54,14 +38,14 @@ function LoginComponent({ apiUrl, userRole }) {
         console.log('Login successful!');
         console.log(`${userRole}:`, userRole); // User data
         console.log(firstPassUpdate); // User data
-        Cookies.set(`${userRole}accessToken`, accessToken, { secure: true, expires: 3 * 60 * 60 });
-        Cookies.set(`${userRole}refreshToken`, refreshToken, { secure: true, expires: 3 * 60 * 60 });
+        Cookies.set(`${userRole}accessToken`, accessToken, { secure: true, expires: new Date(Date.now() + 3 * 60 * 1000) });
+        Cookies.set(`${userRole}refreshToken`, refreshToken, { secure: true, expires: 7 });
         // if the user is a student redirect to student page when login successful, if the user is a super admin redirect to super admin page
         //if the user is a subscriber or a tenent redirect to update password page, and send the email of the user in the url
         // Redirect based on user role
         if (userRole === 'student') {
           // Redirect to student page
-          navigate('/student/customize');
+          navigate('/student/profile');
         } else if (userRole === 'SuperAdmin') {
           // Redirect to super admin page
           navigate('/superadmin');
@@ -91,7 +75,6 @@ function LoginComponent({ apiUrl, userRole }) {
     }
 
   };
-  // console.log('Form ', formData);
 
 
 
@@ -104,7 +87,10 @@ function LoginComponent({ apiUrl, userRole }) {
             <img className={styles.logoImage} src={Zidyia_Logo} />
           </div>
           <div className={styles.helloText} >Hello, {userRole}!</div>
-          <div className={styles.welcomeText} >Welcome to Zidyia Passport</div>
+          <div className='flex'>
+          <div className={styles.welcomeText} >Welcome to </div>
+          <div className={styles.welcomeTextZidyia} >Zidyia Passport</div>
+          </div>
           {userRole === 'student' && (
             <React.Fragment>
               <div className={styles.registerText} >Register with your personal details to use</div>
@@ -155,7 +141,7 @@ function LoginComponent({ apiUrl, userRole }) {
             Log in
           </button>
         </form>
-        {userRole === 'student' && (
+        {/* {userRole === 'student' && (
           <div className={styles.haveAccountName}>
             <h3>You Don't have an account ? </h3>
             <h3>
@@ -164,7 +150,7 @@ function LoginComponent({ apiUrl, userRole }) {
               </Link>
             </h3>
           </div>
-        )}
+        )} */}
 
         <div className={styles.ForgetPass}>
           <h3>

@@ -1,66 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import AddCertificate from '../Components/Student/addCertificate';
 import SideBarStudent from '../Components/SideBar/SideBarStudent';
 import NavBarStudent from '../Components/NavBarAdmin/NavBarStudent'
 
 
 function Home() {
-   // ---------authentication Student--------//    
-const [authenticated, setAuthenticated] = useState(true);
+ // ---------authorization Student--------//    
+const [validToken, setValidToken] = useState(false);
+const [loading, setLoading] = useState(true);
 const navigate = useNavigate();
-  
+
 useEffect(() => {
-    const studentaccessToken = getCookie('studentaccessToken');
-    if (!studentaccessToken) {
-        setAuthenticated(false);
-        navigate('/student/login');
-    } else {
-        // Decode the access token to extract role information
-        const decodedToken = decodeAccessToken(studentaccessToken);
-        if (decodedToken && decodedToken.student.student.role !== 'student') {
-          setAuthenticated(false);
-          navigate('/student/login');
-        }
-        else{
-          setAuthenticated(true);
-        }
+  const checkTokenValidity = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/student/authorization', { withCredentials: true });
+      const status = response.data.grantedAccess;
+      setValidToken(status === true);
+      setLoading(false); // Set loading to false once token validity check is complete
+    } catch (error) {
+      console.error('Error checking token validity:', error);
+      setValidToken(false);
+      setLoading(false); // Set loading to false if there's an error
     }
+  };
+
+  checkTokenValidity();
 }, []);
 
-const getCookie = (name) => {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.startsWith(name + '=')) {
-            return cookie.substring(name.length + 1);
-        }
-    }
-    return null;
-};
 
-const decodeAccessToken = (accessToken) => {
-  try {
-      // Decode the JWT token
-      const tokenPayload = accessToken.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-      const decodedToken = JSON.parse(atob(tokenPayload));
-      return decodedToken;
-  } catch (error) {
-      console.error('Error decoding access token:', error);
-      return null;
-  }
-};
-
-
-if(!authenticated){
-  navigate('/student/login');
+if (loading) {
+  return <div>Loading...</div>;
 }
 
+if (!validToken) {
+  navigate('/student/login');
+  return null; 
+}
 //============================================================================//
 
 
   return (
-    authenticated ? (
     <div>
       <NavBarStudent />
       <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -68,7 +49,6 @@ if(!authenticated){
         <AddCertificate />
       </div>
     </div>
-    ) : null
   )
 }
 

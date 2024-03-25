@@ -1,68 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Subscriber from '../Components/Subscriber/subscriber';
 
 
 const Subscribers = () => {
 
   // ---------authentication Subscriber--------//    
-const [authenticated, setAuthenticated] = useState(true);
-const navigate = useNavigate();
+  const [validToken, setValidToken] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   
-useEffect(() => {
-    const subscriberaccessToken = getCookie('subscriberaccessToken');
-    if (!subscriberaccessToken) {
-        setAuthenticated(false);
-        navigate('/subscriber/login');
-    } else {
-        // Decode the access token to extract role information
-        const decodedToken = decodeAccessToken(subscriberaccessToken);
-        if (decodedToken && decodedToken.subscriber.role !== 'subscriber') {
-          setAuthenticated(false);
-          navigate('/subscriber/login');
-        }
-        else{
-          setAuthenticated(true);
-        }
-    }
-}, []);
-
-const getCookie = (name) => {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.startsWith(name + '=')) {
-            return cookie.substring(name.length + 1);
-        }
-    }
-    return null;
-};
-
-const decodeAccessToken = (accessToken) => {
-  try {
-      // Decode the JWT token
-      const tokenPayload = accessToken.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-      const decodedToken = JSON.parse(atob(tokenPayload));
-      return decodedToken;
-  } catch (error) {
-      console.error('Error decoding access token:', error);
-      return null;
+  useEffect(() => {
+    const checkTokenValidity = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/subscriber/authorization', { withCredentials: true });
+        const status = response.data.grantedAccess;
+        setValidToken(status === true);
+        setLoading(false); // Set loading to false once token validity check is complete
+      } catch (error) {
+        console.error('Error checking token validity:', error);
+        setValidToken(false);
+        setLoading(false); // Set loading to false if there's an error
+      }
+    };
+  
+    checkTokenValidity();
+  }, []);
+  
+  
+  if (loading) {
+    return <div>Loading...</div>;
   }
-};
+  
+  if (!validToken) {
+    navigate('/subscriber/login');
+    return null; 
+  }
 
-
-if(!authenticated){
-  navigate('/subscriber/login');
-}
 
 //============================================================================//
 
   return (
-    authenticated ? (
     <div>
         <Subscriber/>
     </div>
-    ) : null
   );
 }
 

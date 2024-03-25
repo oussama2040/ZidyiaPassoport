@@ -103,4 +103,12 @@ const getAllOrganizations = async (req, res) => {
     }
 };
 
+
 export {getAllOrganizations};
+
+
+
+export const getOrganiztionId = async (req, res) => {
+    const organizationId = req.tenent.tenentid
+    res.json({ organizationId: organizationId });
+};

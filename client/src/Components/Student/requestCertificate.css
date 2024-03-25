@@ -1,7 +1,8 @@
 .request-title {
     display: flex;
     align-items: center;
-    margin: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     color: #fff;
 }
 
@@ -9,6 +10,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+   
 }
 
 .btnRequest {
@@ -78,6 +80,7 @@
     padding-top: 20px;
     display: flex;
     flex-direction: column;
+
 }
 
 .CertHeader {

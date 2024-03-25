@@ -96,7 +96,7 @@ function SignupComponent() {
       <div className={`max-w-l mx-auto p-6 ${styles.rightImage}`}>
         <h2 className={`text-xl font-bold mb-4 ${styles.topicName}`}>Create an account</h2>
         {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
-        {successMessage && <div style={{ color: '#579AD3', textAlign: 'center' }}>{successMessage}</div>}
+        {successMessage && <div style={{ color: '#28EFA9', textAlign: 'center' }}>{successMessage}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-2">
             <label htmlFor="first_name" className={`block text-gray-600 text-sm font-semibold mb-2 ${styles.inputName}`}>Firstname</label>
@@ -106,7 +106,7 @@ function SignupComponent() {
               name="first_name"
               value={formData.first_name}
               onChange={handleChange}
-              className={`w-full p-1 border rounded-md ${styles.inputText}`}
+              className={`w-full p-1 border rounded-md ${styles.inputTextregester}`}
               placeholder="Enter your firstname"
               required
             />
@@ -119,7 +119,7 @@ function SignupComponent() {
               name="last_name"
               value={formData.last_name}
               onChange={handleChange}
-              className={`w-full p-1 border rounded-md ${styles.inputText}`}
+              className={`w-full p-1 border rounded-md ${styles.inputTextregester}`}
               placeholder="Enter your lastname"
               required
             />
@@ -132,7 +132,7 @@ function SignupComponent() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full p-1 border rounded-md ${styles.inputText}`}
+              className={`w-full p-1 border rounded-md ${styles.inputTextregester}`}
               placeholder="Enter your email"
               required
             />
@@ -145,7 +145,7 @@ function SignupComponent() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className={`w-full p-1 border rounded-md mb-2 ${styles.inputText}`}
+              className={`w-full p-1 border rounded-md mb-2 ${styles.inputTextregester}`}
               placeholder="Enter your password"
               required
             />
@@ -158,7 +158,7 @@ function SignupComponent() {
               name="mobile"
               value={formData.mobile}
               onChange={handleChange}
-              className={`w-full p-1 border rounded-md ${styles.inputText}`}
+              className={`w-full p-1 border rounded-md ${styles.inputTextregester}`}
               placeholder="Enter your mobile number"
               required
             />
@@ -171,7 +171,7 @@ function SignupComponent() {
               name="academic_id"
               value={formData.academic_id}
               onChange={handleChange}
-              className={`w-full p-1 border rounded-md ${styles.inputText}`}
+              className={`w-full p-1 border rounded-md ${styles.inputTextregester}`}
               placeholder="Enter your academic ID"
               required
             />
@@ -184,7 +184,7 @@ function SignupComponent() {
               name="ID"
               accept="image/*"
               onChange={handleImageChange}
-              className={`w-full p-1 border rounded-md mb-6 ${styles.inputText}`}
+              className={`w-full p-1 border rounded-md mb-6 ${styles.inputTextregester}`}
               multiple
             />
           </div>
@@ -195,32 +195,32 @@ function SignupComponent() {
             Sign Up
           </button>
         </form>
-        <div className={styles.haveAccountNameRegister}>
+        {/* <div className={styles.haveAccountNameRegister}>
           <h3>Already have an account ? </h3>
 
           <h3> <Link to="/student/login" className={styles.loginLink}>
             Log in
           </Link>
           </h3>
-        </div>
+        </div> */}
       </div>
 
 
       <div className={styles.boxRegister}>
-      <div className={styles.rightImageContainerRegister}>
-        <div className={styles.helloTextRegister} >Welcome Back!</div>
-        <div className={styles.registerText} >Login By entering your personal details</div>
-        <div className={styles.registerText2} >to use the platform features.</div>
-        <button
-        type="submit"
-        className={styles.SignUpbutton}
-        >
-        <Link to="/student/login" className={styles.SignUpLink}>
-        Log In
-        </Link>
-        </button>
-      </div>
-        
+        <div className={styles.rightImageContainerRegister}>
+          <div className={styles.helloTextRegister} >Welcome Back!</div>
+          <div className={styles.registerText3} >Login By entering your personal details</div>
+          <div className={styles.registerText3} >to use the platform features.</div>
+          <button
+            type="submit"
+            className={styles.SignUpbutton}
+          >
+            <Link to="/student/login" className={styles.SignUpLink}>
+              Log In
+            </Link>
+          </button>
+        </div>
+
       </div>
     </div>
   );

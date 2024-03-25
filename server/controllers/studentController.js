@@ -5,13 +5,14 @@ import bcrypt from 'bcrypt';
 
 /**___________________________________________
  * @desc    Get All Certificates For Student
- * @route    /students/certificates/:studentId
+ * @route    /student/requestCertificate
  * @method   GET
  * @access   private
  * ---------------------------------------------**/
 const getAllCertificatesForStudent = async (req, res) => {
     try {
-        const studentId = req.params.studentId;
+        const studentId = req.student.id;
+        console.log(studentId);
         const query = `
             SELECT
                 cert.*,
@@ -42,13 +43,13 @@ const getAllCertificatesForStudent = async (req, res) => {
 
 /**___________________________________________
  * @desc    Get Verified Certificates For Student
- * @route    /students/certificates/verified/:studentId
+ * @route    /student/verifiedCertificate
  * @method   GET
  * @access   private
  * ---------------------------------------------**/
 const getVerifiedCertificatesForStudent = async (req, res) => {
-    const studentId = req.params.studentId;
-    console.log(studentId);
+    const Id = req.student.id;
+    console.log(Id);
     try {
         const query = `
         SELECT
@@ -70,7 +71,7 @@ const getVerifiedCertificatesForStudent = async (req, res) => {
             verification.verification_date DESC;
     `;
 
-        const [rows, fields] = await connection.promise().query(query, [studentId]);
+        const [rows, fields] = await connection.promise().query(query, [Id]);
 
         if (rows && rows.length > 0) {
             res.status(200).json({
@@ -88,21 +89,12 @@ const getVerifiedCertificatesForStudent = async (req, res) => {
 
 /**___________________________________________
  * @desc    Share only verified Certificate
- * @route    /students/certificates/share/:certificateId
+ * @route    
  * @method   POST
  * @access   private
  * ---------------------------------------------**/
 const shareCertificate = async (req, res) => {
-    const studentId = req.user.user.id;
-    const certificateId = req.params.certificateId;
-
     try {
-        const [certificate] = await connection
-            .promise()
-            .query('SELECT * FROM request_certificate WHERE request_id = ? AND status = "verified" AND student_id = ?', [certificateId, studentId]);
-
-
-        res.status(200).json({ message: 'Certificate shared successfully.' });
     } catch (error) {
         console.error('Error sharing certificate:', error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -111,12 +103,32 @@ const shareCertificate = async (req, res) => {
 
 
 
-
-export {
-    getAllCertificatesForStudent,
-    getVerifiedCertificatesForStudent,
-    shareCertificate,
+/**___________________________________________
+ * @desc    Get Student Details
+ * @route    /student/GetStudentData
+ * @method   POST
+ * @access   private
+ * ---------------------------------------------**/
+const GetStudentData = async (req, res) => {
+    const studentId = req.student.id;
+    console.log("studentId:",studentId);
+    try {
+        const [rows] = await connection.promise().execute(
+            'SELECT * FROM student WHERE student_id = ?',
+            [studentId]
+        );
+        if (rows.length > 0) {
+            const data = rows[0];
+            res.status(200).json({ data }); 
+        } else {
+            res.status(404).json({ error: 'Student not found' }); 
+        }
+    } catch (error) {
+        console.error('Error retrieving student data:', error);
+        res.status(500).json({ error: 'Internal server error' }); 
+    }
 };
+
 /**___________________________________________
  * @desc    Get Profile Image of a Student
  * @route   /students/profileImage/:studentId
@@ -124,8 +136,8 @@ export {
  * @access  private
  * ---------------------------------------------**/
 const getProfileImage = async (req, res) => {
-    const studentId = req.params.studentId;
-
+    const studentId = req.student.id;
+    console.log("Profile image student Id:", studentId);
     try {
         const [rows] = await connection.promise().execute(
             'SELECT profile_img FROM student WHERE student_id = ?',
@@ -142,8 +154,13 @@ const getProfileImage = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
-
-export { getProfileImage };
+export {
+    getAllCertificatesForStudent,
+    getVerifiedCertificatesForStudent,
+    shareCertificate,
+    GetStudentData,
+    getProfileImage
+};
 
 /**___________________________________________
  * @desc    Update Student Profile
@@ -153,7 +170,7 @@ export { getProfileImage };
  * ---------------------------------------------**/
 const updateProfile = async (req, res) => {
     const { first_name, last_name, password, bio, location, mobile } = req.body;
-    const student_id = req.params.studentId;
+    const student_id = req.student.id;
     let profile_img;
     try {
         // Validate password
@@ -235,11 +252,11 @@ export { updateProfile };
  * @access   private
  * ---------------------------------------------**/
 const addRequestCertificate = async (req, res) => {
+    const student_id = req.student.id;
     let CertificateFile;
     let TranscriptFile;
     let insertedCertificateId;
     const {
-        student_id,
         organization_id,
         name,
         body,
@@ -252,12 +269,10 @@ const addRequestCertificate = async (req, res) => {
             // Upload CertificateFile
             CertificateFile = await uploadImage(req.files.CertificateFile[0].buffer);
         }
-
         if (req.files && req.files.TranscriptFile) {
             // Upload TranscriptFile
             TranscriptFile = await uploadImage(req.files.TranscriptFile[0].buffer);
         }
-
         if (CertificateFile !== undefined) {
             const [certificateResult] = await connection.promise().execute(
                 `INSERT INTO request_certificate 

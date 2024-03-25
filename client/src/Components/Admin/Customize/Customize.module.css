@@ -7,20 +7,16 @@
 .RequestPendingTitle{
   margin-top: 30px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    width:20%;
-    color: white;
+    color: #5DD3B3;
     font-size: large;
   }
   .RequestPendingTitleSendCustomize{
     margin-top: 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width:36%;
-      color: white;
-      font-size: large;
+    display: flex;
+    align-items: center;
+    color: #5DD3B3;
+    font-size: large;
     }
 
 .Mainformsdisplayflex{
