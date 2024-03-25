@@ -56,7 +56,7 @@ function NavbarSub() {
       <span className={styles.NavBarAdminDashborad}>
         {subscriberName ? `Hello, ${subscriberName}` : 'Subscriber Panel'}
       </span>
-      <p className={styles.expirydt}>{expirydate ? `expires on ${expirydate}` : " "}</p>
+      <p className={styles.expirydt}>{expirydate ? `Expires on ${expirydate}` : " "}</p>
       <button className={styles.NavBarAdminLogout} onClick={handleLogout}>
         Logout
       </button>
