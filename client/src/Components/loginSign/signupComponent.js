@@ -207,20 +207,20 @@ function SignupComponent() {
 
 
       <div className={styles.boxRegister}>
-      <div className={styles.rightImageContainerRegister}>
-        <div className={styles.helloTextRegister} >Welcome Back!</div>
-        <div className={styles.registerText3} >Login By entering your personal details</div>
-        <div className={styles.registerText4} >to use the platform features.</div>
-        <button
-        type="submit"
-        className={styles.SignUpbutton}
-        >
-        <Link to="/student/login" className={styles.SignUpLink}>
-        Log In
-        </Link>
-        </button>
-      </div>
-        
+        <div className={styles.rightImageContainerRegister}>
+          <div className={styles.helloTextRegister} >Welcome Back!</div>
+          <div className={styles.registerText3} >Login By entering your personal details</div>
+          <div className={styles.registerText3} >to use the platform features.</div>
+          <button
+            type="submit"
+            className={styles.SignUpbutton}
+          >
+            <Link to="/student/login" className={styles.SignUpLink}>
+              Log In
+            </Link>
+          </button>
+        </div>
+
       </div>
     </div>
   );
