@@ -152,3 +152,66 @@
     margin-left: 3px;
     margin-bottom: 5px;
 }
+
+@media only screen and (max-width: 768px) {
+
+  .Certificateform{
+    min-width:105%;
+    min-height: 602px;
+    margin-right: 40px;
+  }
+
+  .RequestPendingTitle{
+    font-size: 9px;
+  }
+
+  .CertificateCard{
+    width: 100%;
+    margin: 0PX;
+    margin-bottom: 10px;
+    height: 250px;
+  
+
+  }
+  .certificateUplodedimages{
+    height: 100px;
+  }
+
+  .customizeFieldNametext{
+    font-size: 9px;
+  }
+  .customizeemail{
+    font-size: 9px;
+  }
+  .createat{
+    font-size: 9px;
+  }
+  .CertificateoverlayContent{
+    width: 70%;
+    min-height: 30%;
+  }
+  .closebtn{
+    font-size: 9px;
+  }
+  .customizeFieldTopicName{
+
+    font-size: 10px;
+  }
+  .certificateflexDetails{
+  
+    display: flex;
+    flex-direction: column;
+
+  }
+  .customizeFieldNametextOverlay{
+    font-size: 9px;
+    width: 90%;
+    margin-left: 0px;
+  }
+
+  .responsiveText{
+    font-size: 9px;
+  }
+
+
+}

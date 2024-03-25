@@ -1,6 +1,11 @@
 .Customizeflex{
     display: flex;
 }
+.flextwocontainer{
+  display: flex;
+  border: 2px solid red;
+
+}
 .reqdisplayflexcolomn{
   width: 100%;
 }
@@ -351,6 +356,7 @@ input[type="radio"]:checked + label::before {
   min-height: 600px;
   margin-bottom: 20px;
 
+
  }
 
  .customizeAfterimageContainer{
@@ -453,4 +459,148 @@ margin-top: 5px;
 }
  .CustomizeVerifyt{
   color: #5DD3B3;
+}
+
+@media only screen and (max-width: 768px) {
+
+  .RequestPendingTitle{
+ font-size: 9px;
+  }
+  .Mainformsdisplayflex{
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    
+    }
+  .customizeafterform{
+    width: 115%;
+    min-height: 500px;
+
+  }
+  .customizeAfterDropdown{
+    width: 50%;
+    font-size: 9px;
+    padding: 4px; 
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px; 
+    margin-right: 5px;
+    margin-bottom: 15px;
+    color: #fff;
+
+  }
+  .studentcustomizeDropdownOptionsSelect{
+font-size: 5px;
+  
+  }
+  .customizeFieldName{
+    font-size: 9px;
+  }
+  .customizeFieldValue{
+    font-size: 9px;
+  }
+  .rejectReason{
+    margin-left: 0px;
+    font-size: 14px;
+  }
+  .ReasonBtn{
+    width: 80px;
+    height: 20px;
+    font-size: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .CustomizeReject,
+  .CustomizeVerifyt{
+    font-size: 9px;
+    margin-left: 5px;
+  }
+  .rejectReason input{
+    width: 100%;
+    margin-left: 5px;
+  }
+  .bottunVerfiy{
+    width: 80px;
+    height: 20px;
+    font-size: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .customizeAfterimageContainer{
+    width:115%;
+   }
+   .customizeAfterimageContainer img{
+    object-fit: cover;
+    width: 100%;
+    height: 200px;
+   }
+
+   .RequestPendingTitleSendCustomize{
+    font-size: 9px;
+   }
+   .Customizeform {
+    width: 100%;
+  }
+  .CustomizeGetMain{
+    display: none;
+  }
+
+  .CustomizeAddField,
+  .CustomizeSubmit {
+    width: 80px;
+      height: 20px;
+      font-size: 9px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  .customizeAddOption,
+  .customizeRemove{
+    width: 50px;
+    height: 20px;
+    font-size: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .customizeFieldNametext{
+    font-size: 9px;
+  }
+  .customizeIsOptional {
+  font-size: 9px;
+  }
+  .customizeDropdownInput,
+  .customizecheckboxInput,
+  .customizeradioInput {
+    padding: 2px;
+    margin-bottom: 0px;
+    border-radius: 10px;
+    font-size: 10px;
+
+  }
+  .customizeDropdownOptions,
+  .customizeCheckboxRadioOptions,
+  .customizeCheckboxRadioOptions{
+    margin-left: 10px;
+
+  }
+  .customizeselecttype {
+    width: 50%;
+    font-size: 9px;
+    padding: 4px; 
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px; 
+    margin-right: 5px;
+    margin-bottom: 15px;
+    color: #fff;
+
+  }
+
+  .customizeselecttypeback {
+    font-size: 5px;
+    }
 }

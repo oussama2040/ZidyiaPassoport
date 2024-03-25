@@ -58,15 +58,7 @@
 }
 
 
-.NavMain {
-    display: flex;
-    justify-content: start;
-    padding-left: 30px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s; 
-}
+
 
 .active {
     background-color: #5DD3B3; 
@@ -97,4 +89,19 @@
 
 .backcolor{
     background-color: red;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .SideBarMain{
+        width: 90%;
+    }
+    .LogoMain{     
+        margin-left: 12px;
+    }
+ 
+    .NavMain{
+        font-size: 9px;
+        padding-left: 0px;
+    }
 }
