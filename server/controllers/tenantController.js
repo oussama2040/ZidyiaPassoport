@@ -112,3 +112,8 @@ export const getOrganiztionId = async (req, res) => {
     const organizationId = req.tenent.tenentid
     res.json({ organizationId: organizationId });
 };
+
+export const getOrganiztionName = async (req, res) => {
+    const organizationName = req.tenent.tenentname
+    res.json({ organizationName: organizationName });
+};

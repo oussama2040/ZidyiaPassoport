@@ -104,6 +104,9 @@
     border-radius: 26px;
     transition: background-color 0.3s;
     margin-top: 30px;
+    float: right;
+    margin-right: 80px;
+    
   }
   .customizesubmit:hover {
     background-color: #9be9d4;

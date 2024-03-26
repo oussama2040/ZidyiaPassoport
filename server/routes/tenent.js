@@ -5,7 +5,7 @@ import { TenentUpdatePass } from '../controllers/updatePassword.js';
 import {SaveVerifiedCertificate, getOrganizationInfo,getAllOrganizations} from '../controllers/tenantController.js';
 import { TenentvalidateToken } from '../Middleware/validateTokenHandler.js';
 import {grantAccessToSuperadminPage} from '../controllers/superadminController.js';
-import {getOrganiztionId} from '../controllers/tenantController.js'
+import {getOrganiztionId ,getOrganiztionName} from '../controllers/tenantController.js'
 
 const router = express.Router();
 import upload from '../controllers/imageuploadcontroller.js';
@@ -23,5 +23,6 @@ router.get('/Allorganization',getAllOrganizations)
 router.get('/authorization',TenentvalidateToken,grantAccessToSuperadminPage)
 
 router.get('/OrganiztionId',TenentvalidateToken ,getOrganiztionId)
+router.get('/OrganiztionName',TenentvalidateToken ,getOrganiztionName)
 
 export default router;
