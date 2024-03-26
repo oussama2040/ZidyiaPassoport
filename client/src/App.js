@@ -29,11 +29,12 @@ import StudentAllRequests from "./Pages/StudentAllRequest.js";
 import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.js";
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
 import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
-import CustomizeCertificate from "./Pages/customizeCertificate.js" 
+import CustomizeCertificate from "./Pages/customizeCertificate.js";
 import Subscriber from "./Pages/Subscriber.js";
 import AdminCertificateReq from "./Components/Admin/CertificateReq/AdminCertificateReq.js";
 import AdminCertificateUploaded from "./Components/Admin/CertificateUploaded/AdminCertificateUploaded.js";
 import Analytics from "./Components/Admin/Analytics/Analytics.js";
+import EndSubscription from "./Pages/EndSubscription.js";
 
 
 
@@ -76,6 +77,8 @@ const [OrganiztionId, setOrganiztionId] = useState(null);
             <Route path="/superAdmin/login" element={<SuperAdminLogin />} />
             <Route path="/superAdmin/forgetpassword" element={<SuperAdminForgetPass />} />
             <Route path="/subscriber/scanQrCode" element={<Subscriber />} />
+            
+            <Route path="/subscriber/subscriptionEnd" element={<EndSubscription />} />
             <Route path="/superAdmin/resetpass" element={<SuperAdminResetPass />} />
             
             <Route path="/admin" element={<Admin />} />

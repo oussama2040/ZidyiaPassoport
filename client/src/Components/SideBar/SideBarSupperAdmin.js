@@ -38,12 +38,12 @@ function SideBarSupperAdmin({ activeTab, handleTabClick }) {
           active={activeTab === 'Create Verifier'}
           onClick={() => handleTabClick('Create Verifier')}
         />
-        <Nav
+        {/* <Nav
           icon={<PiStudentBold />}
           name="Students Account"
           active={activeTab === 'Students Account'}
           onClick={() => handleTabClick('Students Account')}
-        />
+        /> */}
         <ZidyiaLogo />
       </div>
 

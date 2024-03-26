@@ -18,7 +18,7 @@ const Navbar = () => {
             <div className={Styles.navbarElements}>
             <ul className={Styles.navList}>
             <li><a href="#">Home</a></li>
-            <li><a href="#">Contact</a></li>
+            {/* <li><a href="#">Contact</a></li> */}
             <li className={Styles.dropdownParent} onClick={toggleDropdown}>
             <a href="#">Login</a>          
             <ul className={`${Styles.dropdown} ${isDropdownActive ? Styles.active : ''}`}>

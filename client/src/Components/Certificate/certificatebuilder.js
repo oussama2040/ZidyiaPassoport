@@ -172,7 +172,7 @@ const generateQRCode = async () => {
       });
     const qrCodeFilename = qrCodeResponse.data.qrCodeFilename;
     setQrCode(qrCodeFilename)
-    console.log(qrCode)
+   
 
     // Step 2: Retrieve Cloudinary URL using the filename from the database
     const cloudinaryResponse = await axios.get(`http://localhost:5000/admin/getgeneratedQR/${studentId}`,{

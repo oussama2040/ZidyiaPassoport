@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 import styles from './NavBarAdmin.module.css';
 import { useNavigate } from 'react-router-dom';
 import { SlArrowRight } from "react-icons/sl";
@@ -10,6 +11,21 @@ function NavbarAdmin() {
   const [tenantName, setTenantName] = useState(null);
   const accessToken = Cookies.get('tenentaccessToken');
   const navigate = useNavigate();
+  const [organizationName, setorganizationName] = useState(null);
+
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/tenent/OrganiztionName`,
+    { withCredentials: true })
+      .then(response => {
+        setorganizationName(response.data.organizationName)
+      })
+      .catch(error => {
+        console.error('Error fetching certificate data:', error);
+      });
+  }, [organizationName]);
+
+
   useEffect(() => {
     if (accessToken) {
       try {
@@ -43,7 +59,7 @@ function NavbarAdmin() {
   return (
     <div className={styles.NavBarAdminMain}>
       <span className={styles.NavBarAdminDashborad}>
-      <div className={styles.NavBarAdminPanelText}>Admin Panel  <SlArrowRight className='ml-4' /></div>  <div className='ml-4'>{tenantName ? `${tenantName}` : ' '}</div> 
+      <div className={styles.NavBarAdminPanelText}>Admin Panel  <SlArrowRight className='ml-4' /></div>  <div className='ml-4'>{organizationName ? `${organizationName}` : ' '}</div> 
       </span>
 
       <button className={styles.NavBarAdminLogout} onClick={handleLogout}>
