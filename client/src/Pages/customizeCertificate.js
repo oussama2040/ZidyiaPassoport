@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
-import SideBarStudent from '../Components/SideBar/SideBarStudent';
 import Certificate from '../Components/Certificate/certificatebuilder';
+import SideBarAdmin from '../Components/SideBar/SideBarAdmin';
+import NavbarAdmin from '../Components/NavBarAdmin/NavBarAdmin';
 
 function CustomizeCertificate() {
 
@@ -42,10 +42,12 @@ if (!validToken) {
 
   //==========================================================================================================================//    
   return (
-
+    <div>
+      <NavbarAdmin />
       <div style={{ display: 'flex', flexDirection: 'row'}}>
-        <SideBarStudent />  
+       <SideBarAdmin />
         <Certificate/>
+      </div>
       </div>
   );
 };
