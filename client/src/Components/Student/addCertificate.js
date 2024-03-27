@@ -65,6 +65,7 @@ const Certificate = () => {
             });
             toast.success("Certificate added successfully");
             alert("Certificate added successfully");
+            window.location.href="/student/requestCertificate"
         } catch (error) {
             console.error('Error creating certificate:', error);
             toast.error('Error creating certificate. Please try again later.');

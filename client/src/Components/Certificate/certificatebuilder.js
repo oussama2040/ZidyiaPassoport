@@ -119,6 +119,7 @@ const handleCapture = async () => {
     });
 
     console.log('Certificate saved successfully:', response.data);
+    window.location.href="/admin"
   } catch (error) {
     console.error('Error capturing and saving certificate:', error);
   }
