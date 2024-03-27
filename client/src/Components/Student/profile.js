@@ -54,12 +54,14 @@ const Profile = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
         const requiredFields = ['first_name', 'last_name', 'password', 'mobile'];
         const emptyFields = requiredFields.filter(field => {
             const value = formData[field];
             return typeof value !== 'string' || !value.trim(); // Check if value is not a string or is empty after trimming
         });
 
+        console.log("emptyFields",emptyFields)
         if (emptyFields.length > 0) {
             alert(`Please fill all empty fields`);
             return;
@@ -85,6 +87,7 @@ const Profile = () => {
 
             console.log(data);
             alert("Profile updated successfully");
+            window.location.href="/student/requestCertificate"
         } catch (error) {
             console.error('Error updating profile:', error);
         }
