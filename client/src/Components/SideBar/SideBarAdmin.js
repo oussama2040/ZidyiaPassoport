@@ -34,6 +34,12 @@ function SideBarAdmin() {
           </div>
         </NavLink>
 
+        <NavLink to="/admin/issuecertificate" >
+          <div className={location.pathname === '/admin/issuecertificate' ? styles.active : ''}>
+          <Nav icon={< BiCustomize />} name="Issue Certificate" />
+          </div>
+        </NavLink>
+
         <NavLink to="/admin/certificateuploaded" >
           <div className={location.pathname === '/admin/certificateuploaded' ? styles.active : ''}>
           <Nav icon={< TbFileCertificate />} name="Certificate Uploaded" />

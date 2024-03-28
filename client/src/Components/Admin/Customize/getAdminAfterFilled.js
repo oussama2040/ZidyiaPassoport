@@ -9,12 +9,14 @@ import { SlArrowLeft } from "react-icons/sl";
 function GetAdminAfterFilled({ organizationId }) {
   const [formFields, setFormFields] = useState([]);
   const [formData, setFormData] = useState({});
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
   const [selectedFormImage, setSelectedFormImage] = useState(null);
   const [hasImage, setHasImage] = useState(false);
   const [selectedFilledstudentId, setSelectedFilledstudentId] = useState(null);
   const [selectedFilledformId, setselectedFilledformId] = useState(null);
   const [rejectionReason, setRejectionReason] = useState('');
   const [showRejectionInput, setShowRejectionInput] = useState(false);
+  const [isImageClicked, setIsImageClicked] = useState(false);
 
   const handleRejectChange = (event) => {
     setRejectionReason('');
@@ -51,12 +53,14 @@ function GetAdminAfterFilled({ organizationId }) {
   const handleSelectForm = (selectedFormId) => {
     const selectedFormData = formFields.find((form) => form.filled_form_id === selectedFormId);
     if (selectedFormData) {
+      setSelectedCertificate(selectedFormData)
       setFormData(JSON.parse(parseFormData(selectedFormData.form_data)));
       setSelectedFormImage(selectedFormData.FileOption);
       setHasImage(!!selectedFormData.FileOption);
       setSelectedFilledstudentId(selectedFormData.student_id);
-      setselectedFilledformId(selectedFormData.filled_form_id)
+      setselectedFilledformId(selectedFormData.filled_form_id);
       console.log("FilledformId", selectedFormData.filled_form_id)
+      
     }
   };
 
@@ -90,19 +94,28 @@ function GetAdminAfterFilled({ organizationId }) {
         { withCredentials: true });
          console.log(filledstudentId);
         
-
+         const responseReq = await axios.put(`http://localhost:5000/admin/certificatesRequest/${selectedCertificate.request_id}`, requestData,
+         { withCredentials: true });
 
         if (response.status === 200) {
             console.log('Filled form status updated successfully.');
         } else {
             console.error('Failed to update filled form status.');
         }
+        if (response.status === 200) {
+          console.log('Certificate Request  updated successfully.');
+      } else {
+          console.error('Failed to update filled or Certificate Request .');
+      }
     } catch (error) {
         console.error('Error updating filled form status:', error);
  
     }
 };
 
+const handleImageClick = () => {
+  setIsImageClicked(!isImageClicked);
+};
 
 // ------auhthorization Admin -----------//
 const [validToken, setValidToken] = useState(false);
@@ -161,6 +174,7 @@ if (!validToken) {
             
           </select>
 
+
           {formData && Object.keys(formData).length > 0 && (
             <div className={styles.customizeAfterDetails}>
               <h3 className={styles.customizeFieldNametext} >Filled Form Details</h3>
@@ -170,7 +184,23 @@ if (!validToken) {
                    <div className={styles.customizeFieldName}>{fieldName}:</div>
                     <div className={styles.customizeFieldValue}>{Array.isArray(value) ? value.join(', ') : value}</div>
                   </li>
-                ))}
+              ))}
+              {/* this for image overlay  */}
+                {selectedFormImage&&
+                <div className={`${styles.formImageContainer} ${isImageClicked && styles.overlay}`} onClick={handleImageClick}>
+                  <img
+                    src={selectedFormImage}
+                    alt='Form Image'
+                    className={styles.formImage}
+                  />
+                  {isImageClicked && (
+                    <div className={styles.overlayContent}>
+                      <img src={selectedFormImage} alt='Form Image' className={styles.overlayImage} />
+                    </div>
+                  )}
+                  
+                </div>
+                }
               </ul>
                          {/* radio button verify and reject  */}
                          <div className={styles.rejectReason}>
@@ -194,12 +224,25 @@ if (!validToken) {
               <button className={styles.bottunVerfiy} onClick={() => handleButtonClicked(selectedFilledstudentId , selectedFilledformId)}>respond</button>
             </div>
          )} 
-   
-       
         </div>
-        <div className={`${styles.customizeAfterimageContainer} ${hasImage && styles.imageWithBackground}`}>
-          {selectedFormImage && <img src={selectedFormImage} alt='Form Image' className={styles.formImage} />}
-        </div>
+
+{/* this for sencond  */}
+    <div>
+    {selectedCertificate && Object.keys(selectedCertificate).length > 0 && (
+            <div className={styles.CertificateoverlayContent}>
+             <img className={` ${styles.certificateOverlayImg}`} src={selectedCertificate.CertificateFile} alt="Certificate" />
+              <h2 className={styles.customizeFieldTopicName}>{selectedCertificate.name}</h2>
+              <div className={styles.certificateflexDetails}>
+                <p className={`${styles.customizeFieldNametextOverlay} flex`}>Issued on:<div className={`text-sm text-gray-400 ml-2 ${styles.overlayvalues}`}>{new Date(selectedCertificate.issued_date).toDateString()}</div></p>
+                <p className={`${styles.customizeFieldNametextOverlay} flex`}>Expires on: <div  className={`text-sm text-gray-400 ml-2 ${styles.overlayvalues}`}>{new Date(selectedCertificate.expiry_date).toDateString()}</div></p>
+              </div>
+              <div className={styles.certificateflexDetails}>
+                <p className={`${styles.customizeFieldNametextOverlay} flex`}>Body:<div  className={`text-sm text-gray-400 ml-2 ${styles.overlayvalues}`}> {selectedCertificate.body} </div></p>
+                <p className={`${styles.customizeFieldNametextOverlay} flex`}>Created At:<div  className={`text-sm text-gray-400 ml-2 ${styles.overlayvalues}`}> {new Date(selectedCertificate.created_at).toDateString()}</div></p>
+              </div>
+           </div>
+         )} 
+    </div>
       </div>
     </div>
     </div>

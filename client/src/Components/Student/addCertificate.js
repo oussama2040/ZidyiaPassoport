@@ -43,6 +43,8 @@ const Certificate = () => {
                 return; // Stop further execution
             }
             const formData = new FormData();
+
+        
             formData.append('name', certificateName);
             formData.append('organization_id', institution);
 
@@ -63,14 +65,18 @@ const Certificate = () => {
                 },
                 withCredentials: true
             });
+            const { request_id } = response.data;
+            console.log("request_id",request_id)
             toast.success("Certificate added successfully");
             alert("Certificate added successfully");
-            window.location.href="/student/requestCertificate"
+            window.location.href=`/student/customize/${institution}/${request_id}`
         } catch (error) {
             console.error('Error creating certificate:', error);
             toast.error('Error creating certificate. Please try again later.');
         }
     };
+
+
     return (
         <>
             <div className='MainStudentContainer' >
@@ -152,6 +158,7 @@ const Certificate = () => {
                                 className="selectOrganization"
                                 value={institution}
                                 onChange={(e) => setInstitution(e.target.value)}
+                              
                             >
                                 <option value="" disabled>Select Certificate</option>
                                 {organizations.map(org => (

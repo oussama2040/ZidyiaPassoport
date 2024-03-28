@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styles from './Customize.module.css'
-import SideBarStudent from '../../SideBar/SideBarStudent';
-import { useParams } from 'react-router-dom';
+import styles from './issueCert.module.css'
+import { IoIosArrowBack } from "react-icons/io";
 
-const GetSendStudentCustomFields = () => {
-  
-  // const studentId  = 2;
-  const { organizationId } = useParams();
 
+function IssueCert() {
+  const  organizationId  =4;
   const [customFields, setCustomFields] = useState([]);
   const [formData, setFormData] = useState({});
   const [FileOption, setFileOption] = useState(null);
@@ -23,7 +20,6 @@ const GetSendStudentCustomFields = () => {
         console.error('Error fetching custom fields:', error);
       }
     };
-
     fetchData();
   }, [organizationId]);
 
@@ -90,13 +86,14 @@ const GetSendStudentCustomFields = () => {
     reader.readAsDataURL(file);
   };
 
-  const {requestId} =  useParams();
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formDataToSend = new FormData();
     
-    formDataToSend.append('request_id', requestId); // Replace with the actual student ID
+    // formDataToSend.append('request_id', 36); // Replace with the actual student ID
     formDataToSend.append('filledForm', JSON.stringify(formData));
     
     for (const key in FileOption) {
@@ -107,7 +104,7 @@ const GetSendStudentCustomFields = () => {
 
 
     try {
-      const response = await axios.post(`http://localhost:5000/student/filledform/${organizationId}`, formDataToSend,
+      const response = await axios.post(`http://localhost:5000/student/issuefilledform/${organizationId}`, formDataToSend,
       { withCredentials: true });
       console.log('Response:', response.data);
       console.log('Form submitted successfully!');
@@ -118,12 +115,15 @@ const GetSendStudentCustomFields = () => {
   };
 
 
-
-
   return (
-    <div className={styles.studentCustomizeflex} >
-      <SideBarStudent />
-      <form className={styles.studentCustomizeform} onSubmit={handleSubmit}>
+    <div>
+      <div> 
+        <div class="certificate-title1">
+          <IoIosArrowBack style={{ color: '#5DD3B3' }} />
+            <span>CertPass</span>
+            </div>
+
+            <form className={styles.studentCustomizeform} onSubmit={handleSubmit}>
         <h1 className={styles.studentCustomizformTitle}> Fill Information </h1>
         {customFields.map((field) => (
           <div key={field.field_id} className={styles.studentCustomizefieldContainer}>
@@ -257,9 +257,11 @@ const GetSendStudentCustomFields = () => {
         ))}
         <button className={styles.customizesubmit} type="submit">Submit</button>
       </form>
-      <hr></hr>
-    </div>
-  );
-};
 
-export default GetSendStudentCustomFields;
+
+      </div>
+    </div>
+  )
+}
+
+export default IssueCert
