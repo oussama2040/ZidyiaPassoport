@@ -26,6 +26,7 @@ import StudentViewCertificate from "./Pages/StudentViewCertificate.js";
 import StudentAddCertificate from "./Pages/StudentaddCertificate.js";
 import StudentProfile from "./Pages/StudentProfile.js";
 import StudentAllRequests from "./Pages/StudentAllRequest.js";
+import IssueCert from "./Pages/StudentIssueCertificate.js";
 import SendAdmincustomize from "./Components/Admin/Customize/sendAdmincustomize.js";
 import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFilled.js";
 import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
@@ -33,6 +34,7 @@ import CustomizeCertificate from "./Pages/customizeCertificate.js";
 import Subscriber from "./Pages/Subscriber.js";
 import AdminCertificateReq from "./Components/Admin/CertificateReq/AdminCertificateReq.js";
 import AdminCertificateUploaded from "./Components/Admin/CertificateUploaded/AdminCertificateUploaded.js";
+import AdminIssueCertifcate from "./Components/Admin/Customize/AdminIssueCertifcate.js";
 import Analytics from "./Components/Admin/Analytics/Analytics.js";
 import EndSubscription from "./Pages/EndSubscription.js";
 
@@ -88,7 +90,8 @@ const [OrganiztionId, setOrganiztionId] = useState(null);
             <Route path="/admin/customizecertificate/:studentID" element={<CustomizeCertificate />} />
             <Route path="/admin/reqcertificate" element={<AdminCertificateReq organizationId={OrganiztionId} />} />
             <Route path="/admin/certificateuploaded" element={<AdminCertificateUploaded organizationId={OrganiztionId} />} />
-            <Route path="/student/customize/:organizationId" element={<GetSendStudentCustomFields/>} />
+            <Route path="/admin/issuecertificate" element={<AdminIssueCertifcate organizationId={OrganiztionId} />} />
+            <Route path="/student/customize/:organizationId/:requestId" element={<GetSendStudentCustomFields/>} />
 
             {/* <Route path="/admin" element={<Admin />} />
                   <Route path="/login" element={<Login />} />                                        
@@ -102,6 +105,7 @@ const [OrganiztionId, setOrganiztionId] = useState(null);
             <Route path="/student/addCertificate" element={<StudentAddCertificate />} />
             <Route path="/student/profile" element={<StudentProfile />} />
             <Route path="/student/requestCertificate" element={<StudentAllRequests />} />
+            <Route path="/student/issueCertificate" element={<IssueCert />} />
           
           </>
 

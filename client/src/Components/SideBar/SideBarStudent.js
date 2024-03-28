@@ -36,6 +36,11 @@ function SideBarStudent() {
           <Nav icon={< CgTranscript />} name="Add Cert" />
           </div>
         </NavLink>
+        <NavLink to="/student/issueCertificate" >
+          <div className={location.pathname === '/student/issueCertificate' ? styles.active : ''}>
+          <Nav icon={< CgTranscript />} name="issue Cert" />
+          </div>
+        </NavLink>
         {/* <Nav icon={<MdOutlineContactSupport />} name="Get Support" to="/getSupport" /> */}
 
         <ZidyiaLogo />

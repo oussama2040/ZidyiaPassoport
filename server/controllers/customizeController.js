@@ -84,34 +84,70 @@ export const DeleteCustomFieldd = async ( req, res)=>{
   import { uploadImage } from './imageuploadcontroller.js';
 
     export const fillAndSendFormToOrganization = async (req, res) => {
-      try { 
+      try {
+          const student_id = req.student.id;
+          const { organizationId } = req.params;
+          const  request_id  = req.body.request_id; 
+          const { filledForm } = req.body;
+          let FileOption = '';
+  
+          if (req.file) {
+              FileOption = await uploadImage(req.file.buffer);
+              console.log('FileOption:', FileOption);
+          } else {
+              console.log('no FileOption:', FileOption);
+          }
+  
+
+          if (!organizationId || !filledForm || !student_id || !request_id) {
+              console.log('Invalid input:', organizationId, student_id, filledForm, request_id);
+              return res.status(400).json({ error: 'Invalid input' });
+          }
+
+          const insertQuery = 'INSERT INTO filledforms (organization_id, student_id, request_id, form_data, FileOption) VALUES (?, ?, ?, ?, ?)';
+          await connection.promise().execute(insertQuery, [organizationId, student_id, request_id, JSON.stringify(filledForm), FileOption]);
+  
+          res.status(200).json({ message: 'Filled form sent to organization successfully' });
+      } catch (error) {
+          console.error('Error:', error);
+          res.status(500).json({ error: 'Internal Server Error' });
+      }
+  };
+  
+
+
+
+  export const fillAndSendissueFormToOrganization = async (req, res) => {
+    try {
         const student_id = req.student.id;
         const { organizationId } = req.params;
-        const { filledForm} = req.body;
-        console.log("student_id",student_id)
+        const { filledForm } = req.body;
         let FileOption = '';
-    
+
         if (req.file) {
-          FileOption = await uploadImage(req.file.buffer);
-          console.log('FileOption:', FileOption);
+            FileOption = await uploadImage(req.file.buffer);
+            console.log('FileOption:', FileOption);
         } else {
-          console.log('no FileOption:', FileOption);
+            console.log('no FileOption:', FileOption);
         }
-    
+
+
         if (!organizationId || !filledForm || !student_id) {
-          console.log('Invalid input:', organizationId, student_id, filledForm);
-          return res.status(400).json({ error: 'Invalid input' });
+            console.log('Invalid input:', organizationId, student_id, filledForm);
+            return res.status(400).json({ error: 'Invalid input' });
         }
-    
-        const insertQuery = 'INSERT INTO FilledForms (organization_id, student_id, form_data, FileOption) VALUES (?, ?, ?, ?)';
+
+        const insertQuery = 'INSERT INTO filledforms (organization_id, student_id, form_data, FileOption) VALUES (?, ?, ?, ?)';
         await connection.promise().execute(insertQuery, [organizationId, student_id, JSON.stringify(filledForm), FileOption]);
-    
+
         res.status(200).json({ message: 'Filled form sent to organization successfully' });
-      } catch (error) {
+    } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
-      }
-    };
+    }
+};
+
+  
 
 
 
@@ -122,13 +158,15 @@ export const DeleteCustomFieldd = async ( req, res)=>{
                 const organizationId = req.params.organizationId;
 
                 const selectQuery = `
-                SELECT FilledForms.*, Student.first_name, Student.last_name
+                SELECT FilledForms.*, request_certificate.*, Student.first_name, Student.last_name
                 FROM FilledForms
+                JOIN request_certificate ON FilledForms.request_id = request_certificate.request_id
                 JOIN tenent ON FilledForms.organization_id = tenent.organization_id
-                JOIN student ON FilledForms.student_id =student.student_id
+                JOIN student ON FilledForms.student_id = student.student_id
                 WHERE FilledForms.organization_id = ? AND FilledForms.status = 'pending'
-                ORDER BY
-                FilledForms.created_at DESC;
+                ORDER BY FilledForms.created_at DESC;
+
+                ;
             `;
                 const [filledForms] = await connection.promise().execute(selectQuery, [organizationId]);
                 res.json(filledForms);
@@ -137,3 +175,25 @@ export const DeleteCustomFieldd = async ( req, res)=>{
                 res.status(500).json({ error: 'Internal Server Error' });
             }
         };
+
+        export const getFilledissueFormsByStudent = async (req, res) => {
+          try {
+              const organizationId = req.params.organizationId;
+
+              const selectQuery = `
+              SELECT FilledForms.*, Student.first_name, Student.last_name
+              FROM FilledForms
+              JOIN tenent ON FilledForms.organization_id = tenent.organization_id
+              JOIN student ON FilledForms.student_id = student.student_id
+              WHERE FilledForms.organization_id = ? AND FilledForms.status = 'pending' AND FilledForms.request_id IS NULL
+              ORDER BY FilledForms.created_at DESC;
+
+              ;
+          `;
+              const [filledForms] = await connection.promise().execute(selectQuery, [organizationId]);
+              res.json(filledForms);
+          } catch (error) {
+              console.error('Error:', error);
+              res.status(500).json({ error: 'Internal Server Error' });
+          }
+      };

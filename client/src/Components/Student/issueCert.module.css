@@ -1,0 +1,173 @@
+.studentCustomizeflex{
+    display: flex;  
+}
+.studentCustomizeform{
+    width:900px;
+    margin: 25px auto;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #364350;
+}
+.studentCustomizformTitle {
+    width: 216px;
+    height: 35px;
+    flex-grow: 0;
+    margin: 20px 884px 20px 10px;
+    font-family: 'Core Rhino 45 ', sans-serif;
+    font-weight: bold ;
+    font-size: 28px;
+    color: #fff;
+  }
+
+  .studentcustomizeFieldNametext{
+    font-family: 'Core Rhino 45 ', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 5px;
+  }
+  .studentcustomizeInputtext {
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 5px; 
+     background-color: inherit;
+    border: 1px solid #ffffff71;
+    color: #fff;
+    border-radius: 10px;
+    height: 45px;
+    padding: 0 20px;
+    width: 90%;
+  }
+  .studentcustomizeInputtext:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  }
+  /* --------drop down -------- */
+  .studentcustomizeDropdownOptions{
+    background-color: inherit;
+    border: 1px solid #ffffff71;
+    color: #fff;
+    border-radius: 10px;
+    height: 45px;
+    padding: 0 20px;
+    width: 90%;
+  }
+
+  .studentcustomizeDropdownOptionsSelect{
+    background-color:#1F2731;
+    color: #ccc;
+  }
+  .studentcustomizeDropdownOptions:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  }
+
+  /* -----------checkbox and radio---------------- */
+  .studentcustomizeflex{
+    display: flex;
+  }
+  .customizeCheckboxRadioOptions{
+    display: flex;
+    flex-direction: row;
+    width: 450px;
+  }
+
+  .customizeFielddropcheck{
+    font-family: 'Core Rhino 45 ', sans-serif;
+    font-size: 12px;
+    color: #fff;
+    width: 100px;
+    padding: 7px;
+  }
+ 
+.studentcustomizecheckboxInput{
+    padding: 2px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1px;
+    width: 90%;
+    height: 45px;
+    
+}
+/* ----------submit -------- */
+  .customizesubmit {
+    width: 100px;
+    height: 30px;
+    background-color: #5DD3B3;
+    color: white;
+    padding: 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 26px;
+    transition: background-color 0.3s;
+    margin-top: 30px;
+    float: right;
+    margin-right: 80px;
+    
+  }
+  .customizesubmit:hover {
+    background-color: #9be9d4;
+  }
+
+  /* ------------file ----------- */
+
+.customizeInputfile {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: transparent;
+    color: #333;
+    cursor: pointer;
+    width: 90%;
+    height: 45px;
+  }
+  
+
+  .customizeInputfileLabel {
+    font-family: 'Core Rhino 45', sans-serif;
+    font-size: 10px;
+    margin-bottom: 5px;
+
+  }
+  
+  .customizeInputfile:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  }
+
+.selectedImage {
+    width: 90%;
+    height: 300px;
+    margin-top: 10px; 
+    border: 1px solid #ffffff71;
+    border-radius: 10px;
+  }
+
+  /* ---------date------- */
+.customizeInputdate {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #ffffff71;
+    border-radius: 10px;
+    height: 45px;
+    padding: 0 20px;;
+
+  }
+  
+.customizeInputdateInput {
+    background-color: #1F2731; 
+    color: #fff;
+    border: 1px solid #ffffff71;
+    border-radius: 10px;
+ 
+  }
+
+  .customizeInputdate:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  }
