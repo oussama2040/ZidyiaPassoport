@@ -71,9 +71,9 @@ const Certificates = () => {
         setSortingOption(event.target.value);
     };
 
-    const verifyFct = (certificate) => {
-        window.location.href = `/student/customize/${certificate.organization_id}`;
-    };
+    // const verifyFct = (certificate) => {
+    //     window.location.href = `/student/customize/${certificate.organization_id}`;
+    // };
 
     const CertificateCard = ({ certificate }) => (
         <div className="CertificateCard">
@@ -89,13 +89,13 @@ const Certificates = () => {
                 {/* <p>{certificate.organization_id}</p> */}
                 <p>Issued by: {certificate.organization_name}</p>
             </div>
-
+{/* 
             {certificate.status === 'verified' && (
                 // <Link to="/student/customize">
                 //     <button onClick={verifyFct} className='btnVerify'>Verify</button>
                 // </Link>
                 <button onClick={() => verifyFct(certificate)} className='btnVerify'>Verified</button>
-            )}
+            )} */}
         </div>
     );
 

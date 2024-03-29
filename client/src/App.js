@@ -32,7 +32,6 @@ import GetAdminAfterFilled from "./Components/Admin/Customize/getAdminAfterFille
 import GetSendStudentCustomFields from "./Components/Student/Customize/getSendStudentcustomize.js";
 import CustomizeCertificate from "./Pages/customizeCertificate.js";
 import Subscriber from "./Pages/Subscriber.js";
-import AdminCertificateReq from "./Components/Admin/CertificateReq/AdminCertificateReq.js";
 import AdminCertificateUploaded from "./Components/Admin/CertificateUploaded/AdminCertificateUploaded.js";
 import AdminIssueCertifcate from "./Components/Admin/Customize/AdminIssueCertifcate.js";
 import Analytics from "./Components/Admin/Analytics/Analytics.js";
@@ -88,7 +87,6 @@ const [OrganiztionId, setOrganiztionId] = useState(null);
             <Route path="/admin/customize" element={<SendAdmincustomize organizationId={OrganiztionId} />} />
             <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled organizationId={OrganiztionId} />} />
             <Route path="/admin/customizecertificate/:studentID" element={<CustomizeCertificate />} />
-            <Route path="/admin/reqcertificate" element={<AdminCertificateReq organizationId={OrganiztionId} />} />
             <Route path="/admin/certificateuploaded" element={<AdminCertificateUploaded organizationId={OrganiztionId} />} />
             <Route path="/admin/issuecertificate" element={<AdminIssueCertifcate organizationId={OrganiztionId} />} />
             <Route path="/student/customize/:organizationId/:requestId" element={<GetSendStudentCustomFields/>} />

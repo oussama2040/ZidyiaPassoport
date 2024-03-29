@@ -1,22 +1,21 @@
 .studentCustomizeflex{
     display: flex;  
 }
+
 .studentCustomizeform{
     width:900px;
-    margin: 25px auto;
     padding: 20px;
     border-radius: 20px;
     background-color: #364350;
 }
 .studentCustomizformTitle {
-    width: 216px;
-    height: 35px;
     flex-grow: 0;
     margin: 20px 884px 20px 10px;
     font-family: 'Core Rhino 45 ', sans-serif;
     font-weight: bold ;
-    font-size: 28px;
+    font-size: 20px;
     color: #fff;
+
   }
 
   .studentcustomizeFieldNametext{
@@ -93,6 +92,10 @@
     
 }
 /* ----------submit -------- */
+.submitfloat{
+
+  height: 60px;
+}
   .customizesubmit {
     width: 100px;
     height: 30px;
@@ -104,8 +107,9 @@
     border-radius: 26px;
     transition: background-color 0.3s;
     margin-top: 30px;
-    float: right;
     margin-right: 80px;
+    float: right;
+  
     
   }
   .customizesubmit:hover {
@@ -170,4 +174,30 @@
     outline: none;
     border-color: #3498db;
     box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  }
+
+
+  .selectOrganizition select {
+    width: 900px;
+    height: 42px;
+    background-color: #384450;
+    padding-left: 1rem;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    border-radius: 0.90rem;
+    font-size: 0.875rem;
+    border-width: 1px;
+    border-color: #94949f;
+    transition: border-color 0.2s;
+    color: #94949f;
+  }
+  
+  .selectOrganizition select option {
+    background-color: #1F2731;
+  }
+  
+  .selectOrganizition label {
+    color: #fff;
+    padding-bottom: 5px;
+    font-size: 13px;
   }
