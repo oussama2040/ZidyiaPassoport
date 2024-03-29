@@ -5,10 +5,12 @@ import { IoIosArrowBack } from "react-icons/io";
 
 
 function IssueCert() {
-  const  organizationId  =4;
+  // const  organizationId  =4;
   const [customFields, setCustomFields] = useState([]);
+  const [organizations, setOrganizations] = useState([]);
   const [formData, setFormData] = useState({});
   const [FileOption, setFileOption] = useState(null);
+  const [organizationId, setorganizationId] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +24,23 @@ function IssueCert() {
     };
     fetchData();
   }, [organizationId]);
+
+
+// this for fetch the organiztion in dropdown
+useEffect(() => {
+  const fetchOrganizations = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/tenent/Allorganization`,
+      { withCredentials: true });
+      setOrganizations(response.data);
+      console.log("organizations",organizations)
+    } catch (error) {
+      console.error('Error fetching organizations:', error);
+    }
+  };
+  fetchOrganizations();
+}, []);
+
 
   console.log('Custom Fields:', customFields);
   console.log('Form Data:', formData);
@@ -117,14 +136,29 @@ function IssueCert() {
 
   return (
     <div>
-      <div> 
+      <div className={styles.MainstudentCustomizeform}> 
         <div class="certificate-title1">
           <IoIosArrowBack style={{ color: '#5DD3B3' }} />
-            <span>CertPass</span>
+            <span>Issue Certificate</span>
             </div>
 
-            <form className={styles.studentCustomizeform} onSubmit={handleSubmit}>
+
+                 <div className={styles.selectOrganizition}>
+                       <select
+                         id="organization"
+                         className="selectOrganization"
+                         value={organizationId}
+                         onChange={(e) => setorganizationId(e.target.value)}    
+                            >
+                           <option value="" disabled>Select Tenent</option>
+                           {organizations.map(org => (
+                           <option key={org.id} value={org.id}>{org.name}</option>
+                            ))}
+                         </select>
+            </div>
+         
         <h1 className={styles.studentCustomizformTitle}> Fill Information </h1>
+        <form className={styles.studentCustomizeform} onSubmit={handleSubmit}>
         {customFields.map((field) => (
           <div key={field.field_id} className={styles.studentCustomizefieldContainer}>
             <label>
@@ -255,10 +289,11 @@ function IssueCert() {
             </label>
           </div>
         ))}
+        <div className={styles.submitfloat}>
         <button className={styles.customizesubmit} type="submit">Submit</button>
+        </div>
       </form>
-
-
+ 
       </div>
     </div>
   )

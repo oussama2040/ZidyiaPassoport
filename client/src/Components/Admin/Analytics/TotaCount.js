@@ -67,7 +67,7 @@ function TotalCount({ organizationId }) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td className={styles.AnalyticsTitle}>Total Certificate </td>
+                            <td className={styles.AnalyticsTitle}>Total Requset Certificate </td>
                             <td className={styles.AnalyticsValue}> {certificateCount}</td>
                         </tr>
                         <tr>

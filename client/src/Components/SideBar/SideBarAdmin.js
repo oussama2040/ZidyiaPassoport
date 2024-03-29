@@ -5,9 +5,7 @@ import Nav from './Nav';
 import { NavLink, useLocation } from 'react-router-dom'; 
 import { GrAnalytics } from "react-icons/gr";
 import { BiCustomize } from "react-icons/bi";
-import { IoGitPullRequestSharp } from "react-icons/io5";
 import { TbFileCertificate } from "react-icons/tb";
-import { LiaCertificateSolid } from "react-icons/lia";
 import ZidyiaLogo from './ZidyiaLogo.js';
 
 function SideBarAdmin() {
@@ -23,14 +21,9 @@ function SideBarAdmin() {
           <Nav icon={<GrAnalytics />} name="Analytics" />
           </div>
         </NavLink>
-        <NavLink to="/admin/reqcertificate" >
-          <div className={location.pathname === '/admin/reqcertificate' ? styles.active : ''}>
-          <Nav icon={< IoGitPullRequestSharp />} name="Certificate Request" />
-          </div>
-        </NavLink>
         <NavLink to="/admin/reqcustomize" >
           <div className={location.pathname === '/admin/reqcustomize' ? styles.active : ''}>
-          <Nav icon={< BiCustomize />} name="Customize Request" />
+          <Nav icon={< BiCustomize />} name="Request Certificate" />
           </div>
         </NavLink>
 
@@ -44,7 +37,7 @@ function SideBarAdmin() {
           <div className={location.pathname === '/admin/certificateuploaded' ? styles.active : ''}>
           <Nav icon={< TbFileCertificate />} name="Certificate Uploaded" />
           </div>
-        </NavLink>
+        </NavLink>  
 
         <NavLink to="/admin/customize">
           <div  className={location.pathname === '/admin/customize' ? styles.active : ''}>
