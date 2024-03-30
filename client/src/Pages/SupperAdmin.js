@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SideBarSupperAdmin from '../Components/SideBar/SideBarSupperAdmin';
-import NavBarSupperAdmin from '../Components/NavBarAdmin/NavBarSupperAdmin';
+import NavBarSupperAdmin from '../Components/NavBar/NavBarSupperAdmin';
 import AnalyticsComponent from '../Components/SuperAdmin/AnalyticsComponent';
 import AnalyticsComponentPerc from '../Components/SuperAdmin/AnalyticsComponentPerc';
 import TenantCreationContainer from '../Components/SuperAdmin/TenantCreationComponent';

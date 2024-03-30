@@ -88,6 +88,8 @@
 }
 
 .CertImage {
+    height: 200px;
+    width: 100%;
     /* width: 230px; */
     padding: 1px;
     /* display: block; */
@@ -98,7 +100,7 @@
     display: flex;
     flex-direction: column;
     width: 250px;
-    height: 430px;
+    height: 400px;
     /* margin: 5px; */
     overflow: hidden;
     box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);

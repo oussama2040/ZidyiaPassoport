@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import NavbarAdmin from '../../NavBarAdmin/NavBarAdmin';
+import NavbarAdmin from '../../NavBar/NavBarAdmin';
 import SideBarAdmin from '../../SideBar/SideBarAdmin';
 import CertificateUplodedCard from './CertificateUplodedCard';
 import styles from './CertificateUploaded.module.css';

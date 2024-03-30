@@ -35,9 +35,9 @@ const scanQRCODE = async (req, res) => {
             const [rows] = await connection.promise().execute('SELECT * FROM qrcodes WHERE hashed_data = ?', [hashedQRData]);
 
             if (rows.length > 0) {
-                return res.status(200).json({ message: 'QR Code data matched with database',decodedQRData  });
+                return res.status(200).json({ message: 'Certificate is Verified By Zidyia Passport',decodedQRData  });
             } else {
-                return res.json({ message: 'QR Code data does not match with database' });
+                return res.json({ message: "Certificate isn't Verified By Zidyia Passport" });
             }
         } else {
             return res.status(404).json({ error: 'No QR code found in the image' });

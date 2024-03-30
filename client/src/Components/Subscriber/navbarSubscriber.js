@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import styles from '../NavBarAdmin/NavBarAdmin.module.css';
+import styles from '../NavBar/NavBarAdmin.module.css';
 import { useNavigate } from 'react-router-dom';
 
 function NavbarSub() {
