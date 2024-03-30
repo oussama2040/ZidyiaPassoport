@@ -4,7 +4,7 @@ import axios from 'axios';
 import GetAdmincustomize from "./getAdmincustomize.js"
 import styles from './Customize.module.css'
 import { SlArrowLeft } from "react-icons/sl";
-import NavbarAdmin from '../../NavBarAdmin/NavBarAdmin'
+import NavbarAdmin from '../../NavBar/NavBarAdmin.js'
 import SideBarAdmin from '../../SideBar/SideBarAdmin'
 
 

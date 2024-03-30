@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Certificate from '../Components/Certificate/certificatebuilder';
 import SideBarAdmin from '../Components/SideBar/SideBarAdmin';
-import NavbarAdmin from '../Components/NavBarAdmin/NavBarAdmin';
+import NavbarAdmin from '../Components/NavBar/NavBarAdmin';
 
 function CustomizeCertificate() {
 

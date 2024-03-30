@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import IssueCert from '../Components/Student/issueCert';
 import SideBarStudent from '../Components/SideBar/SideBarStudent';
-import NavBarSupperAdmin from '../Components/NavBarAdmin/NavBarStudent'
+import NavBarSupperAdmin from '../Components/NavBar/NavBarStudent'
 
 
 function Home() {

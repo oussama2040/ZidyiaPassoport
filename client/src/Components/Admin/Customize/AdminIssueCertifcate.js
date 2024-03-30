@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import NavbarAdmin from '../../NavBarAdmin/NavBarAdmin'
+import NavbarAdmin from '../../NavBar/NavBarAdmin'
 import SideBarAdmin from '../../SideBar/SideBarAdmin'
 import styles from './Customize.module.css';
 import { SlArrowLeft } from "react-icons/sl";
@@ -181,7 +181,7 @@ function AdminIssueCertifcate({ organizationId }) {
                   </label>
                   {showRejectionInput && (
                     <label >
-                    <div className={styles.CustomizeReject}>Rejection Reason</div> 
+                    {/* <div className={styles.CustomizeReject}>Rejection Reason</div>  */}
                       <input type="text" value={rejectionReason} onChange={handleRejectionInputChange} />
                     </label>
                   )}

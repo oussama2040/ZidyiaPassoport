@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Profile from '../Components/Student/profile';
 import axios from 'axios';
 import SideBarStudent from '../Components/SideBar/SideBarStudent';
-import NavBarStudent from '../Components/NavBarAdmin/NavBarStudent'
+import NavBarStudent from '../Components/NavBar/NavBarStudent'
 
 
 function Home() {

@@ -82,6 +82,7 @@
   /* text-align: center; */
   padding: 0 20px;
   width: 250px;
+
 }
 
 /* .card_image {
@@ -97,10 +98,11 @@
   color: #fff;
   background-color: #576371;
   border-radius:  0 0 10px 10px;
+  min-height: 120px;
 }
 
 .issueBy, .issueDate{
-    font-size: 15px;
+    font-size: 14px;
     color: #F6F5F5;
 }
 .esa, .esaDate{

@@ -55,7 +55,7 @@ const Profile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        const requiredFields = ['first_name', 'last_name', 'password', 'mobile'];
+        const requiredFields = ['first_name', 'last_name', 'password'];
         const emptyFields = requiredFields.filter(field => {
             const value = formData[field];
             return typeof value !== 'string' || !value.trim(); // Check if value is not a string or is empty after trimming

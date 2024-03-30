@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import NavbarAdmin from '../../NavBarAdmin/NavBarAdmin'
+import NavbarAdmin from '../../NavBar/NavBarAdmin'
 import SideBarAdmin from '../../SideBar/SideBarAdmin'
 import styles from './Customize.module.css';
 import { SlArrowLeft } from "react-icons/sl";
@@ -70,48 +70,53 @@ function GetAdminAfterFilled({ organizationId }) {
   //   // window.location.href = `/admin/customizecertificate/`;
   // };
 
-  const handleButtonClicked = async (filledstudentId ,FilledformId) => {
+  const handleButtonClicked = async (filledstudentId, FilledformId) => {
     try {
-      console.log("filledstudentId",filledstudentId);
-      console.log("FilledformId",FilledformId);
+        console.log("filledstudentId", filledstudentId);
+        console.log("FilledformId", FilledformId);
 
         let requestData;
+        let redirectUrl;
         if (showRejectionInput) {
             requestData = {
                 status: 'rejected',
                 rejectionReason: rejectionReason
             };
-            window.location.href="/admin/reqcustomize"
+            redirectUrl = '/admin/reqcustomize';
         } else {
             requestData = {
                 status: 'verified',
                 rejectionReason: ''
             };
-            window.location.href = `/admin/customizecertificate/${filledstudentId}`;
+            redirectUrl = `/admin/customizecertificate/${filledstudentId}`;
         }
 
-        const response = await axios.put(`http://localhost:5000/admin/filledformRequest/${FilledformId}`, requestData,
-        { withCredentials: true });
-         console.log(filledstudentId);
-        
-         const responseReq = await axios.put(`http://localhost:5000/admin/certificatesRequest/${selectedCertificate.request_id}`, requestData,
-         { withCredentials: true });
+        // Update the filled form status
+        const response = await axios.put(`http://localhost:5000/admin/filledformRequest/${FilledformId}`, requestData, { withCredentials: true });
 
         if (response.status === 200) {
             console.log('Filled form status updated successfully.');
         } else {
             console.error('Failed to update filled form status.');
         }
-        if (response.status === 200) {
-          console.log('Certificate Request  updated successfully.');
-      } else {
-          console.error('Failed to update filled or Certificate Request .');
-      }
+
+        // Update the certificate request status
+        const responseReq = await axios.put(`http://localhost:5000/admin/certificatesRequest/${selectedCertificate.request_id}`, requestData, { withCredentials: true });
+
+        if (responseReq.status === 200) {
+            console.log('Certificate Request updated successfully.');
+        } else {
+            console.error('Failed to update Certificate Request.');
+        }
+
+        // Redirect based on the outcome
+        window.location.href = redirectUrl;
+
     } catch (error) {
         console.error('Error updating filled form status:', error);
- 
     }
 };
+
 
 const handleImageClick = () => {
   setIsImageClicked(!isImageClicked);
@@ -211,7 +216,7 @@ if (!validToken) {
                     </label>
                     {showRejectionInput && (
                       <label >
-                      <div className={styles.CustomizeReject}>Rejection Reason</div> 
+                      {/* <div className={styles.CustomizeReject}>Rejection Reason</div>  */}
                         <input type="text" value={rejectionReason} onChange={handleRejectionInputChange} />
                       </label>
                     )}

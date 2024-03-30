@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AddCertificate from '../Components/Student/addCertificate';
 import SideBarStudent from '../Components/SideBar/SideBarStudent';
-import NavBarStudent from '../Components/NavBarAdmin/NavBarStudent'
+import NavBarStudent from '../Components/NavBar/NavBarStudent'
 
 
 function Home() {
