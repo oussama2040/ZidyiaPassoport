@@ -26,7 +26,7 @@ const sendResetEmail = (studentEmail,verificationToken,Role) => {
         to: studentEmail,
         subject: 'reset your password',
         text: 'Click the following link to reset your password: ',
-        html:`<a href="http://localhost:3000/${Role}/resetpass?token=${verificationToken}">Reset Password</a>`,
+        html:`Click the following link to reset your password: <a href="http://localhost:3000/${Role}/resetpass?token=${verificationToken}">Reset Password</a>`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {

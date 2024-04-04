@@ -54,7 +54,7 @@ const StudentvalidateToken = asyncHandler(async (req, res, next) => {
                 };
 
                 // Set the new access token in the response headers
-                res.cookie('studentaccessToken', newAccessToken, { httpOnly: true, secure: true, expires: new Date(Date.now() + 3 * 60 * 1000) });
+                res.cookie('studentaccessToken', newAccessToken, { httpOnly: true, secure: true, sameSite: 'strict', expires: new Date(Date.now() + 3 * 60 * 1000) });
                 next();
             }
         });
@@ -116,7 +116,7 @@ const TenentvalidateToken = asyncHandler(async (req, res, next) => {
                 };
 
                 // Set the new access token in the response headers
-                res.cookie('tenentaccessToken', newAccessToken, { httpOnly: true, secure: true, expires: new Date(Date.now() + 3 * 60 * 1000) });
+                res.cookie('tenentaccessToken', newAccessToken, { httpOnly: true, secure: true, sameSite: 'strict',expires: new Date(Date.now() + 3 * 60 * 1000) });
                 next();
             }
         });
@@ -179,7 +179,7 @@ const SubscribervalidateToken = asyncHandler(async (req, res, next) => {
                 };
 
                 // Set the new access token in the response headers
-                res.cookie('subscriberaccessToken', newAccessToken, { httpOnly: true, secure: true, expires: new Date(Date.now() + 3 * 60 * 1000) });
+                res.cookie('subscriberaccessToken', newAccessToken, { httpOnly: true, secure: true,sameSite: 'strict', expires: new Date(Date.now() + 3 * 60 * 1000) });
                 next();
             }
         });
@@ -233,7 +233,7 @@ const SuperadminValidateToken = asyncHandler(async (req, res, next) => {
                 };
 
                 // Set the new access token in the response headers
-                res.cookie('SuperAdminaccessToken', newAccessToken, { httpOnly: true, secure: true, expires: new Date(Date.now() + 3 * 60 * 1000) });
+                res.cookie('SuperAdminaccessToken', newAccessToken, { httpOnly: true, secure: true, sameSite: 'strict', expires: new Date(Date.now() + 3 * 60 * 1000) });
                 next();
             }
         });

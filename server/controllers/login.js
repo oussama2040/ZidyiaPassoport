@@ -41,7 +41,11 @@ const loginStudent = asyncHandler(async (req, res) => {
                     role: "student",
                 }
             }, process.env.STUDENT_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
+            
+            
              console.log("student", student.first_name)
+             res.cookie('studentaccessToken', accessToken, { httpOnly: true, secure: true, sameSite: 'strict', expires: new Date(Date.now() + 3 * 60 * 1000) });
+             res.cookie('studentrefreshToken', refreshToken, { httpOnly: true, secure: true, sameSite: 'strict', expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
 
             res.status(200).json({
                 student: {
@@ -105,6 +109,9 @@ const loginTenent = asyncHandler(async (req, res) => {
                     role:"tenent",
                 }
             }, process.env.TENENT_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
+
+            res.cookie('tenentaccessToken', accessToken, { httpOnly: true, secure: true, sameSite: 'strict', expires: new Date(Date.now() + 3 * 60 * 1000) });
+            res.cookie('tenentrefreshToken', refreshToken, { httpOnly: true, secure: true, sameSite: 'strict', expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
 
 
 
@@ -186,6 +193,9 @@ const loginSubscriber = asyncHandler(async (req, res) => {
                     }
                 }, process.env.SUBSCRIBER_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
 
+                res.cookie('subscriberaccessToken', accessToken, { httpOnly: true, secure: true, sameSite: 'strict', expires: new Date(Date.now() + 3 * 60 * 1000) });
+                res.cookie('subscriberrefreshToken', refreshToken, { httpOnly: true, secure: true, sameSite: 'strict', expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
+
                 // Expiry date is valid, user can log in
                 res.status(200).json({
                     subscriber: {
@@ -248,6 +258,9 @@ const loginSuperAdmin = asyncHandler(async (req, res) => {
                     role: "superadmin",
                 }
             }, process.env.SUPERADMIN_REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
+
+            res.cookie('SuperAdminaccessToken', accessToken, { httpOnly: true, secure: true, sameSite: 'strict', expires: new Date(Date.now() + 3 * 60 * 1000) });
+            res.cookie('SuperAdminrefreshToken', refreshToken, { httpOnly: true, secure: true, sameSite: 'strict', expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
 
             res.status(200).json({
                 SuperAdmin: {

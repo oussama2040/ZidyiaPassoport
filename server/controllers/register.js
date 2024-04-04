@@ -25,7 +25,7 @@ function sendVerificationEmail(email, verificationToken) {
         to: email,
         subject: 'Verify Your Email',
         text: 'Click the following link to verify your email: ',
-        html: `<a href="http://localhost:5000/student/registerverify?token=${verificationToken}">Verify email</a>`,
+        html: `Click the following link to verify your email:<a href="http://localhost:5000/student/registerverify?token=${verificationToken}">Verify email</a>`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
