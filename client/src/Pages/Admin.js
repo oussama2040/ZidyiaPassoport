@@ -6,7 +6,7 @@ import axios from 'axios';
 import Analytics from '../Components/Admin/Analytics/Analytics'
 
 
-function Admin() {
+function Admin({organizationId}) {
 
   //   // ---------authorization Admin--------//    
 const [validToken, setValidToken] = useState(false);
@@ -46,7 +46,7 @@ if (!validToken) {
     <div>
       {/* <NavBarAdmin />
       <SideBarAdmin /> */}
-      <Analytics />
+      <Analytics organizationId={organizationId} />
     </div>
   );
 }

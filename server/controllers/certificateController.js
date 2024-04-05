@@ -51,6 +51,8 @@ const getAllCertificateVerified = async (req, res) => {
             FROM
                 verifiedcertificate
                 JOIN student ON verifiedcertificate.student_id = student.student_id
+                WHERE
+                verifiedcertificate.organization_id = ?;
         `;
 
         const [rows] = await connection.promise().query(query, [organizationId]);
@@ -155,6 +157,7 @@ const updatefilledRequestStatus = async (req, res) => {
 const countTotalCertificates = async (req, res) => {
     try {
         const organizationId = req.params.organization_id;
+        console.log("organizationId",organizationId)
         const countQuery = 'SELECT COUNT(*) AS totalCertificates FROM request_certificate WHERE organization_id = ?';
         const [result] = await connection.promise().query(countQuery, [organizationId]);
         const totalCertificates = result[0].totalCertificates;
