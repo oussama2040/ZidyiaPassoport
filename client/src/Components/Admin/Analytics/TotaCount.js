@@ -13,6 +13,7 @@ function TotalCount({ organizationId }) {
     const [rejectedDocumentCount, setRejectedDocumentCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
 
+    console.log("organizationId",organizationId)
     useEffect(() => {
         const fetchData = async () => {
             try {

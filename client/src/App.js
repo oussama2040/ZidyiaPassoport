@@ -80,8 +80,8 @@ const [OrganiztionId, setOrganiztionId] = useState(null);
             <Route path="/superAdmin/resetpass" element={<SuperAdminResetPass />} />
             
 
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/admin" element={<Analytics />} />
+            <Route path="/admin" element={<Admin organizationId={OrganiztionId} />} />
+            <Route path="/admin" element={<Analytics/>} />
             <Route path="/admin/customize" element={<SendAdmincustomize organizationId={OrganiztionId} />} />
             <Route path="/admin/reqcustomize" element={<GetAdminAfterFilled organizationId={OrganiztionId} />} />
             <Route path="/admin/customizecertificate/:studentID" element={<CustomizeCertificate />} />

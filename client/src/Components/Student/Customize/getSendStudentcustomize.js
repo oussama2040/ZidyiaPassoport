@@ -8,7 +8,6 @@ const GetSendStudentCustomFields = () => {
   
   // const studentId  = 2;
   const { organizationId } = useParams();
-
   const [customFields, setCustomFields] = useState([]);
   const [formData, setFormData] = useState({});
   const [FileOption, setFileOption] = useState(null);
@@ -109,9 +108,10 @@ const GetSendStudentCustomFields = () => {
     try {
       const response = await axios.post(`http://localhost:5000/student/filledform/${organizationId}`, formDataToSend,
       { withCredentials: true });
+     
       console.log('Response:', response.data);
       console.log('Form submitted successfully!');
-      window.location.href="/student/requestCertificate"
+      // window.location.href="/student/requestCertificate"
     } catch (error) {
       console.error('Error submitting form:', error);
     }

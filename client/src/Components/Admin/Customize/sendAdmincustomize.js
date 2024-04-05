@@ -56,7 +56,7 @@ function SendAdmincustomize({organizationId}) {
         }),
       };
 
-      console.log(dataToSend);
+      console.log("dataToSend",dataToSend);
       const response = await axios.post(
         'http://localhost:5000/admin/customizefields',
         dataToSend,
